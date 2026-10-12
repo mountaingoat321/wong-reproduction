@@ -1,8 +1,9 @@
 # Project instructions
 
 This repository prepares an independent scientific reproduction of Wong et al.
-(2025). The user has authorized Git and private GitHub setup. Scientific work
-awaits separate instructions from the user.
+(2025). The user has authorized execution of RESEARCH_TASK.md, including
+independent implementation, validation, reporting, and meaningful progress
+commits and pushes to the existing private repository.
 
 ## Scope and precedence
 
@@ -12,11 +13,13 @@ awaits separate instructions from the user.
 - Do not modify system-wide installations or other users' files.
 - Do not consult the Wong authors' original implementation, outputs, or plotting
   scripts. Do not retrieve their code repositories or generated results.
-- Limit the current stage to project initialization and Git/GitHub setup. Do not
-  begin the scientific reproduction or main simulations.
-- The user authorized an initial commit and a private GitHub repository at
-  `mountaingoat321/wong-reproduction`, connected as `origin`, with the initial
-  commit pushed there. Keep the repository private.
+- Follow RESEARCH_TASK.md. Recover specifications and assess figure feasibility
+  before implementation. Validate small cases before scaling up. Respect shared
+  server resources; use one computational thread and low scheduling priority
+  while the server is heavily loaded.
+- Use the existing private `mountaingoat321/wong-reproduction` repository and
+  `origin`. Commit and push meaningful scientific progress and the final report.
+  Keep the repository private; do not create another repository.
 - Configure Git only within this repository. Use the author name Sophia Ludtke
   and an email confirmed by GitHub verification or supplied by the user. Do not
   infer an email or change global settings.
@@ -26,9 +29,9 @@ Read and follow [AGENTS.upstream.md](AGENTS.upstream.md), Brad Lipovsky's origin
 research instructions, and the complete
 [academic style guide](brad-lipovsky-academic-style-guide.md). The project scope
 above implements the user's instructions and takes precedence over the upstream
-instruction to commit and push notebooks. The current publication authorization
-covers only project initialization files. Preserve notebook figures and outputs
-when notebooks are introduced; later publication follows the user's scope.
+instruction to commit and push notebooks. Preserve notebook figures and outputs
+when notebooks are introduced. Publication now includes independent source code,
+curated generated results, documentation, and the LaTeX report and compiled PDF.
 The style guide is at the repository root; its example `outputs/` path does not
 apply here. Source revision and checksums are recorded in [README.md](README.md).
 
