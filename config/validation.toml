@@ -1,0 +1,45 @@
+# MANUFACTURED VERIFICATION CASES. These are not calibrated Earth parameters.
+seed = 20251035
+discount_rate = 0.04
+discount_base_year = 2010
+
+[emissions]
+peak_rate = 1.0 # normalized Gt CO2/year
+decline_rates = [0.01, 0.07, 0.2] # year^-1; sensitivity only
+steps = [1.0, 0.5, 0.25, 0.125] # years, diagnostic quadrature refinement
+duration = 2000.0 # years after a manufactured peak, not a future projection
+
+[greenland]
+temperature = 2.0 # K anomaly in a manufactured constant forcing case
+c = -0.2 # m SLE / K
+b = 1.0 # m SLE
+alpha = 0.005 # K^-1 year^-1
+beta = 0.01 # year^-1
+initial_volume = 1.2 # m SLE
+duration = 100.0 # years
+steps = [10.0, 5.0, 2.5, 1.25]
+
+[diffusion]
+depth = 1.0 # m, manufactured column
+diffusivity = 0.1 # m2/s
+duration = 0.2 # s
+cells = [10, 20, 40]
+
+[flood]
+band_edges = [0.0, 1.0, 2.0, 5.0] # m
+band_areas = [1.0, 1.0, 3.0] # km2, uniform total density1 km2/m
+capital_density = 1000000.0 # USD/km2, artificial
+population_density = 100.0 # people/km2
+value_of_life = 100000.0 # USD/person, artificial; not a policy valuation
+mortality = 0.01
+resilience = 0.2
+gev_location = 1.0 # m
+gev_scale = 0.3 # m
+gev_shape = 0.1
+surge_lower = -2.0 # m
+surge_upper = 20.0 # m, explicit finite integration bound
+
+[anto]
+a = 1.0 # manufactured transform slope; temperature units consistent with B17
+b = 0.0
+freezing = -1.8 # degree C; B17 constant
