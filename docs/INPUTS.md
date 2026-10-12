@@ -6,7 +6,7 @@ posterior draws, simulation output, or plot script is an allowed input.
 | Input | Independent source or evidence | Recovery and action required |
 |---|---|---|
 | Target scientific documentation | [Wong2025](https://doi.org/10.1038/s44304-025-00089-0), publisher supplement | Downloaded academic text and figures; numerical prose/table values are comparison targets only. |
-| Emissions methodology | [Darnell preprint](https://doi.org/10.31219/osf.io/j47ts), original file [revision9](https://osf.io/download/kt9av/?revision=9) | Recovered dated methods; identify exact cited version and inversion density before calibrating. |
+| Emissions methodology | [Darnell preprint](https://doi.org/10.31219/osf.io/j47ts), original file [revision 9](https://osf.io/download/kt9av/?revision=9) | Recovered dated methods; identify exact cited version and inversion density before calibrating. |
 | Climate observations | Urban2010 and Darnell2024 references | Recover vintage, units, date ranges, uncertainty, missing-year handling and reference offsets separately for CO2, carbon flux, GMST, ocean heat, ice components and GMSL. No observational assimilation performed. |
 | SSP non-CO2 forcing | W25/D24 methods | Define nearest-path metric, annual input version and extrapolation. No series downloaded or invented. |
 | Fingerprints | Slangen2014, DOI10.1007/s10584-014-1080-9; [research project directory](https://www.spp-sealevel.de/resources/extraction-and-visualization-of-global-and-coastal-sea-level-projections-and-ocean-tides/coastal-sea-level-projections) | Regional projected sea level is not interchangeable with component fingerprint factors. Recover actual factors, reference geometry and mapping. |

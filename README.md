@@ -1,114 +1,103 @@
-# Wong et al. (2025): independent scientific reproduction
+# Independent reconstruction of Wong et al. (2025)
 
-This repository is prepared for an independent scientific reproduction of Wong
-et al. (2025). Initialization was completed on 2026-10-12. Further scientific work
-awaits the user's confirmation. The exact paper title, DOI, and reproduction
-targets have not yet been supplied; no physical model or parameters have been
-selected.
+Target: **Coastal adaptation and damage costs at different global warming
+thresholds**, npj Natural Hazards 2, 35,
+[DOI 10.1038/s44304-025-00089-0](https://doi.org/10.1038/s44304-025-00089-0).
 
-All project writes and outputs belong inside
-`/data/data2/ludtke/wong-reproduction`. No system-wide installations or other
-users' files were modified. The authors' original implementation, outputs, and
-plotting scripts have not been consulted. No main simulations have been started.
+**Status: verified component reconstruction; the global scientific results remain
+unreproduced.** This repository contains independently written Julia kernels,
+analytical and SciPy verification, four diagnostic figures, an original conceptual
+Figure 4, a complete figure register, and a [compiled scientific report](report/report.pdf).
+No target-author implementation, posterior draws, processed input bundle,
+simulation files, or plotting scripts were consulted or used. Incidental search
+snippets were discarded and are disclosed in [RESEARCH_LOG.md](RESEARCH_LOG.md).
 
-## Repository contents
+The unresolved joint calibration, complete SNEASY/DAIS specification, and
+permissible historical coastal inputs prevent a faithful full ensemble. All
+numerical main figures 1–3, supplementary figures S1–S10, and modeled Table 1 remain
+**Not reproduced**. Figure 4 is **Conceptual schematic**, not a numerical
+reproduction. Manufactured verification cases are never presented as global
+projections. Published Table 1 counts are used only in a separate arithmetic audit.
+See the [complete figure and panel register](docs/FIGURE_STATUS.csv).
 
-| File | Purpose |
-| --- | --- |
-| [AGENTS.md](AGENTS.md) | Applicable research instructions and the user's project constraints. |
-| [AGENTS.upstream.md](AGENTS.upstream.md) | Unmodified copy of Brad Lipovsky's source instructions. |
-| [brad-lipovsky-academic-style-guide.md](brad-lipovsky-academic-style-guide.md) | Unmodified academic writing guide. |
-| [ASSUMPTIONS.md](ASSUMPTIONS.md) | Scientific assumptions, unresolved information, and evidence requirements. |
-| [.gitignore](.gitignore) | Exclusions for credentials, local environments, build files, and large intermediates. |
+## Rebuild
 
-Code, data, and additional directories will be added only when needed. Local
-tool checks and their small outputs are retained under ignored `.local/checks/`.
+All project writes must remain inside **`/data/data2/ludtke/wong-reproduction`**.
+From that directory, run:
 
-## Guidance provenance
+```bash
+bash scripts/run_all.sh
+```
 
-Both requested documents were retrieved and read in full from
-`bradlipovsky/vdv-damage` on 2026-10-12. The `main` branch resolved to commit
-`3d35f81420a744ca99360a6774d3bcbd4e123405`; both copies were downloaded from that
-same revision. Only the two guidance files and the revision metadata were
-retrieved from that repository.
+This offline command checks Julia, Python and pdfLaTeX availability, runs 80 Julia
+assertions, generates manufactured diagnostics, checks flood losses using
+independent SciPy quadrature, renders figures, and compiles the report twice to
+resolve references. It does **not** run an uncalibrated replacement for the target
+5,000-member ensemble. It installs nothing. Missing imports or executables fail
+the build rather than trigger a system installation.
 
-- Requested [AGENTS.md](https://github.com/bradlipovsky/vdv-damage/blob/main/AGENTS.md);
-  [fixed revision](https://github.com/bradlipovsky/vdv-damage/blob/3d35f81420a744ca99360a6774d3bcbd4e123405/AGENTS.md).
-  Local file: `AGENTS.upstream.md` (1,027 bytes).
-  SHA-256: `f0d220a68760daf24c41da082176a107061b0ea33eada5f3b19e0eb5d6c3c837`.
-- Requested [academic style guide](https://github.com/bradlipovsky/vdv-damage/blob/main/brad-lipovsky-academic-style-guide.md);
-  [fixed revision](https://github.com/bradlipovsky/vdv-damage/blob/3d35f81420a744ca99360a6774d3bcbd4e123405/brad-lipovsky-academic-style-guide.md).
-  Local file: `brad-lipovsky-academic-style-guide.md` (16,676 bytes).
-  SHA-256: `9856e89591c25dcdc00dda251678912fcea2fba58615ce3f5c19c76d3c5944dd`.
+Verified environment: Julia 1.7.2 (standard libraries only), Python 3.6.8,
+NumPy 1.19.5, SciPy 1.5.4, Matplotlib 3.3.4, and pdfLaTeX/TeX Live 2018. GCC 8.5 and
+Git 2.43.5 are also available. Computation uses one thread and nice priority 19;
+caches, temporary files, Julia depot, and TeX state live under ignored `.local/`.
+The seed 20251035 is used only for a deterministic joint-row subsampling test.
 
-The local instructions adopt both documents. The user subsequently authorized
-the initial commit and publication of the initialization files to a private
-GitHub repository. Scientific work remains outside the current scope.
+The numerical cases are inexpensive, but scheduling on the shared server can
+dominate wall time. The build is intentionally serial. Intermediate scientific
+data directories and credentials are excluded by [.gitignore](.gitignore).
+Small curated CSVs, figures, and the report PDF are tracked.
 
-## Environment check
+## Scientific record and implementation
 
-Checked on 2026-10-12. Versions below are observed installations, not dependency
-requirements for the as-yet unspecified scientific model.
+| File or directory | Purpose |
+|---|---|
+| [report/report.pdf](report/report.pdf) | Compiled report with equations, diagnostics, all target statuses, and AI-process assessment. |
+| [report/report.tex](report/report.tex) | Report source; generated tables come from verified results. |
+| [docs/SPECIFICATION.md](docs/SPECIFICATION.md) | Pre-implementation equations, units, interfaces and unresolved specifications. |
+| [docs/INPUTS.md](docs/INPUTS.md) | Independent input provenance and recovery requirements. |
+| [docs/SOURCES.csv](docs/SOURCES.csv) | Scholarly URLs, access dates and cached file hashes. |
+| [docs/FIGURE_STATUS.csv](docs/FIGURE_STATUS.csv) | All 19 figure/view/table entries, dependencies, commands and status. |
+| [src/Reproduction.jl](src/Reproduction.jl) | Independently implemented scientific and statistical kernels. |
+| [tests/runtests.jl](tests/runtests.jl) | Analytical, conservation, convergence, accounting, sampling and domain tests. |
+| [config/validation.toml](config/validation.toml) | Manufactured fixtures and numerical settings; no calibrated Earth parameters. |
+| [scripts/](scripts/) | Verification, diagnostics, plotting, source acquisition and report build. |
+| [results/](results/) | Computed diagnostics, verification metrics and artifact hashes. |
+| [figures/](figures/) | Original PDF/PNG figures, distinct from unavailable target numerical panels. |
+| [ASSUMPTIONS.md](ASSUMPTIONS.md) | Stable assumption IDs, evidence and unresolved choices. |
+| [RESEARCH_LOG.md](RESEARCH_LOG.md) | Research decisions, source issues, resources and execution outcomes. |
+| [RESEARCH_TASK.md](RESEARCH_TASK.md) | User's complete research instructions. |
 
-| Tool | Installed version | Check |
-| --- | --- | --- |
-| Julia | 1.7.2 | Starts successfully; standard-library `LinearAlgebra` calculation passed. |
-| C++ (`c++`, `g++`) | GCC 8.5.0; Red Hat 8.5.0-28, build 20210514 | C++17 program using the standard library compiled and ran successfully. |
-| Git | 2.43.5 | Existing local repository verified. |
-| GitHub CLI (`gh`) | 2.58.0 (2024-10-01) | Authentication status and authenticated `/user` API request succeeded. |
-| LaTeX / pdfLaTeX | pdfTeX 3.14159265-2.6-1.40.19; TeX Live 2018 | Minimal `article` document compiled to a one-page PDF with pdfLaTeX. |
-| XeLaTeX | XeTeX 3.14159265-2.6-0.99999; TeX Live 2018 | Version command succeeded. |
-| LuaLaTeX | LuaTeX 1.09.0; TeX Live 2018 | Version command succeeded. |
-| latexmk | 4.65 (2019-06-18) | Version command succeeded. |
-| BibTeX | 0.99d; TeX Live 2018 | Version command succeeded. |
+Flood expectation agrees with an independent nested SciPy integral to about
+1.3e-11 relative difference in the manufactured case. Greenland refinement
+approaches fourth order; ocean refinement approaches second order and conserves
+column heat to roundoff. The literal annual emissions equation retains 1.75% of
+peak emissions at a decline rate of 0.07/year. The Antarctic temperature transform
+can fall below its stated freezing floor. These discrepancies concern the written
+equations; they do not establish original software errors or a quantitative
+discrepancy in published global costs.
 
-All four requested tool categories are available. No required dependency is
-missing for initialization. Optional tools not found on PATH were `juliaup`,
-`clang++`, and `biber`; none was needed for these checks. Scientific package and
-LaTeX manuscript dependencies remain undetermined until the model and document
-requirements are known. No packages were installed or upgraded.
+## Sources and continuation
 
-Julia ran with startup and history disabled, a project-local depot, and only the
-standard library on its load path. C++ compiled with
-`-std=c++17 -Wall -Wextra -pedantic`. pdfLaTeX used
-`-no-shell-escape -interaction=nonstopmode -halt-on-error`. Temporary, cache,
-depot, TeX state, and output paths for these checks were explicitly directed into
-`.local/`. These were toolchain checks, not scientific simulations. Their source
-files and logs are in `.local/checks/`.
+Source PDFs/HTML remain in ignored `.local/sources/`. They are not required for
+the offline numerical build. Optional acquisition and hash verification:
 
-## Git and GitHub
+```bash
+python3 scripts/fetch_sources.py
+```
 
-At the first environment check, the directory already contained a non-bare Git
-repository, with its working tree and `.git/` both inside the project path. It
-had an unborn `master` branch, no commits, and no remotes. Initialization
-preserved that repository.
+The script retrieves only explicitly listed scholarly-document URLs. It does not
+crawl repository links or download computational outputs. If a source has changed,
+it saves an unverified local copy and stops. A full ensemble requires independently
+recovered observations and likelihoods, complete model closure, versioned coastal
+data, and documented mapping and accounting choices. No arbitrary parameter
+adjustment is used to match published costs.
 
-`gh auth status --hostname github.com` succeeded. An authenticated
-`gh api user --jq .login` request verified account `mountaingoat321`. Credentials
-were neither copied into the project nor included in this report.
+## Repository and instructions
 
-The local Git author is Sophia Ludtke, using the email supplied by the user. The
-user authorized an initial commit containing only the six initialization files
-and private publication to
-[mountaingoat321/wong-reproduction](https://github.com/mountaingoat321/wong-reproduction).
-The publication destination is `origin`. All author and authentication-helper
-configuration is repository-local; global Git settings remain unchanged.
-
-The authenticated `user/emails` endpoint returned HTTP 404 and reported that the
-current authentication lacks the required `user` scope. The user then supplied
-the commit email directly. Its GitHub verification status was not established;
-no email was inferred from the account name.
-
-## Storage and next stage
-
-Keep caches, local tools, and temporary checks in `.local/`. `.gitignore` excludes
-common credential files, raw and intermediate data directories, simulation
-checkpoints, binary array files, and build artifacts. Small curated figures,
-PDFs, and notebooks remain eligible for version control. Git ignore rules are
-based on names and paths; they cannot identify arbitrary secrets or impose a
-file-size limit. Review selected files before committing.
-
-After the user confirms the next stage, record the exact paper and target
-quantities in `ASSUMPTIONS.md`, then document the physical assumptions and
-equations using permitted sources. No main simulation is authorized by this
-initialization step.
+Existing private repository: [mountaingoat321/wong-reproduction](https://github.com/mountaingoat321/wong-reproduction).
+Local `master` tracks `origin/master`. Git author is Sophia Ludtke, with the
+user-supplied email; global settings are unchanged. Instructions are
+[AGENTS.md](AGENTS.md), [Brad Lipovsky's original instructions](AGENTS.upstream.md),
+and the [academic style guide](brad-lipovsky-academic-style-guide.md).
+Guidance source revisions and hashes, and original environment/authentication
+checks, are preserved in [docs/INITIALIZATION.md](docs/INITIALIZATION.md).

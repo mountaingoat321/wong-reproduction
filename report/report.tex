@@ -1,0 +1,586 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,graphicx,booktabs,longtable,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\setlength{\emergencystretch}{3em}
+\graphicspath{{figures/}}
+\title{Independent reconstruction of the documented coastal adaptation model of Wong et al. (2025)}
+\author{Research-agent record prepared for Sophia Ludtke}
+\date{12 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Coastal cost distributions depend on both sea-level response and the joint
+uncertainty assigned to climate, exposure, and adaptation. This project examines
+whether the results of Wong et al.\ (2025) can be reconstructed from scholarly
+documentation without consulting the authors' implementation or computational
+outputs. We recover component equations, implement numerical kernels in Julia,
+and compare manufactured cases with analytical limits and an independent SciPy
+integration. The calculations verify heat conservation, ice-response convergence,
+flood-loss integration, and economic accounting. They also expose a finite-step
+residual in the printed emissions recurrence and a lower-bound discrepancy in
+an Antarctic temperature transform. These are findings about written equations,
+not evidence of defects in the inaccessible original software. A complete
+independent joint calibration and the target coastal input bundle were not
+recovered. Consequently, none of the thirteen numerical target figures is
+independently reproduced. An original workflow diagram, verified component
+calculations, a complete figure register, and explicit recovery requirements
+provide an auditable basis for further work.
+\end{abstract}
+
+\section{Objective and evidentiary boundary}
+
+Wong et al.\ \cite{wong2025} estimate global coastal adaptation costs and losses
+conditional on warming in 2100. Their model connects emissions, carbon cycling,
+temperature and ocean heat, global and local sea level, and segment-level coastal
+decisions. The scientific objective here is to reproduce the resulting
+conditional distributions from the documented mechanisms. It is not sufficient
+to draw curves resembling the published figures or to reproduce marginal
+parameter ranges while discarding their dependence.
+
+The independence restriction permits scientific papers, their supplementary
+methods, and exogenous inputs from independent providers. Published figures and
+printed summary statistics are comparison evidence only. No source code,
+processed input bundle, posterior sample, simulation file, or plotting script
+from the target authors was opened or used. An initial broad literature search
+displayed incidental repository-index snippets, including a data-loading
+excerpt. Those results were discarded, and subsequent searches focused on
+scientific documents and provider records. This exposure is retained in the
+research log rather than represented as complete isolation from search results.
+
+The recovered sources include the target article and its ten-figure supplement,
+the SNEASY climate description \cite{urban}, its carbon-cycle reference
+\cite{ricciuto}, BRICK and MimiBRICK descriptions \cite{brick,joss}, the DAIS
+paper \cite{shaffer}, and the CIAM mathematical supplement \cite{diaz}.
+The December 2024 revision of the cited emissions preprint \cite{darnell} was
+recovered through public scholarly file-version metadata. Its current DOI
+landing page serves a later 2025 version. Since the target citation does not pin
+a revision, this historical manuscript remains a version-qualified specification.
+Stable acquisition URLs and hashes are recorded in \texttt{docs/SOURCES.csv}.
+
+\section{Original experiment and recovered interfaces}
+
+The target source ensemble contains 100,000 states of the world, with 5,000 used
+for the coastal analysis. Global warming in 2100, relative to 1850--1900, defines
+four bins: at most 1.5\,$^\circ$C, above 1.5 and at most 2.5\,$^\circ$C, above 2.5 and
+at most 3.5\,$^\circ$C, and above 3.5\,$^\circ$C. Global sea level in 2100 uses a
+1995--2014 reference. The baseline socioeconomic scenario is SSP4; SSP2 provides
+a sensitivity case. Monetary outcomes are in 2010 US dollars with a 4\% annual
+discount rate \cite{wong2025}.
+
+The coastal model uses 12,148 DIVA segments and decadal calculations from 2010
+through 2150. Planning intervals are 2010--2050, 2060--2100, and 2110--2150.
+Protection and retreat standards are associated with return periods of 1, 10,100,
+1,000, and 10,000 years, alongside no adaptation. The paper specifies nine
+adaptation combinations; the excluded combination is not identified by the
+recovered text. A nominal one-year return period also requires a convention
+beyond the usual GEV quantile at probability $1-1/R$, which is an endpoint when
+$R=1$. Neither detail is silently filled in here.
+
+The methods describe both periodic optimization and persistence of an initial
+strategy and return level, with later height augmentation. Actual adaptation
+already in place is not globally observed; the original calculation initializes
+an optimal adaptation state. Reconstructing this spin-up requires the same
+exposure and extreme-water inputs as the forward model. It cannot be inferred
+from a global cost total.
+
+Figure\ref{fig:workflow} identifies the implemented kernels and the missing
+links. These kernels can be exercised independently. They do not constitute a
+calibrated climate-to-cost simulation.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\textwidth]{figure4_workflow.pdf}
+\caption{Original conceptual schematic corresponding to target Figure 4.
+Blue boxes identify implemented component calculations and their physical
+interfaces. The lower box lists unresolved inputs and model closure. The arrows
+describe required exchanges, not a claim that a complete coupled ensemble has
+been executed. This diagram is not counted as a reproduced numerical result.}
+\label{fig:workflow}
+\end{figure}
+
+\section{Independent mathematical reconstruction}
+\subsection{Emissions and climate kernels}
+
+For annual emissions $q_t$ in Gt\,CO$_2$\,yr$^{-1}$, the target's printed equation is
+\begin{equation}
+q_t=\begin{cases}
+q_{t-1}+\gamma_g(\tau-t),& t\leq\tau,\\
+q_{t-1}-2q_\tau\gamma_d e^{\gamma_d(t-\tau)}
+             /[1+e^{\gamma_d(t-\tau)}]^2,&t>\tau.
+\end{cases}
+\label{eq:emissions}
+\end{equation}
+The implementation evaluates the second branch with negative exponential
+arguments to avoid overflow while preserving the algebra. The growth coefficient
+is interpreted in the annual recurrence's time convention; a dimensional
+continuous-time growth coefficient would have different units. An integer peak
+year is required explicitly. The emissions prior allows continuous peak years,
+but the treatment of $q_\tau$ for a noninteger peak was not recovered.
+
+The 2024 manuscript gives independent truncated-normal priors for growth,
+peak year, and decline: means $(0.004, 2070, 0.07)$, standard deviations
+$(0.0075, 25, 0.05)$, and bounds $[0.001,\infty)$, $[2030, 2200]$, and
+$[0.001, 0.2]$, respectively \cite{darnell}. These are not the posterior
+distributions used in the target ensemble. The subsequent inversion uses expert
+cumulative-emissions information whose complete probability-density prescription
+was not recovered. Sampling these priors would therefore not reproduce the
+target emissions distribution.
+
+Recoverable carbon kernels are net primary production
+$N=N_0[1+\beta\ln(C/C_0)]$, with $N_0=60$\,Gt\,C\,yr$^{-1}$ and
+$C_0=280$\,ppm, and heterotrophic respiration
+$(a_1D+a_2S)Q_{10}^{\Delta T/10}$ \cite{ricciuto}. Here $D$ and $S$ are
+detrital and soil carbon, and $a_1,a_2$ are turnover rates. The full terrestrial
+allocation and nonlinear ocean-carbon buffering were not reconstructed.
+Consequently, these expressions are not used to claim a closed global carbon
+budget. The implemented CO$_2$ forcing is $3.7\log_2(C/C_0)$\,W\,m$^{-2}$
+\cite{urban}.
+
+The ocean verification operator solves
+$\partial_t T=\kappa\partial_{zz}T$ on a one-dimensional column with prescribed
+surface temperature and zero bottom heat flux. Cell-centred finite volumes use
+half-cell distance at the upper boundary. Backward Euler time integration
+ensures that the column heat change equals the top flux evaluated at the new
+time, to roundoff. Multiplication by volumetric heat capacity converts the
+tested temperature integral to heat per unit area. This independently chosen
+discretization is not asserted to match the original SNEASY solver.
+
+\subsection{Sea-level components and spatial transformation}
+
+The glacier contribution $S$ satisfies the documented reservoir relation
+\begin{equation}
+\frac{dS}{dt}=\beta(T-T_{\rm eq})(1-S/V_0)^n,
+\qquad T_{\rm eq}=-0.15\,{}^\circ\mathrm{C}.
+\end{equation}
+Temperature is referenced to 1850--1870, $V_0$ is initial glacier volume expressed
+as metres of sea-level equivalent, and $\beta$ has units m\,K$^{-1}$\,yr$^{-1}$
+\cite{brick}. The numerical domain requires $S\leq V_0$ for fractional $n$.
+An integration step that leaves this domain raises an error; no undocumented
+volume clipping is introduced.
+
+Greenland volume $V$, also in metres of sea-level equivalent, follows
+\begin{equation}
+V_{\rm eq}=cT+b,\qquad
+\frac{dV}{dt}=(V_{\rm eq}-V)(\alpha T+\beta).
+\end{equation}
+The temperature reference is 1961--1990, and the volume loss relative to its
+initial state yields sea-level rise. The rate $\alpha T+\beta$ must be
+nonnegative. Constant temperature gives an exponential relaxation and therefore
+an independent verification solution.
+
+The target lineage uses a heat-driven thermal-expansion response,
+$\Delta S_{\rm TE}=k_H\Delta H$, not the earlier temperature-relaxation emulator
+\cite{vega,darnell}. The coefficient $k_H$ in m\,J$^{-1}$ remains an explicit
+input. If the density expansion parameter $\alpha_\rho$ has units
+kg\,m$^{-3}$\,K$^{-1}$, dimensional mass and heat accounting gives
+$k_H=\alpha_\rho/(A C_p\rho^2)$. This is a dimensional derivation, not recovery
+of a calibrated numerical coefficient. Supplying a conventional volumetric
+coefficient in K$^{-1}$ in that expression would be a unit error.
+
+The documented Antarctic ocean-temperature transformation is
+\begin{equation}
+T_o=T_f+\frac{x}{1+e^{-x/a}},\qquad
+x=aT+b-T_f,\qquad T_f=-1.8\,{}^\circ\mathrm{C}.
+\label{eq:anto}
+\end{equation}
+An additional threshold-triggered loss rate can be evaluated when its threshold
+and rate are supplied. Full DAIS dynamics are not implemented: the target
+requires a particular corrected version, global-sea-level feedback, paleo
+calibration, and initial state. The axisymmetric geometry and conservation
+equations in Shaffer\cite{shaffer} are documented in the recovery record, but
+that standalone model has not been established as an interchangeable target
+component. Land-water increments likewise remain externally specified.
+
+Local relative sea level is represented by
+$L_i(t)=\sum_c F_{ic}S_c(t)+v_i(t-t_0)$, where $F$ contains component
+fingerprints and positive $v_i$ increases relative sea level. This sign convention
+includes subsidence as positive. The matrix operation is verified on known
+area-weighted factors; actual fingerprint grids and coast matching are absent.
+Reference-period routines require complete annual coverage and refuse silent
+rebasing of an incomplete series.
+
+\subsection{Coastal damage and costs}
+
+The independently implemented flooding calculation uses a generalized extreme
+value (GEV) distribution for annual extreme water level and piecewise uniform
+area density within supplied elevation bands \cite{diaz}. For water height $w$
+and exposed elevation $e$, property damage is proportional to
+$\phi(w-e)=(w-e)/(h_0+w-e)$ with $h_0=1$\,m. The integral over an exposed
+band $[a,b]$, where $b\leq w$, is
+\begin{equation}
+\int_a^b\phi(w-e)\,de=(b-a)-h_0\ln\!\left(\frac{h_0+w-a}{h_0+w-b}\right).
+\end{equation}
+Multiplication by area density and capital density yields event loss. Mortality
+uses flooded population, a supplied mortality fraction and value of statistical
+life. Both contributions are multiplied by $1-r$, where $r$ denotes economic
+resilience. Integration of this loss against the GEV density produces expected
+annual loss. The surge integration bound is explicit, and the truncated density
+is not renormalized. Retreat changes the lowest retained elevation; protection
+changes the overtopping threshold.
+
+Relocation combines income-related moving cost, mobile-capital transfer cost,
+and demolition of immobile capital. The documented benchmark mobile share is
+one quarter; immobile capital is three quarters. Reactive relocation costs five
+times the proactive counterpart in the target model. Separate kernels calculate
+inundation with explicit depreciation, wetland loss with a critical rise rate,
+and quadratic-height seawall construction. Annual maintenance is returned as
+a separate cash flow. The numerical coefficient in the construction formula
+must have units consistent with its quadratic height dependence; the quoted
+historical reference cost is not silently substituted where its unit convention
+is ambiguous.
+
+For annual payments $C_y$, the explicit discount operator is
+\begin{equation}
+\mathrm{PV}_{y_0}=\sum_y\frac{C_y}{(1+r)^{y-y_0}}.
+\end{equation}
+A 2010 base year and 4\% rate are used in verification. This base-year convention
+does not resolve the target caption's wording about discounting through/to 2150.
+The optimizer chooses the least-cost member of a supplied finite candidate
+menu. It does not construct the original adaptation trajectories, because their
+physical and socioeconomic inputs are missing.
+
+\section{Verification results}
+
+All 80 Julia assertions pass across seven groups: emissions/carbon/forcing;
+ocean conservation and convergence; sea-level limits; spatial accounting and
+references; extreme levels and damage integration; costs and optimization;
+and ensemble/regional arithmetic (the sea-level group includes ODE accuracy).
+These are numerical verification tests, not validation against Earth observations.
+The tests require no third-party Julia packages. Configuration values are
+explicitly marked as manufactured in \texttt{config/validation.toml}.
+Table\ref{tab:metrics} is generated directly from the diagnostic files and the
+independent SciPy checks.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{p{0.70\textwidth}r}\toprule
+Verification quantity & Calculated value\\\midrule
+\input{report/metrics.tex}
+\bottomrule\end{tabular}
+\caption{Computed verification metrics. These quantities describe manufactured
+test cases, not target global projections. The heat-balance residual is reported
+before multiplication by volumetric heat capacity.}\label{tab:metrics}
+\end{table}
+
+\subsection{Printed emissions recurrence and its limit}
+
+Figure\ref{fig:emissions} compares the literal recurrence with the continuous
+logistic decline $q(t)/q_\tau=2/[1+e^{\gamma_dt}]$. The decrement in
+Equation\ref{eq:emissions} is the right-endpoint sample of the continuous
+decline rate. Summing endpoint samples does not exactly integrate that rate.
+For small step $\Delta t$, the residual fraction is
+$\gamma_d\Delta t/4$ to leading order. At an annual step and decline rate
+0.07\,yr$^{-1}$, the calculated residual is approximately 1.75\% of peak
+emissions. The tested rates 0.01 and 0.2\,yr$^{-1}$ give approximately 0.25\%
+and 5\%, respectively. Refining the quadrature step reduces the residual.
+These are normalized mathematical cases extending 2000 years after an arbitrary
+peak, not calendar-year emissions projections.
+
+The discrepancy separates two interpretations of the published specification:
+literal annual accumulation and a continuous logistic trajectory that vanishes
+asymptotically. No choice was imposed on a global simulation. The effect on
+temperature and costs cannot be calculated without the missing coupled model.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{diagnostic_emissions.pdf}
+\caption{Independent diagnostic of the printed emissions equation. (a) Annual
+endpoint accumulation for normalized peak emissions and decline 0.07\,yr$^{-1}$,
+compared with the continuous logistic expression. (b) Remaining emissions after
+2000 years for three decline rates and four diagnostic step sizes. The residual
+decreases with step size; this does not establish which interpretation the
+original software used.}\label{fig:emissions}
+\end{figure}
+
+\subsection{ODE and ocean-diffusion convergence}
+
+Figure\ref{fig:convergence} tests the Greenland relaxation against its exact
+constant-temperature solution. The manufactured case has $T=2$\,K,
+$c=-0.2$\,m\,K$^{-1}$, $b=1$\,m, $\alpha=0.005$\,K$^{-1}$\,yr$^{-1}$,
+$\beta=0.01$\,yr$^{-1}$ and initial volume 1.2\,m. The equilibrium is 0.6\,m and
+the integration lasts 100 years. Fourth-order convergence is obtained when the
+RK4 step is halved.
+
+The ocean case uses a 1\,m column, diffusivity 0.1\,m$^2$\,s$^{-1}$ and initial
+temperature $\sin[\pi z/(2L)]$\,K. The upper temperature is zero and the bottom
+flux vanishes. The exact amplitude decays as
+$\exp[-\kappa(\pi/2L)^2t]$. Time steps decrease with squared grid spacing, so
+the first-order temporal and second-order spatial errors converge together at
+second order in spacing. These deliberately artificial dimensions isolate the
+numerical operator from Earth-system calibration.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{diagnostic_convergence.pdf}
+\caption{Independent convergence tests. (a) Greenland volume error at 100 years
+against the exact exponential relaxation; the dashed line has fourth-order
+slope. (b) Maximum ocean temperature error at 0.2\,s for 10, 20 and 40 cells;
+the dashed line has second-order slope. Time step is 0.2 divided by the square
+of the cell count, in seconds.}\label{fig:convergence}
+\end{figure}
+
+\subsection{Flood-loss integration and decision sensitivity}
+
+Figure\ref{fig:flood} uses a manufactured 5\,km$^2$ segment distributed uniformly
+over 0--5\,m elevation. Capital density is one million USD\,km$^{-2}$, population
+density 100\,km$^{-2}$, mortality fraction 0.01, value of life 100,000 USD and
+resilience 0.2. These values are verification fixtures, not recommended valuations.
+The GEV parameters are location 1\,m, scale 0.3\,m and shape 0.1. The outer integral
+extends from $-2$ to 20\,m. SciPy uses its opposite-sign shape convention and
+independent adaptive integration for both elevation and surge. This verifies
+the Julia closed-form depth integral and composite-Simpson expectation.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{diagnostic_flood.pdf}
+\caption{Manufactured coastal damage verification. (a) Event damage increases
+with water height. (b) Expected annual loss approaches an independent nested
+SciPy integral as the number of Simpson panels increases. (c) Expected
+overtopping loss decreases with protection crest. Panel(c) omits construction
+cost and therefore is not an optimal seawall-height calculation.}\label{fig:flood}
+\end{figure}
+
+Table\ref{tab:decision} quantifies two accounting ambiguities with manufactured
+costs. A two-period menu has candidate costs $(1, 9)$ and $(6, 2)$ at years 2010
+and 2060. Keeping one candidate differs from allowing a switch. This menu has
+no inherited infrastructure state; it is a test of the decision rule only.
+Likewise, ten annual unit payments during 2010--2019 differ from paying ten
+units at either end. A coarse timestep must retain the annual-flow interpretation
+if it is to reproduce the same present value.
+
+\begin{table}[htbp]\centering
+\begin{tabular}{lr}\toprule
+Manufactured accounting choice & Present value\\\midrule
+\input{report/decision_table.tex}
+\bottomrule\end{tabular}
+\caption{Sensitivity to strategy persistence and payment timing at 4\% annual
+discounting. Units are arbitrary currency; these are not coastal estimates.}
+\label{tab:decision}
+\end{table}
+
+\subsection{Antarctic transform and its asserted floor}
+
+For $a>0$ and $x<0$, the added term in Equation\ref{eq:anto} is negative.
+The literal transformation therefore falls below $T_f$, despite its description
+as bounded below by freezing \cite{brick}. For the test values $a=1,b=0$, the
+minimum is approximately $-2.07846$\,$^\circ$C. In dimensionless form,
+$z=x/a$, the extremum satisfies $1+e^{-z}+ze^{-z}=0$, giving
+$z\simeq-1.27846$ and a minimum increment $-0.27846a$.
+Figure\ref{fig:anto} shows this algebraic behavior. No freezing clamp was added.
+Whether the calibrated historical trajectory visits this regime remains unknown.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=.73\textwidth]{diagnostic_anto.pdf}
+\caption{Literal BRICK Antarctic ocean-temperature transformation with
+manufactured coefficients $a=1,b=0$ and stated freezing temperature
+$-1.8$\,$^\circ$C. The curve falls below the dashed floor for negative $x$.
+This is a specification diagnostic, not an Antarctic projection.}\label{fig:anto}
+\end{figure}
+
+\section{Quantitative comparison boundary}
+
+The target reports median costs of 1.2, 1.5, 2.1 and 2.6 trillion 2010 USD across the
+four warming bins, with fifth percentiles 1.0, 1.2, 1.6 and 2.2 trillion USD
+\cite{wong2025}. The prose supplies 95th percentiles 1.3 and 2.3 trillion USD
+for the first two bins; unreported numerical endpoints were not digitized or
+invented. No independent global costs exist here, so neither relative errors nor
+agreement intervals can be calculated for those targets.
+
+An arithmetic audit of the printed Table 1 is possible. Its four counts sum to
+5,000. Among 250 simulations above 2.7 trillion USD, the text gives 125 in the
+highest bin and 109 in the third, with none in the lowest. The remaining 16
+belong to the second bin. Dividing these counts by bin size yields the rounded
+probabilities in the paper (Table\ref{tab:audit}). This verifies internal
+consistency of printed summaries; it does not reproduce the modeled probability
+distribution or establish an independently calculated tail threshold.
+
+\begin{table}[htbp]\centering
+\begin{tabular}{rrrrr}\toprule
+Bin & Printed count & Tail count & Calculated\% & Printed\%\\\midrule
+\input{report/table_audit.tex}
+\bottomrule\end{tabular}
+\caption{Arithmetic audit using published counts only. The second-bin tail
+count 16 is derived by subtraction. These data never enter the model kernels.}
+\label{tab:audit}
+\end{table}
+
+\section{Complete figure-by-figure record}
+
+Table\ref{tab:status} covers all main and supplementary figures and the main
+table. Unlettered joint and marginal views are listed separately. Every entry's
+dependencies, source provenance, assumptions, commands, comparison status and
+failure explanation are also recorded in \texttt{docs/FIGURE\_STATUS.csv}.
+For unavailable outputs, the generation command is explicitly unavailable;
+there is no plotting command that can turn missing model predictions into an
+independent reproduction. Supplementary Figure 10 is one histogram containing
+all-member and Antarctic-trigger-conditioned distributions of proactive migrants.
+
+\small
+\begin{longtable}{p{.22\textwidth}p{.48\textwidth}p{.22\textwidth}}
+\caption{Target reproduction status. ``Not reproduced'' means no independently
+generated target numerical result.}\label{tab:status}\\
+\toprule Figure/view & Quantity & Status\\\midrule\endfirsthead
+\toprule Figure/view & Quantity & Status\\\midrule\endhead
+\input{report/figure_status.tex}
+\bottomrule
+\end{longtable}
+\normalsize
+
+Main Figure 1 requires full conditional cost distributions. Figure 2 requires
+joint sea-level/cost realizations, and Figure 3 additionally requires regional
+economic aggregation. Supplementary Figures 1 and 2 require controlled subsampling
+of a legitimate ensemble, not merely a sample-size calculation. Figures 3 and 4
+require calibrated time series plus AR6 comparisons. Figure 5 requires spatial
+fingerprints and site matching. Figure 6 requires matched GTSR and DINAS extreme
+levels. Figure 7 requires the original type of upper-tail joint distribution.
+Figures 8 and 9 require paired SSP2/SSP4 economics. Figure 10 requires retained
+segment migration histories and Antarctic-trigger states. The implemented
+summary and aggregation routines do not supply these missing physical inputs.
+
+\section{Unresolved inputs and implications}
+
+The joint parameter distribution is a central missing scientific object.
+The cited methodology combines paleo Antarctic constraints, modern climate
+and component-sea-level observations, uncertain emissions, and autoregressive
+residuals. Complete target likelihood definitions, data vintages, measurement
+errors, initial states, and residual treatment were not recovered. Reusing
+published posterior samples is prohibited here. Independent calibration would
+be permissible, but it first requires these specifications and the corresponding
+exogenous observations. Independent draws from older marginal quantiles would
+discard physically relevant dependence.
+
+The historical DIVA exposure bundle is another independent obstacle. The CIAM
+supplement reports that its v1.5.5 database was no longer supported and that
+v1.8 was not public at that time \cite{diaz}. The EEA provider directory currently
+reports unavailable software \cite{diva}. This does not prove that every DIVA
+dataset is inaccessible; it establishes that a complete permissible target
+bundle was not recovered in this investigation. No modern coastline segmentation
+was substituted for the 12,148 target segments.
+
+Independent GTSR and SSP data records were located \cite{gtsr,ssp}. Their
+existence does not determine which GDP interpretation, scenario vintage,
+currency conversion, coastal mapping, extreme-value fitting method, or
+post 2100 extension the target used. The 2022 coastal-uncertainty methods
+\cite{wong2022} identify six uncertain socioeconomic parameters, but access
+attempts for their academic supplementary PDF returned challenge or access
+pages. Those pages were not treated as valid PDFs, and no code repository was
+used as a workaround. Acquiring large inputs before resolving these interfaces
+would consume resources without establishing a faithful reconstruction.
+
+The next scientifically defined stages are therefore: recover and version the
+complete calibration inputs and likelihood; complete and verify SNEASY and
+the target DAIS variant; recover permissible historical segment and economic
+inputs; resolve return-period, strategy, and cash-flow conventions; then run
+small coupled ensembles before scaling to 5,000 members. No result in this report
+supports a quantitative conclusion about the target's regional cost inequality.
+
+\section{Assessment of the research-agent process}
+
+The agent recovered much of the mathematical interface from distributed
+scholarly sources, distinguished versions of a mutable preprint, and implemented
+several independently checkable numerical components. The analytical tests
+separate solver accuracy from calibration and data availability. Cross-language
+flood integration supplies an additional check against transcription or
+implementation errors in the elevation primitive and GEV convention.
+
+Two interpretation errors were avoided through source comparison. First, the
+older BRICK temperature-based expansion emulator is not the heat-based component
+described in the target lineage. Second, a later revision behind the same DOI
+cannot automatically be treated as the manuscript available before publication.
+Direct calculation then identified two tensions between printed equations and
+their prose descriptions. These checks do not reveal the original implementation.
+
+The principal limitation is evidence recovery, not numerical throughput.
+An agent can write functioning code while failing to identify the scientific
+experiment if it supplies convenient values for missing inputs. This project
+does not count such code as a successful reproduction. No observation-based
+calibration, full carbon closure, complete DAIS integration, or global adaptation
+ensemble has been demonstrated. The kernel verification establishes a narrower
+capability: translation of documented equations into testable calculations with
+explicit domains, units, and limiting cases.
+
+The research log records source access failures, incidental search exposure,
+interpretation decisions, and verification outcomes. No subagents were used.
+The work followed Brad Lipovsky's supplied research instructions and academic
+style guide. The final assessment concerns this bounded execution; it is not a
+general benchmark of all AI research systems.
+
+\section{Reproducibility and conclusions}
+
+Run \texttt{bash scripts/run\_all.sh} from the project root to execute the
+offline verification, generate numerical diagnostics and figures, and compile
+this report. Julia uses standard libraries only. Python 3.6.8, NumPy 1.19.5,
+SciPy 1.5.4 and Matplotlib 3.3.4 were available locally; pdfLaTeX comes from
+TeXLive 2018. The driver verifies executable availability and imports, requires
+no installation, and limits numerical libraries to one thread. Calculations
+run at scheduling priority 19 on a heavily loaded shared server. All artifacts,
+temporary files and tool caches are directed into the designated project.
+Source acquisition is a separate optional, hash-checked command. The scientific
+build does not require network access or downloaded authors' outputs.
+
+The independent calculations verify recoverable response and cost kernels and
+quantify two written-specification discrepancies. An original conceptual
+Figure 4 is complete. Main Figures 1--3, supplementary Figures 1--10 and modeled
+Table 1 remain unreproduced. A printed-table arithmetic agreement is not promoted
+to numerical-model agreement. The missing calibration and coastal inputs must
+be recovered before a defensible coupled ensemble or assessment of the target
+scientific conclusions can be produced.
+
+\begin{thebibliography}{99}
+\bibitem{wong2025} Wong, T. E., Dake, S., Feke, K., Darnell, C., and Srikrishnan, V.
+(2025). Coastal adaptation and damage costs at different global warming
+thresholds. \emph{npj Natural Hazards}, 2, 35.
+\href{https://doi.org/10.1038/s44304-025-00089-0}{doi:10.1038/s44304-025-00089-0}.
+Includes seven-page supplementary information.
+\bibitem{darnell} Darnell, C., and coauthors (2024 manuscript revision).
+The interplay of future emissions and geophysical uncertainties for future sea level rise.
+\href{https://doi.org/10.31219/osf.io/j47ts}{doi:10.31219/osf.io/j47ts}.
+Original scholarly file kt9av, revision 9, deposited 11 December 2024;
+\href{https://osf.io/download/kt9av/?revision=9}{versioned manuscript}.
+The citation's exact manuscript revision is unresolved.
+\bibitem{urban} Urban, N. M., and Keller, K. (2010).
+Probabilistic hindcasts and projections of the coupled climate, carbon cycle
+and Atlantic meridional overturning circulation system: a Bayesian fusion
+of century-scale observations with a simple model. \emph{Tellus A}, 62,737--750.
+\href{https://doi.org/10.1111/j.1600-0870.2010.00471.x}{doi:10.1111/j.1600-0870.2010.00471.x}.
+\bibitem{ricciuto} Ricciuto, D. M., Davis, K. J., and Keller, K. (2008).
+A Bayesian calibration of a simple carbon cycle model: the role of observations
+in estimating and reducing uncertainty. \emph{Global Biogeochemical Cycles}, 22.
+\href{https://doi.org/10.1029/2006GB002908}{doi:10.1029/2006GB002908}.
+\bibitem{brick} Wong, T. E., and coauthors (2017).
+BRICK v0.2, a simple, accessible, and transparent model framework for climate
+and regional sea-level projections. \emph{Geoscientific Model Development}, 10, 2741--2760.
+\href{https://doi.org/10.5194/gmd-10-2741-2017}{doi:10.5194/gmd-10-2741-2017}.
+\bibitem{joss} Wong, T. E., and coauthors (2022). MimiBRICK.jl: a Julia package
+for the BRICK model for sea-level change in the Mimi integrated modeling framework.
+\emph{Journal of Open Source Software}.
+\href{https://doi.org/10.21105/joss.04556}{doi:10.21105/joss.04556}.
+Written article consulted; software was not consulted.
+\bibitem{shaffer} Shaffer, G. (2014). Formulation, calibration and validation
+of the DAIS model (version 1), a simple Antarctic ice sheet model sensitive to
+variations of sea level and ocean subsurface temperature.
+\emph{Geoscientific Model Development}, 7, 1803--1818.
+\href{https://doi.org/10.5194/gmd-7-1803-2014}{doi:10.5194/gmd-7-1803-2014}.
+\bibitem{diaz} Diaz, D. B. (2016). Estimating global damages from sea level rise
+with the Coastal Impact and Adaptation Model (CIAM). \emph{Climatic Change}.
+\href{https://doi.org/10.1007/s10584-016-1675-4}{doi:10.1007/s10584-016-1675-4}.
+Mathematical specification in supplementary information, pp.9--17.
+\bibitem{vega} Vega-Westhoff, B., Sriver, R. L., Hartin, C. A., Wong, T. E., and
+Keller, K. (2019). Impacts of observational constraints related to sea level
+on estimates of climate sensitivity. \emph{Earth's Future}, 7,677--690.
+\href{https://doi.org/10.1029/2018EF001082}{doi:10.1029/2018EF001082}.
+\bibitem{wong2022} Wong, T. E., and coauthors (2022). Sea level and
+socioeconomic uncertainty drives high-end coastal adaptation costs. \emph{Earth's Future}.
+\href{https://doi.org/10.1029/2022EF003061}{doi:10.1029/2022EF003061}.
+\bibitem{diva} European Environment Agency, Climate-ADAPT. Dynamic Interactive
+Vulnerability Assessment model (DIVA), provider directory, accessed 12 October 2026.
+\href{https://climate-adapt.eea.europa.eu/en/metadata/tools/dynamic-interactive-vulnerability-assessment-model-diva}{Provider record}.
+\bibitem{gtsr} Muis, S., Verlaan, M., Winsemius, H. C., Aerts, J. C. J. H.,
+and Ward, P. J. (2016). A global reanalysis of storm surges and extreme sea
+levels. \emph{Nature Communications}, 7, 11969.
+\href{https://doi.org/10.1038/ncomms11969}{doi:10.1038/ncomms11969}.
+Dataset provenance checked at Vrije Universiteit Amsterdam and 4TU.
+\bibitem{ssp} IIASA. Shared Socioeconomic Pathways Scenario Database.
+\href{https://iiasa.ac.at/models-tools-data/ssp}{Provider documentation},
+accessed 12 October 2026. Multiple GDP interpretations and data vintages require
+explicit selection before a target reconstruction.
+\end{thebibliography}
+\end{document}

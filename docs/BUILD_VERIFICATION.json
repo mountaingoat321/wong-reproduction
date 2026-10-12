@@ -1,0 +1,27 @@
+{
+  "build_source_sha256": {
+    "config/validation.toml": "6965d0e3a1a6d573b95ccf3dd3ca513eeb44b9c9f2757a0c6a7db54e88776d86",
+    "scripts/check_artifacts.py": "308efacd4458ff847b9bf996edf631a03b36f655ec14d5a8451c9c60bf2c45ec",
+    "scripts/diagnostics.jl": "5afcc7cbb644aff343df56183a683b795454d267ac3494d688fb8757debc3d31",
+    "scripts/fetch_sources.py": "945c3d94149e10815db7d1c59af9860b8289796e455d5210ccae591951661745",
+    "scripts/plot_results.py": "4587a74824bac2c4d7eae7a0a4d9cde356dd0ba7b420db6d9cf03a8859bf241d",
+    "scripts/report_tables.py": "ec6b7d1811fa2663bde346cc3e0d9beb29dbe86bccffe1b9cf24840aabda24bf",
+    "scripts/run_all.sh": "a8e9098992ef7693df7edd8bdab29a97c2832a7270503db3fd002a98bacac95a",
+    "scripts/verify_results.py": "c843db93e821181fb6120c12e1d1657308e1b980a776f9670baf6d1ccc83fca4",
+    "src/Reproduction.jl": "4b0ae09e718a351f41cd44154f8523417d7a1743f704604f0ad2212ed969906d",
+    "tests/runtests.jl": "ba99eea328e9dfa09913d9813423b7f3f154d06370c8255422f73be083198be4"
+  },
+  "command": "bash scripts/run_all.sh",
+  "curated_artifacts_verified": 26,
+  "date_utc": "2026-10-12",
+  "julia_tests_failed": 0,
+  "julia_tests_passed": 80,
+  "numeric_files_identical_across_runs": 15,
+  "report_pages": 13,
+  "returncode": 0,
+  "review": "All report pages visually reviewed; no LaTeX warnings; current private repository verified",
+  "scope": "Offline manufactured verification and report; no target ensemble",
+  "source_commit": "30898057b77fae22a22d74f4e9c9f5e2cf5be846",
+  "source_commit_scope": "Scientific kernels and numerical configuration; report/build documentation added in subsequent commit",
+  "wall_seconds": 53.862
+}

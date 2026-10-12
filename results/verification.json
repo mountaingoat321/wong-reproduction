@@ -1,0 +1,27 @@
+{
+  "anto_minimum_sampled_c": -2.078464286178416,
+  "damage_integral_max_absolute_error_usd": 9.313225746154785e-10,
+  "diffusion_finest_error_k": 6.75895707358265e-06,
+  "diffusion_max_balance_error_k_m": 1.0213184464813452e-16,
+  "diffusion_refinement_factors": [
+    3.987297542701116,
+    3.9968224963587953
+  ],
+  "emissions_annual_remaining_fraction_gamma007": 0.0174999999999999,
+  "greenland_finest_error_m_sle": 5.397859936806526e-10,
+  "greenland_refinement_factors": [
+    17.395806430066937,
+    16.681996868658054,
+    16.337131938559757
+  ],
+  "julia_flood_finest_relative_error": 1.2707281369795463e-11,
+  "numpy_version": "1.19.5",
+  "printed_table_counts_sum": 5000,
+  "printed_table_tail_sum": 250,
+  "python_version": "3.6.8",
+  "reference_checks_passed": 7,
+  "scipy_expected_loss_usd_per_year": 442422.47934246704,
+  "scipy_quadrature_error_estimate_usd_per_year": 1.586198708634478e-05,
+  "scipy_version": "1.5.4",
+  "scope": "manufactured verification, not target projection validation"
+}
