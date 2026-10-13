@@ -1,0 +1,27 @@
+{
+  "HadCRUT4 + heat": {
+    "max_carbon_mass_error_GtC": 1.4551915228366852e-11,
+    "members": 250,
+    "pilot_AIS_max_difference_m": 2.452482661396971e-13,
+    "pilot_CO2_max_difference_ppm": 0.0004770653490595578,
+    "pilot_temperature_max_difference_K": 9.081800160792852e-06
+  },
+  "HadCRUT4, no heat": {
+    "max_carbon_mass_error_GtC": 1.2732925824820995e-11,
+    "members": 250,
+    "pilot_AIS_max_difference_m": 2.369215934550084e-13,
+    "pilot_CO2_max_difference_ppm": 0.0005101025926705915,
+    "pilot_temperature_max_difference_K": 8.980103546996077e-06
+  },
+  "HadCRUT5 + heat": {
+    "max_carbon_mass_error_GtC": 1.3642420526593924e-11,
+    "members": 250,
+    "pilot_AIS_max_difference_m": 2.451649994128502e-13,
+    "pilot_CO2_max_difference_ppm": 0.0004821068635010306,
+    "pilot_temperature_max_difference_K": 9.050753237538345e-06
+  },
+  "coastal_scope": "Base coastal costs are still the HadCRUT4 experiment; no implicit replacement",
+  "no_heat_scope": "HadCRUT4 temperature-only calibration deliberately omits the700mheat constraint; diagnostic of constraint influence, not recovered target calibration",
+  "pairing": "Same emissions and random row indices, not matched physical posterior states; distribution comparison only",
+  "scope": "NON-REPRODUCTION: climate posterior substitution; fixed Had4 carbon hindcast, carbon/AIS point fits, and conditional ice histories"
+}

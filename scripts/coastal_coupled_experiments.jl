@@ -4,13 +4,15 @@ include("../src/CoastalPaths.jl");include("../src/GeographicCoasts.jl")
 const G=GeographicCoasts;const R=Reproduction
 function main()
     pilot="--pilot" in ARGS
+    had5="--hadcrut5" in ARGS
+    sea_prefix=had5 ? "sea_level_stratified_hadcrut5" : "sea_level_stratified"
     scenario="--ssp2" in ARGS ? "SSP2" : "SSP4"
-    perregion=pilot ? 4 : (scenario=="SSP2" ? 8 : 16)
+    perregion=pilot ? 4 : (scenario=="SSP2" || had5 ? 8 : 16)
     extension="--horizon-freeze" in ARGS ? "freeze" : "--horizon-growth" in ARGS ? "growth" : "none"
     geometric="--geometric-economy" in ARGS
     accounting="--accounting" in ARGS
     accounting && !pilot && error("Accounting diagnostic currently uses --pilot")
-    prefix="coastal_coupled"*(scenario=="SSP2" ? "_ssp2" : "")*(extension!="none" ? "_2150_"*extension : "")*(geometric ? "_geometric" : "")*(accounting ? "_accounting" : "")*(pilot ? "_pilot" : "")
+    prefix="coastal_coupled"*(had5 ? "_hadcrut5" : "")*(scenario=="SSP2" ? "_ssp2" : "")*(extension!="none" ? "_2150_"*extension : "")*(geometric ? "_geometric" : "")*(accounting ? "_accounting" : "")*(pilot ? "_pilot" : "")
     started=time();years=collect(2010:(extension=="none" ? 2100 : 2150))
     design=readdlm("results/coastal_sampling_design.csv",',',Any;skipstart=1)
     design=design[design[:,2].<=perregion,:]
@@ -54,7 +56,7 @@ function main()
         (income=interp(5),popscale=interp(6),capscale=interp(7),land=interp(8),wetland=interp(9),us_income_2010=Float64(us))
     end
     economies=Dict(c=>economy(c) for c in unique(last.(keys)))
-    endpoints=readdlm("results/sea_level_stratified_endpoints.csv",',',Any;skipstart=1)
+    endpoints=readdlm("results/"*sea_prefix*"_endpoints.csv",',',Any;skipstart=1)
     endpoints=endpoints[(endpoints[:,2].=="annual_nearest_emissions").&(endpoints[:,3].=="fit512_shallow_iid"),:]
     members=Int.(endpoints[:,1])
     economic="--economic-priors" in ARGS
@@ -65,7 +67,7 @@ function main()
             [Int(endpoints[findfirst(==(b),endpoints[:,5]),1]) for b in unique(endpoints[:,5])])))
     end
     sealevel=Dict(i=>Float64[] for i in members)
-    open(".local/sea_level_stratified_paths.csv") do io
+    open(".local/"*sea_prefix*"_paths.csv") do io
         readline(io)
         for line in eachline(io)
             r=split(line,',');r[2]=="annual_nearest_emissions" && r[3]=="fit512_shallow_iid" || continue
@@ -76,7 +78,7 @@ function main()
     end
     @assert all(length(s)==length(years) && s[1]==0. && all(diff(s).>=0) for s in values(sealevel))
     if economic
-        @assert scenario=="SSP4" && extension=="none" && !geometric && !accounting
+        @assert !had5 && scenario=="SSP4" && extension=="none" && !geometric && !accounting
         include("coastal_economic_sensitivity.jl")
         # World-age safe invocation of the independently defined experiment.
         Base.invokelatest(economic_sensitivity,years,coasts,economies,sealevel,design,members;pilot=pilot)
@@ -136,7 +138,7 @@ function main()
         TOML.print(io,Dict("members"=>length(members),"draws_per_region"=>perregion,"unique_coasts"=>length(keys),
             "wall_seconds"=>time()-started,"raw_cases"=>".local/"*prefix*"_cases.csv",
             "scope"=>"NON-REPRODUCTION: independently coupled alternativeSLR; uniform geography; sampled200-bin coasts;2019PPP;pairedzeroSLRbaseline",
-            "scenario"=>scenario,"last_year"=>years[end],"after2100_economics"=>extension,
+            "scenario"=>scenario,"sea_level_source"=>sea_prefix,"last_year"=>years[end],"after2100_economics"=>extension,
             "within_node_economics"=>(geometric ? "geometric" : "linear"),
             "pilot_is_purposive"=>pilot,"completed"=>true))
     end

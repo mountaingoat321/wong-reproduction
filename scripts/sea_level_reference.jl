@@ -7,8 +7,11 @@ include("../src/PaleoDAIS.jl");include("../src/SeaLevelCoupling.jl")
 include("../src/RecoveredModels.jl")
 const D=PaleoDAIS;const M=RecoveredModels
 function main()
-    climate=readdlm("results/coupled_emissions_stratified_parameters.csv",',',Float64;skipstart=1)
-    selected=readdlm("results/sea_level_stratified_parameters.csv",',',Float64;skipstart=1)
+    had5="--hadcrut5" in ARGS;onlytemp="--temperature-only" in ARGS
+    @assert !(had5 && onlytemp)
+    suffix=had5 ? "_hadcrut5" : onlytemp ? "_temperature_only" : ""
+    climate=readdlm("results/coupled_emissions_stratified"*suffix*"_parameters.csv",',',Float64;skipstart=1)
+    selected=readdlm("results/sea_level_stratified"*suffix*"_parameters.csv",',',Float64;skipstart=1)
     obs=readdlm("inputs/hadcrut4.csv",',',Float64;skipstart=1)
     forcing=readdlm("inputs/ssp_forcing.csv",',',Any;skipstart=1)
     history=forcing[(forcing[:,1].=="ssp245").&(forcing[:,2].<=2021),:]
@@ -21,7 +24,7 @@ function main()
         ais[key]=D.run(paleo,vcat(collect(1995.:2009.),2009.5);dt=5.,p=p,lambda=f["lambda_m_yr"],threshold=f["threshold_degC"])
     end
     future=Dict{Tuple{Int,String},Vector{Float64}}()
-    open(".local/sea_level_stratified_paths.csv") do io
+    open(".local/sea_level_stratified"*suffix*"_paths.csv") do io
         readline(io)
         for line in eachline(io)
             r=split(line,',');r[2]=="annual_nearest_emissions" || continue
@@ -31,8 +34,8 @@ function main()
         end
     end
     coefficient=readdlm("results/thermal_observation_fit.csv",',',Float64;skipstart=1)[2,4]
-    variants=TOML.parsefile("results/sea_level_stratified_run.toml")["variants"]
-    open("results/sea_level_reference_offsets.csv","w") do io
+    variants=TOML.parsefile("results/sea_level_stratified"*suffix*"_run.toml")["variants"]
+    open("results/sea_level_reference"*suffix*"_offsets.csv","w") do io
         println(io,"sample,variant,mean1995_2014_relative2010_m,datum_shift_m,mean_after_rebasing_m")
         for j in axes(climate,1)
             ice=Dict()
@@ -43,7 +46,7 @@ function main()
                 h=c=="glaciers" ? IceModels.glaciers(t,p[1:4]...) : IceModels.greenland(t,p[1:4]...)
                 ice[c]=h[1995-start+1:2010-start+1].-h[2010-start+1]
             end
-            par=climate[j,4:12]
+            par=climate[j,4:6]
             sys=M.climate_system(ecs=par[1],diffusivity=par[2],cells=80)
             hist=M.climate_observables(sys,Float64.(history[:,3])+(par[3]-1)*Float64.(history[:,5]))
             for variant in variants

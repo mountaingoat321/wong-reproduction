@@ -107,6 +107,16 @@ mapping, parameter restrictions or residual model. It cannot be repaired by
 claiming numerical convergence as observational validation.}
 \label{fig:vintagecarbon}
 \end{figure}
+The first attempt to fit $Q_{10}$ and thermocline transfer as additional
+coordinates failed an internal nested-model check: a clipped Gauss--Newton
+search stopped prematurely with training error above the restricted fit.
+Those trajectories and searches are preserved as failed computations. A revised
+solver uses bound-aware diagonal damping, backtracking and a maximum step in
+scaled coordinates. Six analytic and nonlinear checks pass, and the restricted
+fit is included as a fourth starting point. A retained free fit must have
+training objective no greater than that restricted solution. This requirement
+checks optimization, without tuning against held-out data or the target figures.
+
 \subsection{An original-provider glacier record and a version discrepancy}
 The NSIDC archive supplies a 2005 observational supplement to Dyurgerov's
 glacier compilation \cite{nsidcglaciers}. Its Appendix 6 contains 43 annual
@@ -184,3 +194,96 @@ The same grid, training boundary and withheld years as the NSIDC experiment
 isolate the source-version change. The later GlaMBIE record is separate context.
 No fitted glacier parameters in this figure replace the base sea-level ensemble.}
 \end{figure}
+\subsection{Propagation of the temperature-version change}
+The independently calibrated HadCRUT5 posterior now drives 250 emissions states
+and 2,500 sea-level cases under the same five closure choices and two non-CO$_2$
+rules. Its pilot checks give maximum CO$_2$ and temperature differences of
+$4.82\times10^{-4}$ ppm and $9.05\times10^{-6}$ K when halving the step;
+Antarctic refinement differs by $2.45\times10^{-13}$ m. The carbon hindcast and
+point parameters remain fixed so that these runs isolate the posterior change.
+
+Under the explicit 50\% budget-event weights, median annual 2100 warming rises
+from 1.264 to 1.484 K. Its 5th--95th range changes from 0.838--2.606 K to
+0.996--2.879 K. The corresponding median uncorrected sea-level rise from 2010
+changes from 0.232 to 0.237 m, while its upper percentile rises from 0.641 to
+0.736 m. The fixed Antarctic model's triggering probability rises from 13.99\%
+to 18.77\%. Category counts become 101, 56, 71 and 22; their weighted masses
+are 54.59, 34.26, 10.76 and 0.393\%. These are conditional alternatives, not
+estimates under the recovered expert-density likelihood or the target posterior.
+The additional high-warming states motivate a separately validated coastal
+propagation rather than assuming that the earlier cost distribution transfers.
+
+\subsection{Separating heat constraints from expert-emissions assumptions}
+The temperature-only posterior supplies a third, deliberately unfavorable
+predictive comparison. We propagate the same 250 emissions states through
+each independently sampled climate posterior, holding carbon and ice choices
+fixed. Parameter values are not paired between posteriors; only the emissions
+design and random row indices are shared. Figure\ref{fig:climateconstraints}
+therefore compares distributions, not the response of a single physical state
+to changing an observation.
+
+Omitting the upper-ocean heat constraint raises median annual 2100 warming
+under the 50\% budget-event alternative to 2.156 K, with a 5th--95th range of
+1.261--3.935 K. Warming-category counts are 25, 84, 63 and 78, with weighted
+masses 13.02, 47.39, 29.71 and 9.87\%. The corresponding uncorrected sea-level
+median is 0.450 m from 2010, with range 0.244--1.423 m, and the fixed Antarctic
+fast-loss model activates in 43.91\% of weighted paths. The high-category mass
+is closer to the target's printed 7.78\% than either heat-constrained result.
+However, this posterior has withheld temperature RMSE 0.209 K, bias
+$+0.189$ K and upper-ocean heat RMSE $16.46\times10^{22}$ J. Its failure to
+predict these independent observations prevents using category resemblance
+to select it as a recovered calibration.
+
+The three climate ensembles pass the same time-step and carbon-accounting
+checks. The temperature-only pilot's maximum changes are
+$5.10\times10^{-4}$ ppm CO$_2$ and $8.98\times10^{-6}$ K; carbon mass closes
+within $1.28\times10^{-11}$ Gt C over the full ensemble. Thus, these distribution
+differences exceed the measured numerical time-step effects. The experiment
+tests the influence of an alternative 700 m constraint. It does not recover the
+missing annual 3000 m observational record.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/coupled_climate_vintage_sensitivity.pdf}
+\caption{Climate-observation constraints propagated through independent
+emissions-driven alternatives. Left: annual warming medians and 5th--95th
+percentiles under explicit 50\% budget-event weights. Center: 2100 category
+masses under those weights. Right: uncorrected global sea-level medians and
+5th--95th percentiles under three alternative emissions measures, relative to
+2010. Colors distinguish independently calibrated climate posteriors. The
+temperature-only result fails predictive checks; none is the target posterior.}
+\label{fig:climateconstraints}
+\end{figure}
+
+Applying the recovered prior-times-expert-density inversion changes the
+distributions again (Figure\ref{fig:expertdensityclimate}). Across the four
+explicitly assumed densities, HadCRUT4 with heat gives only
+0.0072--0.0399\% probability above 3.5 K; HadCRUT5 with heat gives
+0.193--0.450\%. Temperature-only fits give 17.09--18.09\%, despite all four
+expert densities assigning the same 50\% mass to the cumulative-emissions
+budget event. Median sea-level changes range from 0.277--0.291 m,
+0.321--0.334 m and 0.867--0.903 m, respectively. These are different likelihood
+assumptions from directly imposing a posterior budget-event probability. The
+spread identifies two consequential unresolved choices: the climate likelihood
+and the complete expert density. It supplies no basis for choosing either to
+force a match to the target.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/coupled_expert_climate_sensitivity.pdf}
+\caption{Recovered inversion method with four alternative expert probability
+densities and three independent climate calibrations. Entries show probability
+above 3.5 K and median uncorrected sea-level change from 2010. The lower-budget
+density is uniform or Beta(2,2); the upper-budget tail uses Gamma shape two or
+four, with the documented conditional mode and budget mass imposed. The
+families and widths are assumptions. No target posterior is inferred from this
+comparison.}
+\label{fig:expertdensityclimate}
+\end{figure}
+
+For comparison with the target's reference period, each sea-level member is
+also shifted by its own modeled 1995--2014 arithmetic mean. Under 50\%
+budget-event weights the HadCRUT5 median becomes 0.250 m, with 17th--83rd
+percentiles 0.193--0.457 m. The temperature-only median becomes 0.465 m,
+with interval 0.322--1.178 m. The datum corrections are 0.0065--0.0180 m and
+0.0119--0.0262 m across the five closure alternatives. These shifts reconcile
+reference periods only; they do not make the emissions ensemble commensurate
+with an individual AR6 SSP scenario or remove component-coverage overlap.

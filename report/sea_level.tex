@@ -107,3 +107,49 @@ emissions alternatives are distinct experiments. The written AR6 summary values
 are comparison evidence only and are not inputs to the model.}
 \label{fig:seaar6}
 \end{figure}
+
+\subsection{Consistency of the historical component sum}
+The historical sea-level budget supplies a further constraint on interpretation
+(Figure\ref{fig:budgethindcast}). We sum the independently fitted components for
+1990.5--2009.5 and compare them with the recovered Church--White observations
+\cite{churchwhite2011}. Each model series and the observations are centered on
+their own 1995.5--2004.5 mean. Annual states are linearly interpolated to year
+midpoints. Historical land-water storage is assigned the same 0.3 mm/year
+trend used before 2021 in the coupled experiment. We retain the 250 saved
+physical combinations and emissions-prior design weights for each climate
+calibration, testing heat integrated to 2000 m and to the full 4057.5 m column.
+
+The observed linear trend is 2.602 mm/year. With the 2000 m heat response,
+HadCRUT4 and HadCRUT5 joint-calibration alternatives have median trends of
+2.048 and 2.027 mm/year; their 5th--95th physical-parameter ranges are
+1.635--2.460 and 1.653--2.415 mm/year. The temperature-only median is
+3.006 mm/year, with range 2.340--3.469. Median-trajectory RMSE values are
+4.65, 4.74 and 4.11 mm, respectively. Full-depth heat changes the no-heat
+median trend to 3.074 mm/year but changes the two heat-constrained medians by
+less than 0.007 mm/year. Refining 80 to 160 ocean cells changes the tested
+centered thermal trajectories by at most 0.105 mm; Antarctic 10/5-year step
+refinement differs by $3.10\times10^{-12}$ m. The observed budget mismatch
+therefore requires physical, observational or statistical investigation beyond
+those numerical refinements.
+
+This is a consistency diagnostic, not an independent validation. Church--White
+sea level already enters the Antarctic boundary forcing, known temperatures
+force the ice hindcasts, and the empirical thermal coefficient uses observations
+through 2015. The intervals exclude stochastic discrepancy and observation
+error, retain peripheral-ice overlap and omit the missing joint dependence.
+No rejection-sampling weights are manufactured from this comparison. Its
+closer temperature-only sea-level RMSE does not outweigh that calibration's
+failed temperature and heat predictions.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/sea_level_hindcast_consistency.pdf}
+\caption{Historical consistency of the uncorrected sea-level component sum.
+Black points show Church--White observations; colored lines and bands show
+medians and 5th--95th physical-parameter percentiles under saved prior design
+weights. Model and observations are centered separately over 1995.5--2004.5.
+Panels differ only in the heat depth used for thermal expansion. Observation
+and stochastic model errors are not included in the bands. The observational
+record also supplies an Antarctic boundary condition, so agreement cannot be
+counted as independent validation or recovery of the target joint calibration.}
+\label{fig:budgethindcast}
+\end{figure}

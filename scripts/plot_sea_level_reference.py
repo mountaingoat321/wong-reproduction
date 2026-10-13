@@ -6,20 +6,22 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 ROOT=Path(__file__).resolve().parents[1]
+assert not ('--hadcrut5' in sys.argv and '--temperature-only' in sys.argv)
+suffix='_hadcrut5' if '--hadcrut5' in sys.argv else '_temperature_only' if '--temperature-only' in sys.argv else ''
 def rows(name):
     with (ROOT/name).open() as f:return list(csv.DictReader(f))
 def quantile(x,w,p):
     j=np.argsort(x);q=np.cumsum(w[j]);q/=q[-1]
     return float(x[j[min(len(x)-1,np.searchsorted(q,p))]])
-offset={int(r['sample']):float(r['datum_shift_m']) for r in rows('results/sea_level_reference_offsets.csv') if r['variant']=='fit512_shallow_iid'}
-end=[r for r in rows('results/sea_level_stratified_endpoints.csv') if r['variant']=='fit512_shallow_iid' and r['forcing_rule']=='annual_nearest_emissions']
+offset={int(r['sample']):float(r['datum_shift_m']) for r in rows('results/sea_level_reference'+suffix+'_offsets.csv') if r['variant']=='fit512_shallow_iid'}
+end=[r for r in rows('results/sea_level_stratified'+suffix+'_endpoints.csv') if r['variant']=='fit512_shallow_iid' and r['forcing_rule']=='annual_nearest_emissions']
 years=np.arange(2010,2151)
 saved='--from-saved' in sys.argv
 if saved:
-    saved_rows=rows('results/sea_level_referenced_quantiles.csv')
+    saved_rows=rows('results/sea_level_referenced'+suffix+'_quantiles.csv')
 else:
     paths=np.full((len(end),len(years)),np.nan)
-    with (ROOT/'.local/sea_level_stratified_paths.csv').open() as f:
+    with (ROOT/('.local/sea_level_stratified'+suffix+'_paths.csv')).open() as f:
         for r in csv.DictReader(f):
             if r['variant']=='fit512_shallow_iid' and r['forcing_rule']=='annual_nearest_emissions':
                 j=int(r['sample']);year=int(float(r['year']))
@@ -47,14 +49,14 @@ axes[0].set(xlabel='Year',ylabel='Sea level relative to 1995–2014 (m)',title='
 axes[0].legend(fontsize=8)
 axes[1].set_yticks(list(range(3))+list(range(4,9)));axes[1].set_yticklabels(['Prior','50% alternative','75% alternative']+[r['scenario'] for r in ar6])
 axes[1].set(xlabel='Sea level in 2100 (m)',title='Different emissions experiments; contextual comparison')
-fig.suptitle('Independent model datum and written AR6 assessment ranges',fontsize=12)
+fig.suptitle('Independent model datum and written AR6 assessment ranges'+suffix.replace('_',' '),fontsize=12)
 fig.tight_layout(rect=(0,0,1,.94))
-for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/('sea_level_ar6_context.'+ext)),dpi=150,bbox_inches='tight')
-with (ROOT/'results/sea_level_referenced_quantiles.csv').open('w',newline='') as f:
+for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/('sea_level_ar6_context'+suffix+'.'+ext)),dpi=150,bbox_inches='tight')
+with (ROOT/('results/sea_level_referenced'+suffix+'_quantiles.csv')).open('w',newline='') as f:
     writer=csv.DictWriter(f,list(output[0]));writer.writeheader();writer.writerows(output)
 audit=dict(scope='NON-REPRODUCTION: own hindcast datum; uncorrected component overlap; AR6 is contextual, not emissions-matched validation',
     reference='Arithmetic mean of annual1995–2014 model levels',offset_min_m=min(offset.values()),offset_max_m=max(offset.values()),
     alternative2100=summaries,ar6_source='https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/',
     source_access='Official indexed Table9.9 checked; direct webpage/PDF downloads returned403; no raw checksum claimed')
-(ROOT/'results/sea_level_reference_assessment.json').write_text(json.dumps(audit,indent=2,sort_keys=True)+'\n')
+(ROOT/('results/sea_level_reference'+suffix+'_assessment.json')).write_text(json.dumps(audit,indent=2,sort_keys=True)+'\n')
 print(json.dumps(audit,indent=2,sort_keys=True))

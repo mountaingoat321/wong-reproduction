@@ -2,28 +2,39 @@
 These plots are not reproductions of the Wong ensemble, geography or accounting.
 """
 from pathlib import Path
-import csv,json
+import csv,json,sys
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 ROOT=Path(__file__).resolve().parents[1]
+had5='--hadcrut5' in sys.argv
+suffix='_hadcrut5' if had5 else ''
+def result_name(name):return name.replace('coastal_coupled','coastal_coupled'+suffix)
 plt.rcParams.update({'font.size':9,'axes.spines.top':False,'axes.spines.right':False,'pdf.fonttype':42})
 def read(name):
-    return np.genfromtxt(str(ROOT/'results'/name),delimiter=',',names=True,dtype=None,encoding=None)
+    return np.genfromtxt(str(ROOT/'results'/result_name(name)),delimiter=',',names=True,dtype=None,encoding=None)
 def save(fig,name):
+    if had5 and fig._suptitle:fig._suptitle.set_text(fig._suptitle.get_text()+'; HadCRUT5 climate')
     fig.tight_layout(rect=(0,0,1,.94))
-    for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/(name+'.'+ext)),dpi=150,bbox_inches='tight')
+    for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/(name+suffix+'.'+ext)),dpi=150,bbox_inches='tight')
     plt.close(fig)
 def quantile(x,w,p):
     j=np.argsort(x);s=np.cumsum(w[j]);s/=s[-1]
     return float(x[j[min(len(x)-1,np.searchsorted(s,p))]])
 def write(name,rows):
-    with (ROOT/'results'/name).open('w',newline='') as f:
+    with (ROOT/'results'/result_name(name)).open('w',newline='') as f:
         w=csv.DictWriter(f,list(rows[0]));w.writeheader();w.writerows(rows)
 g=read('coastal_coupled_global.csv');r=read('coastal_coupled_regional.csv')
 assert len(g)==250 and len(np.unique(g['sample']))==250
 cost=g['incremental_NPV_USD2019PPP']/1e12
+sea=g['sea2100_m'].copy();sea_reference='2010'
+if had5:
+    offsets=read('sea_level_reference_hadcrut5_offsets.csv')
+    offsets=offsets[offsets['variant']=='fit512_shallow_iid']
+    assert np.array_equal(offsets['sample'],g['sample'])
+    sea+=offsets['datum_shift_m'];sea_reference='1995–2014'
+    write('coastal_coupled_plot_coordinates.csv',[dict(sample=int(i),sea2100_relative1995_2014_m=float(x)) for i,x in zip(g['sample'],sea)])
 labels=['≤1.5°C','1.5–2.5°C','2.5–3.5°C','>3.5°C']
 colors=['#0072B2','#009E73','#E69F00','#D55E00']
 measures=[('weight_prior','Prior','#0072B2'),('weight_budget50','50% alternative','#E69F00'),('weight_budget75','75% alternative','#009E73')]
@@ -40,25 +51,25 @@ for k,(weight,label,color) in enumerate(measures):
 axes[0].set_xticks(range(1,5));axes[0].set_xticklabels(labels,fontsize=8)
 axes[0].set(ylabel='Incremental NPV (trillion 2019 USD PPP)',title='Weighted medians and 5th–95th percentiles')
 axes[0].legend(fontsize=8)
-axes[1].scatter(g['sea2100_m'],100*g['sampling_SE_USD2019PPP']/g['incremental_NPV_USD2019PPP'],c=[colors[b-1] for b in g['warming_bin']],s=18)
-axes[1].set(xlabel='Sea-level rise in 2100 from 2010 (m)',ylabel='Conditional coastal sampling SE (%)',title='Numerical error is separate from climate variation')
+axes[1].scatter(sea,100*g['sampling_SE_USD2019PPP']/g['incremental_NPV_USD2019PPP'],c=[colors[b-1] for b in g['warming_bin']],s=18)
+axes[1].set(xlabel='Sea-level rise in 2100 from '+sea_reference+' (m)',ylabel='Conditional coastal sampling SE (%)',title='Numerical error is separate from climate variation')
 fig.suptitle('Non-reproduction: SSP4, annual 2010–2100, paired no-rise baseline')
 save(fig,'coupled_coastal_cost_alternative');write('coastal_coupled_bin_summary.csv',summaries)
 
 # Scatter and empirical weighted marginals; no smoothed tail density is invented.
 fig=plt.figure(figsize=(9,7));gs=fig.add_gridspec(2,2,width_ratios=[4,1],height_ratios=[1,4],hspace=.08,wspace=.08)
 joint=fig.add_subplot(gs[1,0]);top=fig.add_subplot(gs[0,0],sharex=joint);right=fig.add_subplot(gs[1,1],sharey=joint)
-w=g['weight_budget50'];xbins=np.linspace(0,max(g['sea2100_m'])*1.02,22);ybins=np.linspace(0,max(cost)*1.02,22)
+w=g['weight_budget50'];xbins=np.linspace(0,max(sea)*1.02,22);ybins=np.linspace(0,max(cost)*1.02,22)
 for b,(label,color) in enumerate(zip(labels,colors),1):
     m=g['warming_bin']==b;weights=w[m]/w[m].sum()
-    joint.scatter(g['sea2100_m'][m],cost[m],s=12+1800*w[m],color=color,alpha=.8,label=label)
-    top.hist(g['sea2100_m'][m],bins=xbins,weights=weights,histtype='step',color=color)
+    joint.scatter(sea[m],cost[m],s=12+1800*w[m],color=color,alpha=.8,label=label)
+    top.hist(sea[m],bins=xbins,weights=weights,histtype='step',color=color)
     right.hist(cost[m],bins=ybins,weights=weights,histtype='step',orientation='horizontal',color=color)
-joint.set(xlabel='Sea-level rise in 2100 from 2010 (m)',ylabel='Incremental NPV (trillion 2019 USD PPP)')
+joint.set(xlabel='Sea-level rise in 2100 from '+sea_reference+' (m)',ylabel='Incremental NPV (trillion 2019 USD PPP)')
 joint.legend(fontsize=8);top.set(ylabel='Bin mass');right.set(xlabel='Bin mass')
 plt.setp(top.get_xticklabels(),visible=False);plt.setp(right.get_yticklabels(),visible=False)
-fig.suptitle('Coupled alternative paths: 50% budget weights; uniform coastal sea level')
-for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/('coupled_coastal_joint_alternative.'+ext)),dpi=150,bbox_inches='tight')
+fig.suptitle('Coupled alternative paths: 50% budget weights; uniform coastal sea level'+('; HadCRUT5 climate' if had5 else ''))
+for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/('coupled_coastal_joint_alternative'+suffix+'.'+ext)),dpi=150,bbox_inches='tight')
 plt.close(fig)
 
 regions=sorted(set(r['region'])-{'Unmapped'})
@@ -84,7 +95,7 @@ fig.suptitle('Independent geography and SSP4: regional economic alternatives')
 save(fig,'coupled_coastal_regional_alternative');write('coastal_coupled_regional_summary.csv',regional)
 
 fig,axes=plt.subplots(1,2,figsize=(10,4.8));migration=[]
-trigger=g['AIS_fast_trigger_by2100'].astype(str)=='True'
+trigger=np.char.lower(g['AIS_fast_trigger_by2100'].astype(str))=='true'
 for active,label,color in [(False,'AIS not triggered','#0072B2'),(True,'AIS triggered','#D55E00')]:
     m=trigger==active;weight=w[m];v=g['planned_migrants'][m]/1e6;order=np.argsort(v)
     axes[0].step(v[order],np.cumsum(weight[order])/weight.sum(),where='post',color=color,label=label)
@@ -108,15 +119,15 @@ for b,(label,color) in enumerate(zip(labels,colors),1):
     m=(g['warming_bin']==b)&tail
     if not m.any():continue
     weights=w[m]/w[m].sum()
-    joint.scatter(g['sea2100_m'][m],cost[m],s=12+1800*w[m],color=color,alpha=.8,label=label)
-    top.hist(g['sea2100_m'][m],bins=xbins,weights=weights,histtype='step',color=color)
+    joint.scatter(sea[m],cost[m],s=12+1800*w[m],color=color,alpha=.8,label=label)
+    top.hist(sea[m],bins=xbins,weights=weights,histtype='step',color=color)
     right.hist(cost[m],bins=ybins,weights=weights,histtype='step',orientation='horizontal',color=color)
-joint.set(xlabel='Sea-level rise in 2100 from 2010 (m)',ylabel='Incremental NPV (trillion 2019 USD PPP)')
+joint.set(xlabel='Sea-level rise in 2100 from '+sea_reference+' (m)',ylabel='Incremental NPV (trillion 2019 USD PPP)')
 joint.axhline(threshold,color='.4',ls=':',label='Own weighted95th percentile');joint.legend(fontsize=8)
 top.set(ylabel='Tail-bin mass');right.set(xlabel='Tail-bin mass')
 plt.setp(top.get_xticklabels(),visible=False);plt.setp(right.get_yticklabels(),visible=False)
-fig.suptitle('Alternative upper tail: own threshold %.3f trillion; unresolved high-warming tails'%threshold)
-for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/('coupled_coastal_tail_alternative.'+ext)),dpi=150,bbox_inches='tight')
+fig.suptitle('Alternative upper tail: own threshold %.3f trillion; unresolved high-warming tails'%threshold+('; HadCRUT5 climate' if had5 else ''))
+for ext in ('pdf','png'):fig.savefig(str(ROOT/'figures'/('coupled_coastal_tail_alternative'+suffix+'.'+ext)),dpi=150,bbox_inches='tight')
 plt.close(fig)
 cpi=json.loads((ROOT/'results/price_basis_audit.json').read_text())
 factor=cpi['factor_2019_to_2010_price_basis']
@@ -134,7 +145,7 @@ audit=dict(scope='NON-REPRODUCTION: alternative emissions/calibration, uniformSL
     maximum_global_relative_sampling_SE=float(np.max(g['sampling_SE_USD2019PPP']/g['incremental_NPV_USD2019PPP'])),
     minimum_conditional_ESS=min(x['conditional_ESS'] for x in summaries),
     target_comparison='W25 printed medians1.2/1.5/2.1/2.6 trillion2010USD use different2010–2150 horizon, baseline and monetary data; no matching claim',
-    tail_caution='The >3.5C category has only5 members and ESS4.23; conditional5th/95th percentiles are unresolved',
+    tail_caution='The >3.5C category has %d members; conditional percentile precision is limited by finite weighted sampling'%int(np.sum(g['warming_bin']==4)),
     sampling_caution='Coast draws are shared across all climate members; conditional numerical errors are correlated and not included in climate percentile bars')
-(ROOT/'results/coastal_coupled_assessment.json').write_text(json.dumps(audit,indent=2,sort_keys=True)+'\n')
+(ROOT/('results/'+result_name('coastal_coupled_assessment.json'))).write_text(json.dumps(audit,indent=2,sort_keys=True)+'\n')
 print(json.dumps(audit,indent=2,sort_keys=True))

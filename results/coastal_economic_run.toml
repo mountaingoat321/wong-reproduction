@@ -1,0 +1,11 @@
+economic_draws = 16
+draws_per_region = 4
+assumptions = "Independent six marginal truncated normals; movefactor/VSL direct; dvbm scales existing land values relative5.376; wetland elasticities perturb post2010 income/density growth relative provider baseline; initial wetland values unchanged"
+completed = true
+wall_seconds = 389.6021959781647
+scope = "NON-REPRODUCTION: independent marginal socioeconomic priors; fixed six purpose paths and alternative geography"
+purpose_paths = 6
+maximum_central_recovery_relative_difference = 2.1659679857951102e-15
+unique_coasts = 31
+raw_cases = ".local/coastal_economic_cases.csv"
+seed = 20251047

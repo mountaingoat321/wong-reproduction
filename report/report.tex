@@ -24,14 +24,18 @@ A temperature-only calibration passes sampling diagnostics but fails held-out
 observations. Joint temperature--heat calibration improves prediction, and
 substituting the documented HadCRUT5 version raises median SSP2-4.5 warming
 from 1.97 to 2.22 K; the result remains below the AR6 assessment.
-Restricted carbon fits expose a conflict between early and modern CO$_2$
-constraints rather than resolving it. A 250-member emissions-driven alternative
-now propagates through sea-level components and sampled coastal costs.
+Carbon fits are audited for optimization and predictive error separately.
+Three 250-member emissions-driven alternatives propagate through sea-level
+components, and the base alternative reaches sampled coastal costs.
 Its warming-conditioned median incremental costs span 0.208--1.217 trillion
 2019 USD PPP under annual 2010--2100 accounting. The regional ranking differs
 from the target's written findings, and the highest warming category contains
 only five members. Numerical coast-sampling errors and alternative closure
-sensitivities are reported separately from climate variation.
+sensitivities are reported separately from climate variation. Independent
+economic marginal draws change paired costs by $-35$\% to $+85$\% across six
+purposive paths. The historical heat-constrained sea-level sum rises at about
+2.03--2.05 mm/year, compared with 2.60 mm/year in the observational record;
+that dependent consistency check is not independent validation.
 None of the thirteen numerical target figures is established as independently
 reproduced: the target joint probability model, geographic inputs and accounting
 remain unmatched. The original workflow schematic, verified mechanisms,
@@ -191,6 +195,19 @@ kg\,m$^{-3}$\,K$^{-1}$, dimensional mass and heat accounting gives
 $k_H=\alpha_\rho/(A C_p\rho^2)$. This is a dimensional derivation, not recovery
 of a calibrated numerical coefficient. Supplying a conventional volumetric
 coefficient in K$^{-1}$ in that expression would be a unit error.
+
+The cited physical reference supplies spatial ocean averages, rather than the
+missing calibrated prior. Roquet et al.\ Table 1 \cite{roquet} gives density
+expansion coefficients of 0.16, 0.18, 0.24 and 0.05 kg\,m$^{-3}$\,K$^{-1}$
+for the global ocean, horizontal-density-gradient-weighted ocean, surface and
+polar surface, respectively. With explicitly assumed $A=3.62\times10^{14}$
+m$^2$, $\rho=1030$ kg\,m$^{-3}$ and conservative-temperature heat capacity
+$3991.87$ J\,kg$^{-1}$\,K$^{-1}$, our empirical 2000 m heat-to-sea-level fit
+corresponds to about 0.170 kg\,m$^{-3}$\,K$^{-1}$. That dimensional comparison
+does not establish a full-depth global response: the effective coefficient
+depends on where heat enters the ocean. The table's spatial variability is
+not treated as a Gaussian uncertainty on a global mean, and no new prior or
+sea-level correction is inferred from it.
 
 The documented Antarctic ocean-temperature transformation is
 \begin{equation}
@@ -572,6 +589,10 @@ or authorize treating this progress report as project completion.
 
 \clearpage
 \begin{thebibliography}{99}
+\bibitem{roquet} Roquet, F., Madec, G., Brodeau, L., and Nycander, J. (2015).
+Defining a simplified yet ``realistic'' equation of state for seawater.
+\emph{Journal of Physical Oceanography}, 45, 2564--2579.
+\href{https://doi.org/10.1175/JPO-D-15-0080.1}{doi:10.1175/JPO-D-15-0080.1}.
 \bibitem{wong2025} Wong, T. E., Dake, S., Feke, K., Darnell, C., and Srikrishnan, V.
 (2025). Coastal adaptation and damage costs at different global warming
 thresholds. \emph{npj Natural Hazards}, 2, 35.

@@ -516,3 +516,50 @@ observation/4000mDOECLIMheat assumption andnineparameterAR1calibration; the
 institutionalPDF is readable through the browser but directdownloadreturns403.
 No missing annualheat series is reconstructed from a plotted curve. Incidental
 code links in search results were discarded without opening or use.
+Checkpoint522e030pushedsuccessfully;privatevisibility andidenticallocal/remote
+masterhashverified. The52-pagePDFcompileswithoutLaTeXwarnings/overflow.
+Itsmanifestcontains393completecheckpointartifacts; runningHad5outputsandthe
+pendingcarbonretry areexcluded. Pre-stagereviewfoundnosecretpatterns,
+credentials,largeeligiblefilesoroutside-rootsymlinks among587eligiblefiles.
+A furtherprovidersearch forannualGK07heatreturnsWOCE/WAGHCclimatologies and
+otherperiod/depthproducts,notaverified1953–1996annualseries. These are not
+silently substituted. Theirrecoverability claim remains limited to thisaudit.
+HadCRUT5coupling completed250climatepaths(twoforcingrules) in585.4wallseconds
+includingcontrolledpauses, then2500sea-levelcases in60.8s. PilotCO2/Tstepchanges
+4.82e-4ppm/9.05e-6K andAIS2.45e-13m pass. Under50%eventweights medianwarming
+1.264→1.484K,medianSLR.232→.237m and95thSLR.641→.736m. Counts101/56/71/22
+andweights54.59/34.26/10.76/.393%. AnewHad5coastalpilot/full8drawextension is
+queued afterotherexperiments to propagate this consequentialinputchange.
+Theeconomicmarginal-prior extension completed3,162cases in389.6s,16drawsplus
+central acrosssixpurposepaths and31coasts. All68quadrature/policychecks pass;
+centralrecoveryrelativeerror2.17e-15. Pairedcostchangesrange−35.2%to+85.5%,
+withmedianpairedsamplingSE4.65–9.40%ofcentralcost. Figurevisuallyreviewed.
+Thelargestpurposivecost3.304T2019PPP isnotatargettailprobability or calibrated
+crediblebound. Temperature-onlypropagationhasstarted afterthisjobcompleted.
+
+- Further thermal-physics audit: V19's cited Roquet2015 Table1 recovered from
+  Southampton; 14,307,978-byte PDF hash recorded. Browser403 did not prevent
+  direct provider retrieval. Written spatial mean coefficients .16/.18/.24/.05
+  kg m^-3 K^-1 are distinct from a heat-weighted global prior. Added a dimensional
+  comparison, without changing trajectories. V20 written methods confirm staged
+  calibration/fingerprint roles but supply no missing arrays. Exact V19 SI
+  browser link still fails; no code or posterior links followed.
+- Completed temperature-only and HadCRUT5 climate/sea propagation passes pilot
+  time-step, mass and AIS checks. Added distribution and expert-density comparisons
+  to report; reviewed all four new climate/reference plots. Temperature-only
+  category resemblance is explicitly rejected as validation because holdouts fail.
+
+- Historical sea-level consistency: pilot18refinements passed (80/160cell
+  maximum.0001052476m;AIS10/5year3.098e-12m), then1500conditional hindcasts
+  completed in20.26s. Heat-constrained1990.5–2009.5mediantrends2.048/2.027mm/yr
+  versusChurchWhite2.602;temperature-only3.006. CenteredRMSE4.65/4.74/4.11mm.
+  Not independent validation: observations also enterAISforcing. Figure reviewed.
+  Initial Julia parse failure from ambiguous decimal broadcast spacing fixed
+  before pilot execution; no scientific output accepted from failed command.
+
+- Progress report built successfully in two LaTeX passes:56pages,472curated
+  artifacts checked. New climate/reference and historical-budget plots visually
+  reviewed, includingPDFpages30/41.658eligible files scanned; no credential
+  patterns, outside-root paths or oversized curated artifacts detected.
+  Had5coastal run remains active after its successful pilot; corrected carbon
+  audit follows. The updated full driver is not yet reported as executed.

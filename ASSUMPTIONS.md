@@ -322,8 +322,8 @@ post2010income/population growth elasticities relative to1.16/.47. Initial
 wetland values stay provider values. These relative perturbations are not an
 exact transfer of the target's2010USD valuation. Each draw reoptimizes its own
 no-rise baseline. A two-draw/two-path pilot passes doubled quadrature/policy
-checks and recovers central costs to1.3e-15relative; the16-draw extension is
-queued serially. Common coasts supply paired design errors.
+checks and recovers central costs to1.3e-15relative. The16-draw extension
+completed3,162cases and68policy/quadraturechecks; centralrecovery2.17e-15. Common coasts supply paired design errors.
 
 ## S081 — Conditional omission of the ocean-heat constraint
 An additional sensitivity propagates the already validated HadCRUT4 temperature-
@@ -332,7 +332,7 @@ This deliberately omits the alternative700mheat likelihood to measure its
 influence; it does not recover the target3000m likelihood or imply heat should
 be ignored scientifically. Whole posterior rows remain intact. The six available
 climate coordinates are stored without fabricated heat-error parameters.
-Pilots must pass the same mass/timestep/AIS criteria before250members run.
+Pilots passed the same mass/timestep/AIS criteria before250members ran; both forcing rules and five sea-level closures are complete.
 Comparisons are distributions, not matched physical posterior draws.
 
 ## S082 — Carbon optimizer diagnosis and nested-model check
@@ -353,3 +353,33 @@ January2005supplement remains a distinctvintage. The OP58conditionalfit uses the
 same explicitlyassumed1961origin,1961–1995training,1996–2003holdout and27point
 physicalgrid pertemperatureversion asS079; do not silently replacebaseposteriors.
 The record includes peripheral ice; overlapwithIMBIE is not resolved by sourcing.
+
+## S084 — Propagation of documented temperature vintage to coastal costs
+The fresh HadCRUT5/700mheat posterior produces22retainedwarmingstatesabove3.5K
+versusfiveunderHad4. Propagate its independentlycoupledsea-level trajectories
+through thecoastalmodel withSSP4,eightcommoncoastdrawsperregion and200-bin
+profiles after a newpurposepilot. Compareagainst theHad4eight-drawaggregate,
+not thehigher-resolution16drawestimate. Preservebasecostfiles unchanged.
+Theemissions andcoastdesignsmatch,butphysicalposteriorstatesare not paired.
+ThefixedHad4carbonhindcast,pointcarbon/AISfits,independentconditionalicemarginals,
+uniformsea-levelgeography,2019PPP andannual2010–2100accounting remain alternatives.
+No increase inhigh-binrawcount by itself establishesweightedtailconvergence.
+
+## S085 — Thermal coefficient dimensional context
+Roquet2015 Table1 supplies spatial density-expansion means, not the effective
+coefficient distribution used by V19. Compare our empirical k to alpha via
+alpha=k A Cp rho^2 using A=3.62e14 m2, rho=1030 kg/m3 and TEOS-10 conservative-
+temperature Cp=3991.867957 J/(kg K). Area/density are comparison assumptions.
+Do not assign Table1's spatial standard deviation to a global calibration,
+replace the depth-specific fitted response, or claim recovery of V19 SI.
+
+## S086 — Historical sea-level consistency diagnostic
+Sum saved conditional physical states over1990.5–2009.5, centered on separate
+model/observation1995.5–2004.5means. Annual states interpolate linearly to
+midpoints. HistoricalLWS=.3mm/year; ice is forced by knownHad4 temperatures,
+thermal response by each climate posterior and fixed2000m empirical coefficient.
+Both2000m and4057.5m heat depths are tested. Preserve prior-stratum weights and
+independent component marginals. ChurchWhite is already AIS boundary forcing,
+and empiricalthermal calibration uses data through2015: this is not an
+independentholdout. No residual trajectories, rejection weights or target joint
+posterior are inferred. Pilot18casespassesgrid/stepchecks before1500hindcasts.

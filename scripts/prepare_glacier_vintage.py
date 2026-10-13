@@ -14,6 +14,7 @@ path=ROOT/'.local/inputs/dyurgerov2005_global.xls'
 if not path.exists():
     path.parent.mkdir(parents=True,exist_ok=True)
     with urllib.request.urlopen(url,timeout=45) as r:path.write_bytes(r.read())
+assert hashlib.sha256(path.read_bytes()).hexdigest()=='f289a3f0630131d8483f5e6cc6ace757db84d455a9ab18af3b27052cac7217df', 'Original-provider workbook changed; review before extraction'
 book=xlrd.open_workbook(str(path));a=book.sheet_by_name('Sheet1');b=book.sheet_by_name('Sheet2')
 rows=[]
 for i in range(4,47):

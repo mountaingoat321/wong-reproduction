@@ -14,6 +14,7 @@ nice -n 19 julia --startup-file=no --history-file=no tests/runtests.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/recovered_models.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/climate_modes.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/carbon.jl
+nice -n 19 julia --startup-file=no --history-file=no tests/bounded_least_squares.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/coastal_paths.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/geographic_coasts.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/ice_models.jl
@@ -35,6 +36,8 @@ nice -n 19 julia --startup-file=no --history-file=no scripts/carbon_experiments.
 nice -n 19 julia --startup-file=no --history-file=no scripts/carbon_fit.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/coastal_experiments.jl
 nice -n 19 python3 scripts/thermal_observations.py
+nice -n 19 julia --startup-file=no --history-file=no scripts/sea_level_hindcast.jl --pilot
+nice -n 19 julia --startup-file=no --history-file=no scripts/sea_level_hindcast.jl
 nice -n 19 python3 scripts/audit_inputs.py
 nice -n 19 python3 scripts/assess_calibration.py
 nice -n 19 julia --startup-file=no --history-file=no scripts/climate_projections.jl
@@ -60,6 +63,7 @@ nice -n 19 python3 scripts/plot_observation_vintages.py
 nice -n 19 python3 scripts/plot_coastal_coupled.py
 nice -n 19 python3 scripts/coastal_accounting_sensitivity.py --from-saved
 nice -n 19 python3 scripts/emissions_inversion_sensitivity.py
+bash scripts/run_extension_analysis.sh --no-build
 nice -n 19 python3 scripts/report_tables.py
 nice -n 19 python3 scripts/extended_tables.py
 nice -n 19 python3 scripts/scenario_tables.py

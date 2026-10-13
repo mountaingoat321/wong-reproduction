@@ -1,0 +1,8 @@
+{
+  "cases": 1500,
+  "intervals": "Physical-parameter sample percentiles only; no residual error or observation error added",
+  "maximum_AIS_step_difference_m": 3.097966327914037e-12,
+  "maximum_grid_difference_m": 0.00010524760765501934,
+  "reference": "Separate1995.5\u20132004.5 model/observation means",
+  "scope": "Conditional historical consistency; ChurchWhite is also AIS boundary forcing; no independent holdout"
+}

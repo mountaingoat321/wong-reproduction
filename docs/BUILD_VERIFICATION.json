@@ -11,6 +11,17 @@
     "src/Reproduction.jl": "4b0ae09e718a351f41cd44154f8523417d7a1743f704604f0ad2212ed969906d",
     "tests/runtests.jl": "ba99eea328e9dfa09913d9813423b7f3f154d06370c8255422f73be083198be4"
   },
+  "climate_budget_checkpoint": {
+    "command": "Climate comparison plots; report tables; font subset; two pdfLaTeX passes; artifact check",
+    "curated_artifacts_checked": 472,
+    "exit_code": 0,
+    "historical_budget_cases": 1500,
+    "historical_budget_pilot_checks": 18,
+    "report_bytes": 4506766,
+    "report_pages": 56,
+    "review": "New climate and historical-budget figure pages visually reviewed; no layout overflow or undefined citations",
+    "scope": "Progress report; full updated run_all awaits active coastal and carbon experiments"
+  },
   "command": "bash scripts/run_all.sh",
   "continuation_checkpoint": {
     "command": "bash scripts/run_all.sh",

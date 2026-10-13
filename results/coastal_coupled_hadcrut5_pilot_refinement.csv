@@ -1,0 +1,13 @@
+sample,coast_id,country,relative_quadrature_difference,same_policy
+1,seg_03912,NLD,0.0,true
+1,seg_03984,DEU,1.9504797844148062e-16,true
+29,seg_03912,NLD,0.0,true
+29,seg_03984,DEU,0.0,true
+79,seg_03912,NLD,0.0,true
+79,seg_03984,DEU,0.0,true
+99,seg_03912,NLD,0.0,true
+99,seg_03984,DEU,0.0,true
+167,seg_03912,NLD,0.0,true
+167,seg_03984,DEU,0.0,true
+234,seg_03912,NLD,0.0,true
+234,seg_03984,DEU,0.0,true

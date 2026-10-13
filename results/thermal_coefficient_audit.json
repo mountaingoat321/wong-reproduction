@@ -1,0 +1,35 @@
+{
+  "assumed_area_m2": 362000000000000.0,
+  "assumed_density_kg_m3": 1030.0,
+  "caution": "Table spatial standard deviations are not uncertainty of a global heat-weighted response. No V19 prior bounds recovered; no field or figure digitization.",
+  "definition": "alpha_density=-d(rho)/d(ConservativeTemperature); k=alpha_density/(A*Cp*rho^2)",
+  "fitted_equivalent_alpha_kg_m3_K": {
+    "2000": 0.16967371279000412,
+    "700": 0.21339772885541564
+  },
+  "heat_capacity_J_kg_K": 3991.86795711963,
+  "scope": "Dimensional context only; no probability distribution or replacement of fitted coefficients",
+  "source": "Roquet et al.2015 Table1, doi:10.1175/JPO-D-15-0080.1",
+  "written_spatial_means": [
+    {
+      "alpha_kg_m3_K": 0.16,
+      "coefficient_m_J": 1.043664221582427e-25,
+      "spatial_average": "global"
+    },
+    {
+      "alpha_kg_m3_K": 0.18,
+      "coefficient_m_J": 1.17412224928023e-25,
+      "spatial_average": "density_gradient_weighted"
+    },
+    {
+      "alpha_kg_m3_K": 0.24,
+      "coefficient_m_J": 1.5654963323736402e-25,
+      "spatial_average": "surface"
+    },
+    {
+      "alpha_kg_m3_K": 0.05,
+      "coefficient_m_J": 3.261450692445084e-26,
+      "spatial_average": "polar_surface"
+    }
+  ]
+}

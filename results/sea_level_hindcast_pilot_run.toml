@@ -1,0 +1,10 @@
+AIS_refinement_m = 3.097966327914037e-12
+dependence = "ChurchWhite enters AIS boundary forcing; known observed Had4 forces ice; fixed AIS point fit; independent component marginals; heat coefficients estimated through2015; no independent holdout"
+pilot = true
+weights = "Saved prior emissions-stratum weights; no new calibration or rejection weighting"
+reference = "1995.5–2004.5 arithmetic mean, model and observations separately"
+heat_depth_note = "4057 label means4057.5m including57.5m mixed layer"
+scope = "NON-REPRODUCTION: conditional historical budget consistency,1990.5–2009.5"
+assumptions = "Midpoint linear interpolation; constant historical LWS .3mm/yr; peripheral-ice overlap retained; no stochastic residual trajectories or missing joint covariance invented"
+completed = true
+wall_seconds = 19.52517008781433

@@ -7,7 +7,9 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
 from coastal_sampling import total_with_control
 pilot='--pilot' in sys.argv
-prefix='coastal_coupled'+('_ssp2' if '--ssp2' in sys.argv else '')
+had5='--hadcrut5' in sys.argv
+sea_prefix='sea_level_stratified'+('_hadcrut5' if had5 else '')
+prefix='coastal_coupled'+('_hadcrut5' if had5 else '')+('_ssp2' if '--ssp2' in sys.argv else '')
 for flag,suffix in [('--horizon-freeze','_2150_freeze'),('--horizon-growth','_2150_growth'),('--geometric-economy','_geometric'),('--accounting','_accounting')]:
     if flag in sys.argv:prefix+=suffix
 prefix+='_pilot' if pilot else ''
@@ -41,7 +43,7 @@ for r in coast:aux_region[region(r['country'])]+=float(r['fine_migrants'])
 paths=read('.local/'+prefix+'_cases.csv')
 cases={(int(r['sample']),r['coast_id'],r['country']):r for r in paths}
 members=sorted(set(int(r['sample']) for r in paths))
-end={int(r['sample']):r for r in read('results/sea_level_stratified_endpoints.csv')
+end={int(r['sample']):r for r in read('results/'+sea_prefix+'_endpoints.csv')
      if r['forcing_rule']=='annual_nearest_emissions' and r['variant']=='fit512_shallow_iid'}
 global_rows=[];regional_rows=[]
 for member in members:

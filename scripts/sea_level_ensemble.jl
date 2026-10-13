@@ -11,8 +11,10 @@ end
 function main()
     pilot="--pilot" in ARGS;tail="--tail-stratified" in ARGS
     had5="--hadcrut5" in ARGS
+    temperature_only="--temperature-only" in ARGS
+    temperature_only && (!tail || had5) && error("Use --temperature-only with --tail-stratified, without --hadcrut5")
     had5 && !tail && error("The HadCRUT5 sensitivity uses --tail-stratified")
-    suffix=(tail ? "_stratified" : "")*(had5 ? "_hadcrut5" : "")*(pilot ? "_pilot" : "")
+    suffix=(tail ? "_stratified" : "")*(had5 ? "_hadcrut5" : "")*(temperature_only ? "_temperature_only" : "")*(pilot ? "_pilot" : "")
     prefix="sea_level"*suffix
     source="coupled_emissions"*suffix
     paths=readdlm(".local/"*source*"_paths.csv",',',Any;skipstart=1)
@@ -40,7 +42,7 @@ function main()
     coefficient=readdlm("results/thermal_observation_fit.csv",',',Float64;skipstart=1)[2,4]
     grid=vcat(2009.5,collect(2010.:2150.));reference=findfirst(==(2010.),grid)
     variants=["fit512_shallow_iid","fit64_shallow_iid","fit512_deep_iid","fit512_shallow_common","fit512_shallow_iid_lagged"]
-    weights=climate[:,13:15]
+    weights=climate[:,end-2:end]
     summaries=[];refinements=[];parameters=[]
     open(".local/"*prefix*"_paths.csv","w") do raw
     open("results/"*prefix*"_quantiles.csv","w") do qio
@@ -63,7 +65,7 @@ function main()
                     components[c]=[interpolate(yy,all,q) for q in grid]
                     components[c].-=components[c][1]
                 end
-                par=climate[j,4:12]
+                par=climate[j,4:9]
                 sys=M.climate_system(ecs=par[1],diffusivity=par[2],cells=80)
                 hist=M.climate_observables(sys,Float64.(history[:,3])+(par[3]-1)*Float64.(history[:,5]))
                 heat=Dict()

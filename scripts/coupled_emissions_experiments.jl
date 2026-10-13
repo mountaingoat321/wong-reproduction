@@ -6,10 +6,12 @@ function main()
     pilot="--pilot" in ARGS;perclass=pilot ? 4 : 128
     tail="--tail-stratified" in ARGS
     had5="--hadcrut5" in ARGS
+    temperature_only="--temperature-only" in ARGS
+    temperature_only && (!tail || had5) && error("Use --temperature-only with --tail-stratified, without --hadcrut5")
     had5 && !tail && error("The HadCRUT5 sensitivity uses --tail-stratified")
-    climate_stem=had5 ? "climate_hadcrut5" : "climate_joint"
+    climate_stem=temperature_only ? "climate" : had5 ? "climate_hadcrut5" : "climate_joint"
     substeps=tail ? 16 : 8
-    prefix="coupled_emissions"*(tail ? "_stratified" : "")*(had5 ? "_hadcrut5" : "")*(pilot ? "_pilot" : "")
+    prefix="coupled_emissions"*(tail ? "_stratified" : "")*(had5 ? "_hadcrut5" : "")*(temperature_only ? "_temperature_only" : "")*(pilot ? "_pilot" : "")
     seed=tail ? 20251043 : 20251040;rng=MersenneTwister(seed);started=time()
     @assert TOML.parsefile("results/"*climate_stem*"_mcmc_status.toml")["convergence_criteria_met"]
     draws=readdlm("results/emissions_alternative_samples.csv",',',Float64;skipstart=1)
@@ -42,7 +44,7 @@ function main()
     end
     posterior=readdlm("results/"*climate_stem*"_posterior.csv",',',Float64;skipstart=1)
     climate_indices=randperm(rng,size(posterior,1))[1:n]
-    theta=posterior[climate_indices,3:11]
+    theta=posterior[climate_indices,3:(temperature_only ? 8 : 11)]
     forcing=readdlm("inputs/ssp_forcing.csv",',',Any;skipstart=1)
     sspe=readdlm("inputs/ssp_emissions.csv",',',Any;skipstart=1)
     observations=readdlm("inputs/hadcrut4.csv",',',Float64;skipstart=1)
@@ -134,7 +136,9 @@ function main()
         end
     end
     save("_endpoints.csv","sample,forcing_rule,emission_sample,climate_posterior_row,cumulative2022_2100_GtCO2,temperature2100_K,temperature2081_2100_K,co2_2100_ppm,SSP_switches,max_mass_error_GtC,weight_prior,weight_budget50,weight_budget75",endpoints)
-    save("_parameters.csv","sample,emission_sample,climate_posterior_row,ecs_K,diffusivity_cm2_s,aerosol_scale,offset_K,innovation_sd_K,rho,heat_offset_1e22J,heat_innovation_sd_1e22J,heat_rho,weight_prior,weight_budget50,weight_budget75",selected_rows)
+    header="sample,emission_sample,climate_posterior_row,ecs_K,diffusivity_cm2_s,aerosol_scale,offset_K,innovation_sd_K,rho"
+    temperature_only || (header*=",heat_offset_1e22J,heat_innovation_sd_1e22J,heat_rho")
+    save("_parameters.csv",header*",weight_prior,weight_budget50,weight_budget75",selected_rows)
     if pilot;save("_refinement.csv","sample,forcing_rule,max_mass_error_GtC,max_temperature_substep_difference_K,max_co2_substep_difference_ppm",checks);end
     open("results/"*prefix*"_run.toml","w") do io
         TOML.print(io,Dict("seed"=>seed,"members"=>n,"wall_seconds"=>time()-started,"carbon_beta"=>fitted,

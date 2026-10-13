@@ -43,3 +43,42 @@ source hashes, review record, and repeated-run checks. A previous wrapper's
 termination status despite a complete build log was resolved by this explicit
 exit-code capture; it was not treated as a successful process exit without
 verification.
+
+## Continuing coupled and observation-version experiments
+
+The early build and dependency statements above are historical records. The
+expanded base driver later passed 372 Julia assertions and nine Python checks;
+three expert-inversion checks and six bounded-optimizer assertions now pass
+separately. The complete extension build is pending its remaining serial runs.
+The new checks distinguish finite-population estimator identities, physical
+integration accuracy and observed predictive skill. Each is reported separately.
+
+The HadCRUT5 climate extension passes 16 pilot mass/time-step comparisons and
+80 Antarctic comparisons, then completes 250 paths and 2,500 sea-level cases.
+SSP2 extends the coastal calculation by 14,750 cases; its 250 regional/global
+cost and variance closures pass, as do the nested four/eight-draw aggregates.
+Five additional coastal sensitivity pilots pass 60 policy/quadrature comparisons.
+Two glacier-record versions each have 54 conditional fits and a noise-free
+scalar recovery check; the OP58 source table is checked against its rounded
+annual/cumulative identity and written averages.
+
+Raw observational spreadsheet preparation uses project-local xlrd2.0.1; original
+SLIIDERS chunk decoding uses project-local numcodecs0.9.1. No system installation
+changed. Curated CSV analysis and the offline report build require neither raw
+input dependency. Numeric libraries remain limited to one thread at nice19.
+
+- Historical sea-level consistency: pilot18refinements passed (80/160cell
+  maximum.0001052476m;AIS10/5year3.098e-12m), then1500conditional hindcasts
+  completed in20.26s. Heat-constrained1990.5–2009.5mediantrends2.048/2.027mm/yr
+  versusChurchWhite2.602;temperature-only3.006. CenteredRMSE4.65/4.74/4.11mm.
+  Not independent validation: observations also enterAISforcing. Figure reviewed.
+  Initial Julia parse failure from ambiguous decimal broadcast spacing fixed
+  before pilot execution; no scientific output accepted from failed command.
+
+- Completed economic sensitivity: 16 marginal draws plus central, six purpose
+  paths and31coasts;3162cases,68quadrature/policy checks. Central-value recovery
+  2.17e-15relative. Paired costs change−35.19%to+85.45%,notcrediblelimits.
+- Three250memberclimate alternatives and four expert densities compared from
+  curated independent outputs. Had5 and noheat step/mass/AIS criteria pass;
+  own1995–2014reference offsets close below1e-12m. Noheat predictive calibration
+  failures remain disqualifying for a preferred target calibration.

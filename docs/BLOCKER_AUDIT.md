@@ -85,3 +85,16 @@ the earlier blanket access claim. The NSIDC January2005record is a different
 vintage. Both conditionalfits are now executed; OP58withheldRMSE .400/.412mm/yr
 versustrend.578. NoannualSD column or targetprocessed-observation mapping was
 recovered; peripheral-iceoverlap andjointlikelihood remain substantive questions.
+
+## Thermal-coefficient reference audit
+V19's main text identifies Roquet et al.2015 Table1 as the physical basis for
+its expansion prior. The cited paper was acquired from the Southampton
+institutional repository, despite a browser403. Its global, density-gradient-
+weighted, surface and polar-surface mean density coefficients are .16/.18/.24/.05
+kg m^-3 K^-1. These spatial means and their spread do not uniquely specify an
+effective heat-weighted global prior. The dimensional audit uses explicitly
+assumed ocean area/density and TEOS-10 heat capacity; it changes no trajectories.
+The exact V19 supplementary DOCX still fails to open. V20's written methods
+(doi:10.1029/2019GL085792, Sections2.2–2.4) confirm the staged calibration and
+uniform thermal/LWS spatial treatment, but do not supply missing prior bounds
+or target fingerprint arrays. No linked code or posterior files were opened.
