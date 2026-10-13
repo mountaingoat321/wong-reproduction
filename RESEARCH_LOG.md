@@ -1,5 +1,31 @@
 # Research and AI reconstruction log
 
+## Continued execution and first recovery checkpoint, 2026-10-12
+
+The user rejected treating the initial assessment as completion. Reread the task,
+project/upstream instructions, style guide, full figure inventory and existing PDF.
+Audited earlier blockers in docs/BLOCKER_AUDIT.md. The earlier search was
+insufficient: the complete W22 arXiv preprint includes the missing academic SI,
+and Tanaka's thesis supplies DOECLIM equations/constants. Software sections were
+skipped. Independent code now couples land/sea/interior heat and evolves DAIS
+radius, with derived sign/unit corrections separated from printed specifications.
+
+All 65 new assertions pass. Four initial failures were reference-check issues:
+floating equality, cancellation when differencing approximately 1e16 m³ volumes
+at a zero derivative, and slow quadrature convergence at a square-root endpoint.
+BigFloat differences and an endpoint-removing variable substitution resolve them
+without loosening scientific criteria. A diagnostic script syntax error was
+corrected before its successful run. Saved sensitivity results are
+non-reproductions. The DAIS equilibrium differs by 0.0193% from S14's rounded
+printed volume. Its discontinuous paper runoff gate produces irregular time
+convergence across activation; this remains an event-handling issue to resolve.
+
+Independent SSP concentration/forcing inputs and HadCRUT4 observations are now
+cached with hashes for calibration experiments. The 1987 carbon methods paper
+also supplies the land reservoir sizes and transfer fluxes in its parameter
+schematic; these are written model specifications, not digitized output curves.
+No target numerical figure is promoted on the strength of these component tests.
+
 ## 2026-10-12 — Authorization and scientific recovery
 
 Read all 513 lines of RESEARCH_TASK.md, applicable instructions, and the academic

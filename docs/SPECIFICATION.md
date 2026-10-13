@@ -9,12 +9,18 @@ methods, not recovered from software. Source IDs refer to SOURCES.csv.
 
 ## Scope and identifiability
 
+**Continuation update:** the initial feasibility decision below is historical.
+[RECOVERED_SPECIFICATIONS.md](RECOVERED_SPECIFICATIONS.md) and
+[BLOCKER_AUDIT.md](BLOCKER_AUDIT.md) supersede recovered blockers, including the
+DOECLIM closure, DAIS dynamics, adaptation menu, one-year hazard convention and
+six socioeconomic priors. Transparent alternative experiments are now in progress.
+
 The requested observable is a probability distribution of coastal costs conditional
 on warming, not a single deterministic trajectory. Recovering a response equation
 does not recover its calibrated joint parameter distribution. A replacement prior,
 an arbitrary modern dataset, or independent sampling of posterior marginal
 quantiles would define a different experiment. No such substitution is authorized
-by the scientific evidence. No complete target ensemble will be generated until
+by the scientific evidence. No complete target ensemble will be claimed until
 the missing inputs and calibration are resolved.
 
 ### Interfaces, parameters, conditions, and coverage

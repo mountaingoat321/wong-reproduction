@@ -20,6 +20,13 @@ reproduction. Manufactured verification cases are never presented as global
 projections. Published Table 1 counts are used only in a separate arithmetic audit.
 See the [complete figure and panel register](docs/FIGURE_STATUS.csv).
 
+**Active continuation:** the earlier report is an initial assessment, not a
+completed project. The [blocker audit](docs/BLOCKER_AUDIT.md) and
+[new specification recovery](docs/RECOVERED_SPECIFICATIONS.md) supersede several
+earlier gaps. A coupled DOECLIM solver, geometric Antarctic dynamics and the
+recovered socioeconomic priors/menu now have 65 additional passing assertions.
+The report and end-to-end driver will be updated with the ongoing experiments.
+
 ## Rebuild
 
 All project writes must remain inside **`/data/data2/ludtke/wong-reproduction`**.

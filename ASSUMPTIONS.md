@@ -55,3 +55,19 @@ entries supersede their unresolved scope where stated; remaining gaps are explic
 | S019 | Accounting interpretation | D16 mobile capital=.25, immobile=.75; apply relocation/demolition fractions to the corresponding share. W25 reactive relocation multiplier5. Positive new inundated/retreated area must be supplied; no hidden negative-area clipping. |
 | S020 | Scope limit | No complete independently calibrated climate-to-cost ensemble exists. All 13 numerical figures and modeled Table 1 remain not reproduced. Figure 4 is conceptual. Diagnostic figures and a printed-table arithmetic check are separate deliverables. |
 | S021 | Observable convention | Reference windows require complete annual coverage. Do not rebase an incomplete series or compare GIC temperature1850–1870 to GMST1850–1900 without an explicit transformation. |
+
+## Continued execution — 2026-10-12
+
+S020 describes the initial checkpoint, not authorization to conclude. The user
+explicitly requested continued implementation and defensible alternative experiments.
+
+| ID | Status/type | Evidence, decision, test and consequence |
+|---|---|---|
+| S022 | Recovered specification | T08 ch2.3/Table2.3 resolves DOECLIM fixed constants and feedback/exchange relations. RecoveredModels.jl implements coupled land, surface and diffusive interior ocean. |
+| S023 | Numerical choice | Conservative finite volumes and Crank–Nicolson replace the published diffusion series. Equilibrium ECS and global heat accounting are verified; cell and time refinement recorded separately. |
+| S024 | Observable limitation | Effective 60 m mixed heat capacity includes atmospheric heat. Report heat proxy and sensitivity to 57.5 m actual-water depth; do not call it the exact target OHC product. |
+| S025 | Mathematical derivation | S14 water-depth sign and mu/flow0 units corrected from geometry/dimensions; Eq13 differentiated directly. Eq13 volume and paper runoff gate retained. Local-height runoff rule is a labeled alternative. Details in RECOVERED_SPECIFICATIONS.md. |
+| S026 | Recovered specification | W22P TextS2/S3 and TableS1 resolve the adaptation menu, one-year tide convention, initial-cost subtraction and six truncated-normal priors. Gaussian means are not truncated distribution means. |
+| S027 | Recovered specification | W22 main section2.1.1 explicitly fixes strategy and nominal return level after choosing the first-period minimum NPV; heights/retreat thresholds update later. This resolves the earlier S016 ambiguity for the documented W22 convention inherited by W25. |
+| S028 | Permitted external inputs | Official SSP concentration tables, CEDA/IPCC radiative forcing inputs and MetOffice HadCRUT4 observations acquired independently. These are exogenous inputs; target-author outputs remain excluded. Vintages and hashes in EXTERNAL_INPUTS.csv. |
+| S029 | Alternative initialization | DAIS present-day equilibrium and prescribed Antarctic warming isolate physical responses; they replace neither the original paleo spin-up nor the calibrated ensemble. |

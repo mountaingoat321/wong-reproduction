@@ -1,0 +1,5 @@
+relative_volume_discrepancy = 0.00019327913592892543
+scope = "Methodological benchmark and sensitivity experiments; not Wong2025 numerical reproduction"
+shaffer2014_printed_volume_m3 = 2.478e16
+dais_equilibrium_volume_m3 = 2.478478945698832e16
+dais_equilibrium_radius_m = 1.8637760208950639e6
