@@ -12,6 +12,12 @@ assert len({(r['figure'],r['panel']) for r in status}) == 19
 assert all(r['status'] in {'Independently reproduced','Partially reproduced',
                           'Not reproduced','Conceptual schematic'} for r in status)
 assert sum(r['status'] == 'Conceptual schematic' for r in status) == 1
+for row in status:
+    for column in ['alternative_results', 'alternative_figure']:
+        for name in row[column].split(';'):
+            name = name.strip()
+            if name.startswith(('results/', 'figures/')):
+                assert (ROOT / name).is_file(), name
 pdf = ROOT / 'report' / 'report.pdf'
 assert pdf.read_bytes().startswith(b'%PDF') and pdf.stat().st_size > 10000
 log = (ROOT / 'report' / 'report.log').read_text(errors='replace')
@@ -27,6 +33,13 @@ manifest = {}
 for path in artifacts:
     assert str(path.resolve()).startswith(str(ROOT) + '/')
     assert 0 < path.stat().st_size < (10_000_000 if path == pdf else 5_000_000)
+    # Canonical newline convention for curated text and their Git checksums.
+    # Run only after numerical writers have finished; values are unchanged.
+    if path.suffix == '.csv':
+        original = path.read_bytes()
+        canonical = original.replace(b'\r\n', b'\n')
+        if canonical != original:
+            path.write_bytes(canonical)
     manifest[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
 (ROOT / 'results' / 'artifact_sha256.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
 print('Verified {} curated artifacts and all19 target status entries.'.format(len(artifacts)))

@@ -48,7 +48,7 @@ function main()
         "trapezoid_budget_class_changes"=>count((trap.<=1223).!=within),
         "effective_weighted_sample_sizes"=>[1/sum(abs2,weights[:,j]) for j in 1:3],
         "budget_probabilities"=>[sum(weights[within,j]) for j in 1:3],
-        "missing"=>"Expert likelihood density and SSP4-6.0 mode not recovered or imposed; no negative emissions in recurrence")
+        "missing"=>"The complete target expert PDF remains unspecified. This entropy-weighting experiment does not impose the SSP4-6.0 conditional mode; the separate inversion sensitivity uses the recovered likelihood and mode with assumed PDF families. No negative emissions in recurrence.")
     open("results/emissions_design_audit.toml","w") do io;TOML.print(io,audit);end
     println(audit)
 end

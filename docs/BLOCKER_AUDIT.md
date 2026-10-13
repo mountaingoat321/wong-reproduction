@@ -98,3 +98,37 @@ The exact V19 supplementary DOCX still fails to open. V20's written methods
 (doi:10.1029/2019GL085792, Sections2.2–2.4) confirm the staged calibration and
 uniform thermal/LWS spatial treatment, but do not supply missing prior bounds
 or target fingerprint arrays. No linked code or posterior files were opened.
+
+## Final source cross-check in this continuation
+A renewed publisher search for DOI10.1029/2018EF001082 still identifies the
+written SI as `eft2550-sup-0001-2018EF001082-SI.docx`, without recovering it.
+The readable main text supplies staged calibration and residual handling, not
+the missing numerical prior table. A renewed GK07/U14 observational search
+again identifies the stated depth/time window but no verified annual original-
+provider series. Darnell2023 AppendixB documents sampling and GSA perturbations;
+it does not supply the needed thermal-prior or observation mapping. Written
+posterior figures were not digitized or used to set parameters. These checks
+leave specific inputs unrecovered; they do not establish that recovery is
+impossible or that independent implementation should have been abandoned.
+
+## Carbon numerical and predictive audit outcome
+The initial line-search failure and subsequent100-iteration damped pilot are
+preserved as computational failures. A generic SciPy1.5.4 bounded solver then
+completes twelve searches using unchanged independent Julia residuals. The
+selected free fits improve each nested training objective; held-out RMSE is
+0.858/6.193/4.330ppm for Had4MLO/Had4combined/Had5combined. All twelve
+solutions pass objective replay, bisection/Newton agreement and step refinement.
+A near-optimal second Had4 basin predicts196.95 instead of94.42GtC ocean
+uptake. The remaining discrepancy is not excused as an unavailable equation
+or resolved by freeing parameters. Observation mapping, initial-state and
+likelihood choices remain explicit scientific limitations.
+
+## Verified continuation checkpoint,13 October2026
+The expanded offline driver passes486 Julia assertions and12 Python checks,
+rechecks all completed extension results, and builds the61-page PDF. All533
+curated artifacts and19 inventory entries pass integrity checks. A stale
+metadata sentence in the older entropy-weighting experiment was corrected to
+distinguish the now-recovered inversion likelihood/mode from the unknown
+full target PDF. Its two regenerated numerical CSV hashes are unchanged.
+This supersedes the earlier372-assertion build record, without promoting
+alternative results or dependent checks to target validation.

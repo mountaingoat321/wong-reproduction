@@ -1,0 +1,64 @@
+{
+  "caution": "Four starts do not prove global optimality. Ocean benchmark has a different preindustrial reference; agreement is contextual. New fits do not replace the base coupled carbon point fit.",
+  "free_boundary_cases": [
+    "HadCRUT4_MLO_only"
+  ],
+  "free_holdout_RMSE_ppm": {
+    "HadCRUT4_MLO_only": 0.8580884193439139,
+    "HadCRUT4_joint": 6.1929714751382905,
+    "HadCRUT5_joint": 4.330452429815056
+  },
+  "free_ocean1994_GtC": {
+    "HadCRUT4_MLO_only": 143.1607841739955,
+    "HadCRUT4_joint": 94.4167950075417,
+    "HadCRUT5_joint": 78.31896993295511
+  },
+  "local_objective_ranges": {
+    "HadCRUT4_MLO_only": [
+      0.4219319730521398,
+      0.4219319730527548
+    ],
+    "HadCRUT4_joint": [
+      10.061295066991518,
+      10.080460679819524
+    ],
+    "HadCRUT5_joint": [
+      9.510589335349609,
+      9.510589335744216
+    ]
+  },
+  "max_fitted_chemistry_solver_difference_ppm": 1.0413714335300028e-10,
+  "max_fitted_substep_difference_ppm": 0.00019035913697962314,
+  "max_projected_gradient": 0.00015464064937020794,
+  "max_scaled_gradient": 3.804021496626685e-05,
+  "optimizer_stop_reasons": {
+    "HadCRUT4_MLO_only start1": "scipy_objective",
+    "HadCRUT4_MLO_only start2": "scipy_objective",
+    "HadCRUT4_MLO_only start3": "scipy_objective",
+    "HadCRUT4_MLO_only start4": "scipy_objective",
+    "HadCRUT4_joint start1": "scipy_objective",
+    "HadCRUT4_joint start2": "scipy_objective",
+    "HadCRUT4_joint start3": "scipy_objective_and_step",
+    "HadCRUT4_joint start4": "scipy_objective",
+    "HadCRUT5_joint start1": "scipy_objective",
+    "HadCRUT5_joint start2": "scipy_objective",
+    "HadCRUT5_joint start3": "scipy_objective",
+    "HadCRUT5_joint start4": "scipy_objective"
+  },
+  "restricted_solver_objective_improvement": {
+    "HadCRUT4_MLO_only": 0.0010798259651206843,
+    "HadCRUT4_joint": 4.9469761620457575e-11,
+    "HadCRUT5_joint": -1.978861519091879e-12
+  },
+  "revised_restricted_holdout_RMSE_ppm": {
+    "HadCRUT4_MLO_only": 1.7380724521801618,
+    "HadCRUT4_joint": 4.58938714809973,
+    "HadCRUT5_joint": 4.185088237666494
+  },
+  "scope": "NON-REPRODUCTION: conditional point fits, equal group mean-square objective, no posterior or age convolution",
+  "training_objective_improvement": {
+    "HadCRUT4_MLO_only": 0.05955871163819787,
+    "HadCRUT4_joint": 0.43615624078872095,
+    "HadCRUT5_joint": 0.04532317228195559
+  }
+}

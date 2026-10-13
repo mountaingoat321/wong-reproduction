@@ -1,0 +1,11 @@
+{
+  "completed_replacement": "SciPy1.5.4:3 restricted fits, free pilot,12 four-start searches; no evaluation-limit stops. All nested objectives and12 trajectory replays pass; predictive errors and local basin differences are retained.",
+  "corrected_bisection_pilot": "Stopped after about14 minutes without completing its free fit; restricted fits completed and preserved as carbon_vintage_revised_bisection_*.",
+  "failed_original_search": "Preserved as carbon_vintage_free_failed_linesearch_*; nested-model comparison failed.",
+  "fast_damped_pilot": "Completed100iterations but unconverged: objective10.0613225, projected gradient.0437047. Preserved under carbon_vintage_free_unconverged_pilot_*; full search interrupted before completed cases.",
+  "full_search_wall_seconds": 202.31816697120667,
+  "interruption_reason": "Verified same-equation safeguarded Newton benchmark reduced evaluation runtime about7-fold; no accepted free fit was discarded.",
+  "pilot_wall_seconds": 35.603545904159546,
+  "trace_change": "Ten-iteration logging added; no change to least-squares steps or scientific objective.",
+  "verification": "102 assertions, historical CO2 difference7.43e-11ppm; algebraic alkalinity equation unchanged."
+}

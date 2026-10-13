@@ -326,24 +326,27 @@ checks and recovers central costs to1.3e-15relative. The16-draw extension
 completed3,162cases and68policy/quadraturechecks; centralrecovery2.17e-15. Common coasts supply paired design errors.
 
 ## S081 — Conditional omission of the ocean-heat constraint
-An additional sensitivity propagates the already validated HadCRUT4 temperature-
-only calibration through the same tail-stratified emissions and sea-level chain.
-This deliberately omits the alternative700mheat likelihood to measure its
-influence; it does not recover the target3000m likelihood or imply heat should
-be ignored scientifically. Whole posterior rows remain intact. The six available
-climate coordinates are stored without fabricated heat-error parameters.
-Pilots passed the same mass/timestep/AIS criteria before250members ran; both forcing rules and five sea-level closures are complete.
-Comparisons are distributions, not matched physical posterior draws.
+The HadCRUT4 temperature-only calibration passes sampler diagnostics but fails
+predictive temperature and heat checks. Its propagation through the same
+250-state emissions design tests the influence of the alternative 700 m heat
+likelihood; it neither recovers the target 3000 m likelihood nor implies that
+heat observations should be ignored. Whole posterior rows remain intact, with
+six available climate coordinates and no fabricated heat-error parameters.
+Pilots passed the same mass, time-step and Antarctic criteria before all 250
+members, both forcing rules and five sea-level closures ran. Comparisons concern
+distributions, not matched physical posterior draws.
 
 ## S082 — Carbon optimizer diagnosis and nested-model check
-The first free-physics Gauss–Newton search could reject every clipped step and
-stop prematurely. Its inferior training objective is computational failure.
-Preserve it separately. Use adaptive diagonal damping, an active bound set,
-a0.25unit-box maximumstep, and backtracking; report projectedgradient/stopreason.
-Add the restrictedfit as a fourth starting point and require the retained
-objective to be no worse. Multi-startconditional fits still do not prove a
-global optimum or supply posterior uncertainty. This algorithm change follows
-an internal nested-model inconsistency, not agreement with the target figure.
+The first free-physics Gauss–Newton search rejected every clipped step and
+stopped prematurely in some cases. Its inferior training objective is a
+computational failure; the results are preserved separately. The revised solver
+uses adaptive diagonal damping, an active bound set, a maximum step of 0.25 in
+unit-box coordinates, and backtracking. It records projected gradients and stop
+reasons. First re-audit the restricted fits with the same corrected solver;
+then include each as a fourth starting point in the free fit and require the
+retained objective to be no worse. Multiple starts do not prove global
+optimality or supply posterior uncertainty. This algorithm change follows an
+internal inconsistency, not agreement with a target figure.
 
 ## S083 — Recovered OP58 printed glacier observations
 The correctly capitalized institutional URL now supplies thecited2005report.
@@ -363,23 +366,62 @@ not thehigher-resolution16drawestimate. Preservebasecostfiles unchanged.
 Theemissions andcoastdesignsmatch,butphysicalposteriorstatesare not paired.
 ThefixedHad4carbonhindcast,pointcarbon/AISfits,independentconditionalicemarginals,
 uniformsea-levelgeography,2019PPP andannual2010–2100accounting remain alternatives.
-No increase inhigh-binrawcount by itself establishesweightedtailconvergence.
+The pilot and full14,750cases completed. High-bin effective size is13.61 under event50weights. Increased raw count does not establish tail convergence.
 
 ## S085 — Thermal coefficient dimensional context
-Roquet2015 Table1 supplies spatial density-expansion means, not the effective
-coefficient distribution used by V19. Compare our empirical k to alpha via
-alpha=k A Cp rho^2 using A=3.62e14 m2, rho=1030 kg/m3 and TEOS-10 conservative-
-temperature Cp=3991.867957 J/(kg K). Area/density are comparison assumptions.
-Do not assign Table1's spatial standard deviation to a global calibration,
-replace the depth-specific fitted response, or claim recovery of V19 SI.
+Roquet (2015), Table 1, supplies spatial density-expansion means, not the
+effective coefficient distribution used by V19. Compare the empirical k to
+alpha through alpha = k A Cp rho², using A = 3.62e14 m², rho = 1030 kg/m³ and
+TEOS-10 conservative-temperature Cp = 3991.867957 J/(kg K). Area and density
+are comparison assumptions. Do not assign the table's spatial variability to
+a global calibration, replace the depth-specific fitted response, or claim
+recovery of the V19 supplement.
 
 ## S086 — Historical sea-level consistency diagnostic
-Sum saved conditional physical states over1990.5–2009.5, centered on separate
-model/observation1995.5–2004.5means. Annual states interpolate linearly to
-midpoints. HistoricalLWS=.3mm/year; ice is forced by knownHad4 temperatures,
-thermal response by each climate posterior and fixed2000m empirical coefficient.
-Both2000m and4057.5m heat depths are tested. Preserve prior-stratum weights and
-independent component marginals. ChurchWhite is already AIS boundary forcing,
-and empiricalthermal calibration uses data through2015: this is not an
-independentholdout. No residual trajectories, rejection weights or target joint
-posterior are inferred. Pilot18casespassesgrid/stepchecks before1500hindcasts.
+Sum saved conditional physical states over 1990.5–2009.5, centered on separate
+model and observation means for 1995.5–2004.5. Interpolate annual states linearly
+to year midpoints. Historical land-water storage is 0.3 mm/year. Known HadCRUT4
+temperatures force ice; each climate posterior and the fixed empirical 2000 m
+coefficient supply the thermal response. Test both 2000 m and 4057.5 m heat
+depths. Preserve prior-stratum weights and independently paired component
+marginals. Church–White observations already supply the Antarctic boundary
+forcing, and the thermal fit uses data through 2015, so this is not an
+independent holdout. Do not infer residual trajectories, rejection weights or
+a target joint posterior. Eighteen pilot grid/step comparisons passed before
+1,500 conditional hindcasts were executed.
+
+## S087 — HadCRUT5 finite-ensemble sampling sensitivity
+Repeat 500 subsamples using seed 20251048. Select 80% without replacement in
+each emissions stratum, then rescale retained weights to preserve stratum mass.
+Separately select sixteen distinct members per warming category and retain
+relative within-category weights. Coastal estimates remain fixed. These are
+finite retained-state experiments, not independent climate realizations or
+confidence intervals for population quantiles. All categories have at least
+22 members; unlike the older equal-five experiment, highest-bin membership
+varies here. Record upper-tail sensitivity rather than asserting convergence.
+
+## S088 — Equivalent carbonate root solution for calibration
+An optional safeguarded Newton iteration solves the existing constant-alkalinity
+and total-carbon equations in log hydrogen, using their analytic derivative.
+Use the same1e-11–1e-5mol/L bracket and require an alkalinity residual below
+1e-16mol/L. Rejected Newton steps fall back to bracket bisection. No physical
+coefficient or stock equation changes; bisection remains the model default.
+102 comparisons cover32 isolated roots and three historical trajectories,
+including near-extreme parameter cases. The central172-year benchmark differs
+by7.43e-11ppm and3.28e-11GtC, with about sevenfold local speedup. These are
+mathematically derived numerical choices, not additional scientific assumptions.
+The unfinished bisection free-fit pilot was interrupted after verification;
+its completed restricted fits and log are preserved.
+
+## S089 — Independent scientific residuals with a general numerical solver
+The native bounded Gauss–Newton pilot reaches100iterations and retains a
+projected gradient0.0437; toy and noise-free successes do not establish its
+convergence on real observations. Preserve it as unconverged. Use installed
+SciPy1.5.4 trust-region reflective least squares through a text pipe, leaving
+all scientific equations and observation mappings in Julia. Three-point
+finite differences use relative step1e-4, Jacobian coordinate scaling and
+ftol/xtol/gtol1e-10, with a400-nfev limit. Record total residual evaluations
+separately because SciPy nfev excludes Jacobian calls. Recheck analytical
+bounds, synthetic recovery and the nested objective; reject evaluation-limit
+results. Multiple starts and small numerical error still do not establish
+parameter identification, a global optimum or target posterior recovery.

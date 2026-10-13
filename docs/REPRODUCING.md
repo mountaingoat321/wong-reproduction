@@ -25,7 +25,7 @@ posterior checks and conditional SSP projections, then regenerates figures and
 the PDF. Longer MCMC and geographic/coupled integrations are separate commands
 below. Thus an offline build is not a new draw of the full ensemble. The latest
 executed build and artifact checksums are recorded in `docs/BUILD_VERIFICATION.json`
-and `results/artifact_sha256.json`. A shorter analysis/report rebuild is
+and `results/artifact_sha256.json`. The final artifact check canonicalizes curated result CSV newlines to LF before hashing and verifies every linked alternative figure/result in the inventory. A shorter analysis/report rebuild is
 `bash scripts/run_extension_analysis.sh`; `--no-build` skips tests and LaTeX.
 
 No global installation or settings changes are needed. All local caches and
@@ -322,8 +322,8 @@ python3 scripts/prepare_glacier_op58.py
 nice -n19 julia --startup-file=no --history-file=no scripts/glacier_vintage_fit.jl --op58
 python3 scripts/plot_glacier_vintage.py --op58
 nice -n19 julia --startup-file=no --history-file=no tests/bounded_least_squares.jl
-nice -n19 julia --startup-file=no --history-file=no scripts/carbon_vintage_fit.jl --free-physics --pilot
-nice -n19 julia --startup-file=no --history-file=no scripts/carbon_vintage_fit.jl --free-physics
+nice -n19 julia --startup-file=no --history-file=no scripts/carbon_vintage_fit.jl --free-physics --pilot --fast-chemistry --scipy
+nice -n19 julia --startup-file=no --history-file=no scripts/carbon_vintage_fit.jl --free-physics --fast-chemistry --scipy
 python3 scripts/plot_carbon_parameter_sensitivity.py
 ```
 
@@ -359,3 +359,39 @@ fixed Antarctic fits and independent component marginals. The observation record
 also enters Antarctic boundary forcing; this is a consistency diagnostic, not an
 independent holdout or a recovered rejection-sampling calibration. Reported
 intervals exclude missing joint covariance and stochastic model discrepancies.
+
+The completed HadCRUT5 coastal extension is also subsampled with
+`python3 scripts/coastal_hadcrut5_resampling.py`. Its 500 stratified 200-of-250
+and equal-sixteen-per-bin replicates use seed 20251048, retain original
+conditional weights, and hold coastal estimates fixed. The offline extension
+driver executes this analysis. These are finite-state sensitivities, not
+new climate simulations or population uncertainty intervals.
+
+The `--fast-chemistry` option selects a safeguarded Newton solution of the same
+carbonate-equilibrium equations. The default remains bisection. Before using
+the faster option, run `tests/carbon_equilibrium.jl` and
+`scripts/benchmark_carbon_equilibrium.jl` with the Julia environment above.
+The integrated driver includes both. The 102 checks compare isolated roots,
+alkalinity and mass closure, and three complete historical trajectories.
+Completed restricted bisection fits are preserved under
+`carbon_vintage_revised_bisection_*`; the unfinished slow free pilot was
+interrupted after equivalence and a sevenfold benchmark speedup were established.
+
+Use `--scipy` for the subsequent audited carbon fits. The Julia process sends
+only scaled coordinates and residual vectors through pipes to the installed
+SciPy1.5.4 least-squares routine; all scientific equations and observation
+mappings remain in the independent Julia implementation. Before fitting, run
+`tests/scipy_least_squares.jl`. The native damped pilot passed synthetic tests
+but reached100iterations with projected gradient0.0437; it is explicitly
+unconverged and preserved as `carbon_vintage_free_unconverged_pilot_*`.
+The SciPy run records its status, gradient, actual residual-call count, and
+`nfev` (stored in the historical `iterations` field, excluding Jacobian calls).
+The generic numerical library is permitted; no existing climate-model
+implementation is used.
+
+Latest execution,13 October2026: the full offline driver completed in966.65s
+with486 Julia assertions and12 Python checks passing, followed by saved-result
+and extension audits,533 artifact checks and a61-page report. The later
+emissions metadata wording correction was regenerated separately, with both
+numerical CSV hashes unchanged. See BUILD_VERIFICATION.json for source hashes
+and the distinction between this driver and separately executed long runs.

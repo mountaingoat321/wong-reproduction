@@ -1,4 +1,4 @@
-# Recovered scientific specification
+# Historical initial scientific specification
 
 Recovery date: 2026-10-12. Target: Wong, T. E., Dake, S., Feke, K., Darnell,
 C., and Srikrishnan, V. (2025), *Coastal adaptation and damage costs at different
@@ -13,7 +13,8 @@ methods, not recovered from software. Source IDs refer to SOURCES.csv.
 [RECOVERED_SPECIFICATIONS.md](RECOVERED_SPECIFICATIONS.md) and
 [BLOCKER_AUDIT.md](BLOCKER_AUDIT.md) supersede recovered blockers, including the
 DOECLIM closure, DAIS dynamics, adaptation menu, one-year hazard convention and
-six socioeconomic priors. Transparent alternative experiments are now in progress.
+six socioeconomic priors. Completed alternative experiments and current target
+status are recorded in CONTINUATION_ACCOUNTING.md and FIGURE_STATUS.csv.
 
 The requested observable is a probability distribution of coastal costs conditional
 on warming, not a single deterministic trajectory. Recovering a response equation

@@ -1,0 +1,12 @@
+optimizer = "SciPy1.5.4 trust-region reflective;3-point Jacobian relative step1e-4; jac scaling;ftol/xtol/gtol1e-10;max_nfev400; iteration field counts nfev excluding Jacobians"
+equilibrium_solver = "safeguarded Newton; reference bisection equivalence verified"
+constraints = "U10 beta[0,1],CO2initial[275,295]ppm; Q10=2,transfer16.87m/yr fixed; steady1850 pools; observed-temperature forcing; holdout2006–2021"
+scope = "NON-REPRODUCTION: conditional point fit; equal mean-square weight for modern and LawDome groups; no posterior or age convolution"
+free_carbon_physics = false
+revised_solver = true
+starts = 1
+cases = 3
+wall_seconds = 29.032926082611084
+
+[pilot_checks]
+noise_free_parameter_recovery_scaled = 1.784106196112134e-11

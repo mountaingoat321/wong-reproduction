@@ -1,0 +1,11 @@
+{
+  "caution": "Ranges measure sensitivity within retained states, not population quantile uncertainty. Coastal errors and missing joint physical uncertainty are held fixed. The upper tail remains unresolved.",
+  "equal_bin_members": 16,
+  "full_members": 250,
+  "high_bin_members": 22,
+  "replicates": 500,
+  "scope": "NON-REPRODUCTION: finite saved-state subsampling; no new climate draws",
+  "seed": 20251048,
+  "stratified_high_bin_maximum": 22,
+  "stratified_high_bin_minimum": 12
+}

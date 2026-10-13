@@ -1,7 +1,7 @@
 module BoundedLeastSquares
 using LinearAlgebra
 """Damped least squares on a unit box; report projected gradient and stop reason."""
-function fit(residual,start;iterations=100,gradient_tolerance=1e-8)
+function fit(residual,start;iterations=100,gradient_tolerance=1e-8,trace=false)
     u=clamp.(copy(start),0.,1.);r=residual(u);value=sum(abs2,r)
     damping=1e-3;lastgradient=Inf
     for iteration in 1:iterations
@@ -15,6 +15,10 @@ function fit(residual,start;iterations=100,gradient_tolerance=1e-8)
         projected=copy(gradient)
         for j in setdiff(eachindex(u),active);projected[j]=0.;end
         lastgradient=maximum(abs.(projected))
+        if trace && iteration%10==0
+            println("  iteration=",iteration," objective=",value," projected_gradient=",lastgradient," coordinates=",u)
+            flush(stdout)
+        end
         lastgradient<gradient_tolerance && return (u=u,objective=value,iterations=iteration,projected_gradient=lastgradient,stop="projected_gradient")
         accepted=false;change=0.;improvement=0.
         diagonal=max.(diag(hessian)[active],1e-6)

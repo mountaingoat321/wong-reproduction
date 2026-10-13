@@ -68,6 +68,12 @@ assert max(float(r['max_mass_error_GtC']) for r in carbon)<1e-8
 assert max(float(r['substep_difference_ppm']) for r in carbon)<.001
 checks['carbon_nested_training_objective_check']=True
 checks['free_carbon_holdout_RMSE_ppm']={r['case']:float(r['MLO_holdout_RMSE_ppm']) for r in carbon}
+searches=rows('carbon_vintage_free_searches.csv');cp=rows('carbon_search_predictions.csv')
+assert len(searches)==12 and all(r['stop'].startswith('scipy_') for r in searches)
+assert len(cp)==12 and max(float(r['max_newton_bisection_difference_ppm']) for r in cp)<1e-6
+assert max(float(r['substep_difference_ppm']) for r in cp)<.001
+checks['replayed_carbon_searches']=12
+checks['carbon_fitted_solver_difference_ppm']=max(float(r['max_newton_bisection_difference_ppm']) for r in cp)
 glacier=rows('glacier_vintage_grid.csv');assert len(glacier)==54
 checks['glacier_conditional_grid_points']=54
 ga=json.loads((ROOT/'results/glacier_vintage_input_audit.json').read_text())
@@ -86,6 +92,13 @@ assert max(float(r['heat_80_160_cell_difference_m']) for r in hp)<.001
 assert max(float(r['AIS_dt10_dt5_difference_m']) for r in hp)<1e-5
 checks['historical_budget_cases']=1500
 checks['historical_budget_grid_difference_m']=max(float(r['heat_80_160_cell_difference_m']) for r in hp)
+resamples=rows('coastal_hadcrut5_resamples.csv')
+assert len(resamples)==12000
+assert all(math.isfinite(float(r['cost_trillion2019PPP'])) for r in resamples)
+rs=json.loads((ROOT/'results/coastal_hadcrut5_resampling_assessment.json').read_text())
+assert rs['replicates']==500 and rs['equal_bin_members']<rs['high_bin_members']
+assert 0<rs['stratified_high_bin_minimum']<rs['stratified_high_bin_maximum']<=22
+checks['HadCRUT5_sampling_replicates_per_design']=500
 checks['scope']='Numerical/data integrity of declared alternatives; no target-panel reproduction inferred'
 (ROOT/'results/extension_verification.json').write_text(json.dumps(checks,indent=2,sort_keys=True)+'\n')
 print(json.dumps(checks,indent=2,sort_keys=True))

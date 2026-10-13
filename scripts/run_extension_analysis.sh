@@ -14,6 +14,7 @@ nice -n19 python3 scripts/compare_coastal_assumptions.py --from-saved
 nice -n19 python3 scripts/aggregate_economic_sensitivity.py --from-saved
 nice -n19 python3 scripts/plot_glacier_vintage.py
 nice -n19 python3 scripts/plot_glacier_vintage.py --op58
+nice -n19 julia --startup-file=no --history-file=no scripts/carbon_search_diagnostics.jl
 nice -n19 python3 scripts/plot_carbon_parameter_sensitivity.py
 nice -n19 python3 scripts/plot_sea_level_reference.py --hadcrut5 --from-saved
 nice -n19 python3 scripts/plot_sea_level_reference.py --temperature-only --from-saved
@@ -21,6 +22,7 @@ nice -n19 python3 scripts/compare_coupled_climate_vintages.py
 nice -n19 python3 scripts/plot_sea_level_hindcast.py
 nice -n19 python3 scripts/plot_coastal_coupled.py --hadcrut5
 nice -n19 python3 scripts/compare_coastal_climate_constraints.py
+nice -n19 python3 scripts/coastal_hadcrut5_resampling.py
 nice -n19 python3 scripts/check_extension_results.py
 if [[ "${1:-}" != --no-build ]]; then
     nice -n19 julia --startup-file=no --history-file=no tests/bounded_least_squares.jl

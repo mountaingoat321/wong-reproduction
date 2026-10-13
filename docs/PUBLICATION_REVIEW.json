@@ -1,0 +1,11 @@
+{
+  "checked_at_utc": "2026-10-13T07:29:16.023241Z",
+  "credential_patterns_found": 0,
+  "eligible_files": 728,
+  "ignore_probes": 10,
+  "largest_file": "report/report.pdf",
+  "largest_file_bytes": 5029527,
+  "outside_root_paths": 0,
+  "oversized_files": 0,
+  "scope": "Pattern/size/path review of eligible files; does not replace scientific validation"
+}

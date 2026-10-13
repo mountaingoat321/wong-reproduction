@@ -82,3 +82,52 @@ input dependency. Numeric libraries remain limited to one thread at nice19.
   curated independent outputs. Had5 and noheat step/mass/AIS criteria pass;
   own1995–2014reference offsets close below1e-12m. Noheat predictive calibration
   failures remain disqualifying for a preferred target calibration.
+
+- HadCRUT5 coastal extension completed14,750cases in1508.27wallseconds, including
+  short controlled pauses. Six new figures reviewed. Event50medians
+  .215590/.308128/.598998/1.116782T2019PPP. Highestwarmingbin22states,ESS13.6087,
+  probability.00393198. Median/max relative numericalSE7.385%/13.068%. Matched
+  Had4n8 unconditional median.235435→.240681T and95th.590705→.677467T.
+  Regionalpattern remains discrepant; migration totals includeinitialization.
+- Queued carbon audit passed6solver assertions but failed at parse time on an
+  ambiguous Julia decimal subtraction. Corrected2.0-0.2 and restarted pilot/fit;
+  no calibration output from the failed parser was accepted.
+
+HadCRUT5 finite-ensemble sensitivity: seed20251048,500 stratified200/250 and
+500 equal16/bin replicates. The former retains12–22 high-bin states. High-bin
+median change q05/q95=-.0709487/+.0289643T2019PPP; equal16 high-bin q95
+change=-.275614/+.0676657T. Third-category equal16 upper-quantile median
+change=-.275369T. Figure reviewed; all strata retain correct probability mass.
+These are retained-state sensitivities, not population convergence evidence.
+
+Carbon computational audit: a corrected bounded fit using bisection remained
+unfinished after about14minutes. The completed restricted fits were preserved.
+An analytic-derivative, bracket-safeguarded Newton solution of the same
+alkalinity equation passes102 checks; central historical CO2 differs by
+7.4294e-11ppm, stocks by3.2781e-11GtC. Warm five-repeat benchmark medians
+0.466216s(bisection) and0.066565s(Newton), speedup7.004. This verified numerical
+option motivated interruption of the unfinished pilot and a fresh serial
+pilot/full audit. Existing coupled calculations retain default bisection.
+
+The fast damped free pilot completed100iterations but was unconverged
+(projected gradient.0437047, objective10.0613225). Its6.18047ppm holdout RMSE
+is not accepted evidence about an optimum. Preserved four pilot files and
+restricted damped fits; stopped the follow-on full run before completed cases.
+The unchanged Julia residual function now also uses SciPy1.5.4's ordinary
+bounded trust-region solver; six bridge/analytical-solution tests pass.
+The solver change addresses numerical failure, not target agreement.
+
+SciPy audit completed:12searches in202.318s, all objective/step convergence
+stops, largest projected gradient1.5464e-4 and scaled gradient3.8040e-5.
+Noise-free free-pilot parameter error3.20e-11 scaled. Withheld CO2 RMSE
+.858088/6.192971/4.330452ppm; ocean1994 uptake143.161/94.417/78.319GtC.
+Selected mass error<3.96e-12GtC. Replayed12states: original chemistry differs
+by<1.05e-10ppm;8/16substeps by<.000191ppm. Had4combined exchange-bound
+local solution has objective10.08046 versus10.06130 but ocean196.947GtC.
+No target posterior or physical identification claim. The new figure was
+visually reviewed, and all failed/interrupted numerical runs remain documented.
+
+Full offline continuation build: exit0,966.649s,486 Julia assertions,12Python
+checks,533 artifacts,61 PDF pages. Metadata-only emissions regeneration leaves
+both numerical CSV hashes unchanged. Source hashes and scope are recorded in
+docs/BUILD_VERIFICATION.json; final scientific limitations remain explicit.

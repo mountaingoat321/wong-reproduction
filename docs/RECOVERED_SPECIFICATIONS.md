@@ -318,3 +318,13 @@ heat observations to4000mDOECLIMheat assuming little uptake below3000m. It lists
 ninephysical/AR1/offsetparameters. This corroborates the need to distinguish
 our alternative700mlikelihood fromthetargetobservational mapping; it does not
 supplythemissingannualGK07series. Onlywrittenmethods were consulted.
+
+## Optional equivalent carbonate root solver
+The fixed chemistry gives C=M/[A+B(1+y+z)], where x=log(H), y=K1 exp(-x),
+z=K1 K2 exp(-2x), A is the inverse ppm/GtC conversion and B is the mixed-ocean
+carbon/concentration conversion divided by solubility. Thus dC/dx is
+C B(y+2z)/[A+B(1+y+z)]. Substitute this derivative into the existing alkalinity
+residual to obtain a safeguarded Newton step. This is a derived numerical
+solution of the recovered closure, not a new equilibrium law. The default
+bisection implementation remains available. Tests compare roots, stock balances
+and full histories before the option is used to accelerate fitting (S088).

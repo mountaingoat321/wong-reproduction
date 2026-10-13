@@ -1,0 +1,31 @@
+{
+  "HadCRUT5_coastal_pilot_checks": 12,
+  "HadCRUT5_sampling_replicates_per_design": 500,
+  "OP58_printed_observation_recovered": true,
+  "additional_coastal_pilot_checks": 60,
+  "carbon_fitted_solver_difference_ppm": 1.0413714335300028e-10,
+  "carbon_nested_training_objective_check": true,
+  "coastal_coupled_hadcrut5_members": 250,
+  "coastal_coupled_n4_members": 250,
+  "coastal_coupled_n8_members": 250,
+  "coastal_coupled_ssp2_members": 250,
+  "economic_prior_draws": 16,
+  "expert_densities": 4,
+  "free_carbon_holdout_RMSE_ppm": {
+    "HadCRUT4_MLO_only": 0.8580884193439139,
+    "HadCRUT4_joint": 6.1929714751382905,
+    "HadCRUT5_joint": 4.330452429815056
+  },
+  "glacier_conditional_grid_points": 54,
+  "glacier_source_vintage_mismatch_retained": true,
+  "hadcrut5_CO2_refinement_ppm": 0.0004821068635010306,
+  "hadcrut5_carbon_mass_error_GtC": 1.3642420526593924e-11,
+  "hadcrut5_reference_closure_m": 5.0306980803327404e-18,
+  "historical_budget_cases": 1500,
+  "historical_budget_grid_difference_m": 0.00010524760765501934,
+  "replayed_carbon_searches": 12,
+  "scope": "Numerical/data integrity of declared alternatives; no target-panel reproduction inferred",
+  "temperature_only_CO2_refinement_ppm": 0.0005101025926705915,
+  "temperature_only_carbon_mass_error_GtC": 1.2732925824820995e-11,
+  "temperature_only_reference_closure_m": 7.632783294297952e-18
+}

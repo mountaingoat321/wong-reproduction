@@ -8,7 +8,7 @@
 \graphicspath{{figures/}}
 \title{Independent reconstruction of the coastal adaptation model of Wong et al. (2025): continuing research report}
 \author{Research-agent record prepared for Sophia Ludtke}
-\date{12 October 2026}
+\date{13 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -23,14 +23,17 @@ ice-response convergence, flood integration and economic accounting.
 A temperature-only calibration passes sampling diagnostics but fails held-out
 observations. Joint temperature--heat calibration improves prediction, and
 substituting the documented HadCRUT5 version raises median SSP2-4.5 warming
-from 1.97 to 2.22 K; the result remains below the AR6 assessment.
+from 1.97 to 2.22 K; the median remains below the AR6 best estimate of 2.7 K.
 Carbon fits are audited for optimization and predictive error separately.
 Three 250-member emissions-driven alternatives propagate through sea-level
-components, and the base alternative reaches sampled coastal costs.
-Its warming-conditioned median incremental costs span 0.208--1.217 trillion
+components; the HadCRUT4 and HadCRUT5 heat-constrained alternatives reach
+sampled coastal costs. The base warming-conditioned median incremental costs
+span 0.208--1.217 trillion
 2019 USD PPP under annual 2010--2100 accounting. The regional ranking differs
 from the target's written findings, and the highest warming category contains
-only five members. Numerical coast-sampling errors and alternative closure
+only five members. HadCRUT5 increases this count to 22, with conditional
+effective size 13.6, without recovering the target distribution. Numerical
+coast-sampling errors and alternative closure
 sensitivities are reported separately from climate variation. Independent
 economic marginal draws change paired costs by $-35$\% to $+85$\% across six
 purposive paths. The historical heat-constrained sea-level sum rises at about
@@ -271,6 +274,14 @@ menu. It does not construct the original adaptation trajectories, because their
 physical and socioeconomic inputs are missing.
 
 \section{Verification results}
+
+The expanded verification suite passes 486 Julia assertions across fourteen
+test groups and twelve Python checks covering diagnostic statistics, coastal
+probability sampling and expert-density inversion. These include the new
+carbonate-equilibrium comparison and numerical-library interface. Additional
+trajectory, calibration, conservation and artifact audits are separate from this
+unit-test count. Passing these checks does not resolve the predictive failures
+reported below.
 
 All 81 original-kernel Julia assertions pass across seven groups: emissions/carbon/forcing;
 ocean conservation and convergence; sea-level limits; spatial accounting and
@@ -537,8 +548,8 @@ cannot automatically be treated as the manuscript available before publication.
 Direct calculation then identified two tensions between printed equations and
 their prose descriptions. These checks do not reveal the original implementation.
 
-The principal limitation is evidence recovery, not numerical throughput.
-An agent can write functioning code while failing to identify the scientific
+Target identity remains limited by evidence recovery, while numerical auditing
+is also essential. An agent can write functioning code while failing to identify the scientific
 experiment if it supplies convenient values for missing inputs. This project
 does not count such code as a successful reproduction. The initial assessment
 stopped too early: further scholarly reading recovered major mechanisms and
@@ -551,10 +562,13 @@ Two further checks change the interpretation of apparent blockers. A renewed
 source search finds the cited glacier table at a case-sensitive institutional
 URL after earlier download failures; an unavailable link was not an unavailable
 scientific record. Conversely, a free-parameter carbon search stops prematurely
-and fits training data worse than its nested restricted model. That inconsistency
-is an optimization failure. It must be corrected before comparing predictive
-skill. These cases require source and computational audits in addition to
-mechanism tests. The recovered expert-inversion likelihood also shows why a
+and fits training data worse than its nested restricted model. A second solver
+passes manufactured tests but fails to converge on real observations. Both
+failures are preserved. A general numerical-library solver, using the unchanged
+independent scientific residuals, supplies an additional audit. An equivalent
+carbonate root solution reduces computational cost after direct comparison with
+the original solver. These cases require source, convergence and performance
+audits in addition to mechanism tests. The recovered expert-inversion likelihood also shows why a
 50\% expert budget mass cannot be assumed to yield 50\% posterior budget
 probability. Each correction is preserved in the assumption register.
 
@@ -589,6 +603,10 @@ or authorize treating this progress report as project completion.
 
 \clearpage
 \begin{thebibliography}{99}
+\bibitem{scipy15} SciPy Developers (2020).
+\emph{SciPy 1.5.4 reference guide: scipy.optimize.least\_squares}.
+\href{https://docs.scipy.org/doc/scipy-1.5.4/reference/generated/scipy.optimize.least_squares.html}{Versioned numerical documentation}.
+
 \bibitem{roquet} Roquet, F., Madec, G., Brodeau, L., and Nycander, J. (2015).
 Defining a simplified yet ``realistic'' equation of state for seawater.
 \emph{Journal of Physical Oceanography}, 45, 2564--2579.

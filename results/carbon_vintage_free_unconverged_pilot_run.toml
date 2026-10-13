@@ -1,0 +1,11 @@
+equilibrium_solver = "safeguarded Newton; reference bisection equivalence verified"
+constraints = "U10 beta[0,1],CO2initial[275,295]ppm,Q10[.2,5],thermocline transfer[.5,200]m/yr; one nested restricted starting point, not proof of global optimum; steady1850 pools; observed-temperature forcing; holdout2006–2021"
+scope = "NON-REPRODUCTION: conditional point fit; equal mean-square weight for modern and LawDome groups; no posterior or age convolution"
+free_carbon_physics = true
+revised_solver = true
+starts = 1
+cases = 1
+wall_seconds = 116.53327202796936
+
+[pilot_checks]
+noise_free_parameter_recovery_scaled = 1.0826051166645811e-10

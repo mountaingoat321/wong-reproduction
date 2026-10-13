@@ -7,4 +7,4 @@ heat_depth_note = "4057 label means4057.5m including57.5m mixed layer"
 scope = "NON-REPRODUCTION: conditional historical budget consistency,1990.5–2009.5"
 assumptions = "Midpoint linear interpolation; constant historical LWS .3mm/yr; peripheral-ice overlap retained; no stochastic residual trajectories or missing joint covariance invented"
 completed = true
-wall_seconds = 20.195411205291748
+wall_seconds = 21.35346293449402

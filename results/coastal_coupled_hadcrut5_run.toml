@@ -1,0 +1,13 @@
+scenario = "SSP4"
+draws_per_region = 8
+pilot_is_purposive = false
+sea_level_source = "sea_level_stratified_hadcrut5"
+within_node_economics = "linear"
+wall_seconds = 1508.2734718322754
+completed = true
+scope = "NON-REPRODUCTION: independently coupled alternativeSLR; uniform geography; sampled200-bin coasts;2019PPP;pairedzeroSLRbaseline"
+members = 250
+unique_coasts = 59
+raw_cases = ".local/coastal_coupled_hadcrut5_cases.csv"
+last_year = 2100
+after2100_economics = "none"

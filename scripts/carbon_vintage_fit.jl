@@ -2,8 +2,9 @@ using DelimitedFiles,Statistics,LinearAlgebra,TOML
 include("../src/RecoveredModels.jl");include("../src/CarbonCycle.jl")
 const C=CarbonCycle
 include("../src/BoundedLeastSquares.jl")
+include("../src/SciPyLeastSquares.jl")
 bounded_fit(args...;kwargs...)=BoundedLeastSquares.fit(args...;kwargs...)
-function legacy_fit(residual,start;iterations=24)
+function legacy_fit(residual,start;iterations=24,trace=false)
     u=copy(start);r=residual(u);value=sum(abs2,r)
     for iteration in 1:iterations
         jac=zeros(length(r),length(u));delta=1e-4
@@ -27,7 +28,7 @@ end
 function main(;forcefixed=false)
     started=time();pilot=!forcefixed && "--pilot" in ARGS;free=!forcefixed && "--free-physics" in ARGS
     revised=forcefixed || "--revised-solver" in ARGS
-    solver=(free || revised) ? bounded_fit : legacy_fit
+    solver="--scipy" in ARGS ? SciPyLeastSquares.fit : (free || revised) ? bounded_fit : legacy_fit
     prefix="carbon_vintage"*(free ? "_free" : revised ? "_revised" : "")*(pilot ? "_pilot" : "")
     emissions=readdlm("inputs/gcb2023_emissions.csv",',',Any;skipstart=1)
     e=emissions[1850 .<=emissions[:,1].<=2021,:];number(x)=x=="" ? 0. : Float64(x)
@@ -38,7 +39,8 @@ function main(;forcefixed=false)
     train=mlo[:,1].<=2005;hold=mlo[:,1].>2005
     interpolate(v,t)=begin k=floor(Int,t)-1849;v[k]+(t-floor(t))*(v[k+1]-v[k]) end
     function simulate(u,t;substeps=8)
-        p=C.parameters(beta=u[1],c0=275+20u[2],q10=free ? .2+4.8u[3] : 2.,exchange=free ? .5+199.5u[4] : 16.87)
+        p=C.parameters(beta=u[1],c0=275+20u[2],q10=free ? .2+4.8u[3] : 2.,exchange=free ? .5+199.5u[4] : 16.87,
+            fast_equilibrium="--fast-chemistry" in ARGS)
         x=C.prescribed_run(q,t;p=p,substeps=substeps)
         parts=[C.partition(x[1,i],p) for i in eachindex(years)]
         (co2=[a.co2 for a in parts],carbon=x,ocean=[parts[i].mixed+sum(x[2:4,i]) for i in eachindex(years)])
@@ -68,21 +70,24 @@ function main(;forcefixed=false)
             if free
                 nested=readdlm("results/carbon_vintage_revised_fits.csv",',',Any;skipstart=1)
                 row=nested[findfirst(nested[:,1].==name),:]
-                nested_start=[Float64(row[2]),(Float64(row[3])-275)/20,(2.-.2)/4.8,(16.87-.5)/199.5]
+                nested_start=[Float64(row[2]),(Float64(row[3])-275)/20,(2.0-0.2)/4.8,(16.87-.5)/199.5]
                 push!(starts,nested_start);nested_objective=sum(abs2,residual(nested_start))
             end
             free && pilot && (starts=[last(starts)])
             fits=[]
             for (start_index,start) in enumerate(starts)
                 println("Starting ",name," search ",start_index,"/",length(starts));flush(stdout)
-                fit=solver(residual,start;iterations=(free || revised) ? 100 : 24)
+                fit=solver(residual,start;iterations=(free || revised) ? 100 : 24,trace=free)
                 push!(fits,fit)
                 println("Search objective=",fit.objective," iterations=",fit.iterations," stop=",fit.stop," projected_gradient=",fit.projected_gradient);flush(stdout)
             end
             for (k,fit) in enumerate(fits)
-                push!(searches,(name,k,fit.objective,fit.iterations,fit.u[1],275+20fit.u[2],free ? .2+4.8fit.u[3] : 2.,free ? .5+199.5fit.u[4] : 16.87,fit.projected_gradient,fit.stop))
+                push!(searches,(name,k,fit.objective,fit.iterations,fit.u[1],275+20fit.u[2],free ? .2+4.8fit.u[3] : 2.,free ? .5+199.5fit.u[4] : 16.87,fit.projected_gradient,fit.stop,
+                    hasproperty(fit,:residual_evaluations) ? fit.residual_evaluations : -1,
+                    hasproperty(fit,:scaled_gradient) ? fit.scaled_gradient : NaN))
             end
             fitted=fits[argmin([fit.objective for fit in fits])]
+            "--scipy" in ARGS && @assert all(fit.stop!="evaluation_limit" for fit in fits)
             free && @assert fitted.objective<=nested_objective+1e-8
             u=fitted.u;s=simulate(u,t);fine=simulate(u,t;substeps=16)
             lawerror=[interpolate(s.co2,a) for a in ages]-lawco2
@@ -102,14 +107,16 @@ function main(;forcefixed=false)
         for row in summaries;println(io,join(row,","));end
     end
     open("results/"*prefix*"_searches.csv","w") do io
-        println(io,"case,start,objective,iterations,beta,initial1850_co2_ppm,q10,thermocline_transfer_m_yr,projected_gradient,stop")
+        println(io,"case,start,objective,iterations,beta,initial1850_co2_ppm,q10,thermocline_transfer_m_yr,projected_gradient,stop,residual_evaluations,scaled_gradient")
         for row in searches;println(io,join(row,","));end
     end
     open("results/"*prefix*"_run.toml","w") do io
         TOML.print(io,Dict("wall_seconds"=>time()-started,"cases"=>length(summaries),"pilot_checks"=>Dict(checks),
             "scope"=>"NON-REPRODUCTION: conditional point fit; equal mean-square weight for modern and LawDome groups; no posterior or age convolution",
             "free_carbon_physics"=>free,"starts"=>(free && !pilot ? 4 : 1),"revised_solver"=>(free || revised),
-            "constraints"=>(free ? "U10 beta[0,1],CO2initial[275,295]ppm,Q10[.2,5],thermocline transfer[.5,200]m/yr; four starting points including nested restricted fit, not proof of global optimum" : "U10 beta[0,1],CO2initial[275,295]ppm; Q10=2,transfer16.87m/yr fixed")*"; steady1850 pools; observed-temperature forcing; holdout2006–2021"))
+            "equilibrium_solver"=>("--fast-chemistry" in ARGS ? "safeguarded Newton; reference bisection equivalence verified" : "bisection"),
+            "optimizer"=>("--scipy" in ARGS ? "SciPy1.5.4 trust-region reflective;3-point Jacobian relative step1e-4; jac scaling;ftol/xtol/gtol1e-10;max_nfev400; iteration field counts nfev excluding Jacobians" : "Independent bounded damped Gauss-Newton; inspect stop and gradient, including iteration limits"),
+            "constraints"=>(free ? "U10 beta[0,1],CO2initial[275,295]ppm,Q10[.2,5],thermocline transfer[.5,200]m/yr; "*(pilot ? "one nested restricted starting point" : "four starting points including nested restricted fit")*", not proof of global optimum" : "U10 beta[0,1],CO2initial[275,295]ppm; Q10=2,transfer16.87m/yr fixed")*"; steady1850 pools; observed-temperature forcing; holdout2006–2021"))
     end
 end
 # Audit the restricted model with the corrected solver before the free pilot.

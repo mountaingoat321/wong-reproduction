@@ -30,19 +30,26 @@ recovered specifications, derived choices and alternative assumptions.
   rules and five sea-level closures. Four assumed expert densities implement the
   recovered inversion method; the target density family remains unrecovered.
 - Calculated a full 9,531-coast elevation-resolution comparison and a 250-path
-  SSP4 coastal alternative, with matched SSP2, regional income, sampling,
+  SSP4 coastal alternative, a 14,750-case HadCRUT5 propagation, and matched
+  SSP2, regional income, sampling,
   accounting, horizon, interpolation and economic-prior sensitivities.
 - Recovered the cited OP58 glacier observations and compared them with the
   different NSIDC vintage. Kept conditional fits, withheld errors and boundary
   solutions separate from posterior inference.
-- Diagnosed a failed carbon optimizer using a nested-model check, preserved its
-  failed results, and implemented a tested bound-aware solver for the audit.
+- Audited two carbon optimizer failures, preserved them, verified an equivalent
+  faster chemistry solver, and completed twelve independent-model fits with
+  SciPy. Mauna Loa-only holdout RMSE improves to 0.858 ppm; combined Law Dome
+  fits retain 6.193/4.330 ppm errors and do not replace coupled parameters.
 
 The base warming-conditioned median incremental costs are
 0.208/0.290/0.664/1.217 trillion **2019 USD PPP**, for annual 2010–2100 accounting.
 They are not commensurate with the target's 1.2/1.5/2.1/2.6 trillion **2010 USD**,
 decadal 2010–2150 calculation. The alternative regional ranking also differs.
 The highest base warming bin has five members; its tails are not converged.
+The HadCRUT5 alternative has medians 0.216/0.308/0.599/1.117 trillion PPP and
+22 high-bin states (effective size 13.6). Its regional ranking also remains
+discrepant. Matched coastal sampling and 500 finite-ensemble subsamples quantify
+numerical sensitivity; they do not establish population-tail convergence.
 More sampling alone cannot recover unmatched calibration and geographic inputs.
 
 ## Rebuilding and regenerating
@@ -61,6 +68,9 @@ not rerun all MCMC chains or the full geographic and coupled ensembles.
 input preparation, pilot checks, calibration and simulation commands in order.
 The latest executed build evidence is in [BUILD_VERIFICATION.json](docs/BUILD_VERIFICATION.json);
 [artifact hashes](results/artifact_sha256.json) identify the verified outputs.
+The 13 October continuation build passed **486 Julia assertions and 12 Python
+checks**, verified **533 curated artifacts**, and compiled the **61-page report**
+in 16.1 minutes. Predictive model failures remain documented separately.
 
 Dependencies available here: Julia 1.7.2 (standard libraries only), Python 3.6.8,
 NumPy 1.19.5, SciPy 1.5.4, Matplotlib 3.3.4, TeX Live 2018, Ghostscript 9.27,

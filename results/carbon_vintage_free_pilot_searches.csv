@@ -1,0 +1,2 @@
+case,start,objective,iterations,beta,initial1850_co2_ppm,q10,thermocline_transfer_m_yr,projected_gradient,stop,residual_evaluations,scaled_gradient
+HadCRUT4_joint,1,10.06129506708249,23,0.7207097016972516,282.89926298112556,1.0643578347188607,11.312957262920719,3.520802652356991e-5,scipy_objective,143,1.9082851434142385e-6

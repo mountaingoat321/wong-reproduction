@@ -1,0 +1,16 @@
+{
+  "HadCRUT4": {
+    "high_warming_ESS": 4.233945650523759,
+    "high_warming_members": 5,
+    "high_warming_probability": 0.0005344342037890425,
+    "median_relative_coastal_sampling_SE": 0.08190077266012574
+  },
+  "HadCRUT5": {
+    "high_warming_ESS": 13.60866926154222,
+    "high_warming_members": 22,
+    "high_warming_probability": 0.003931984980372076,
+    "median_relative_coastal_sampling_SE": 0.07385055317141537
+  },
+  "caution": "Conditional sampling SE is separate from physical variation; finite weighted high tail remains unresolved; fixed carbon/AIS and independent ice marginals",
+  "scope": "NON-REPRODUCTION: independent climate posteriors, same emissions/coast sampling; distribution comparison, not paired physical posterior draws"
+}

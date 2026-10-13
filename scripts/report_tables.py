@@ -34,3 +34,11 @@ rows = table(ROOT / 'results' / 'published_table_audit.csv')
 rows = table(ROOT / 'results' / 'decision_sensitivity.csv')
 (ROOT / 'report' / 'decision_table.tex').write_text('\n'.join(
     escape(r['quantity'].replace('_', ' ')) + ' & {:.6f}'.format(float(r['value'])) + r' \\' for r in rows) + '\n')
+rows = table(ROOT / 'results' / 'carbon_vintage_free_fits.csv')
+labels = {'HadCRUT4_MLO_only': 'Had4, MLO', 'HadCRUT4_joint': 'Had4, combined',
+          'HadCRUT5_joint': 'Had5, combined'}
+columns = ['initial1850_co2_ppm', 'beta', 'q10', 'thermocline_transfer_m_yr',
+           'MLO_holdout_RMSE_ppm', 'ocean1994_GtC']
+(ROOT / 'report' / 'carbon_parameters.tex').write_text('\n'.join(
+    labels[r['case']]+' & '+' & '.join('{:.3f}'.format(float(r[c])) for c in columns)
+    +r' \\' for r in rows)+'\n')

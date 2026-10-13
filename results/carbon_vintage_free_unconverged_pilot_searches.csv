@@ -1,0 +1,2 @@
+case,start,objective,iterations,beta,initial1850_co2_ppm,q10,thermocline_transfer_m_yr,projected_gradient,stop
+HadCRUT4_joint,1,10.06132249695337,100,0.7223233491359525,282.9080662280221,1.0695788298541116,11.291033167416684,0.043704683994597815,iteration_limit

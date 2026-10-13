@@ -1,0 +1,11 @@
+substeps_per_year = 8
+bisection_median_seconds = 0.48174928
+maximum_co2_difference_ppm = 7.429434845107608e-11
+scope = "Numerical equivalence and local timing, not target calibration"
+newton_median_seconds = 0.066101144
+years = 172
+median_speedup = 7.288062669535644
+bisection_remains_default = true
+timing_replicates = 5
+maximum_state_difference_GtC = 3.278088911429222e-11
+newton_alkalinity_tolerance_mol_L = 1.0e-16

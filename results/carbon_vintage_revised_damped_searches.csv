@@ -1,0 +1,4 @@
+case,start,objective,iterations,beta,initial1850_co2_ppm,q10,thermocline_transfer_m_yr,projected_gradient,stop
+HadCRUT4_MLO_only,1,0.48149068469043854,5,0.533210334372733,275.0,2.0,16.87,4.071031689534266e-8,small_step_and_objective
+HadCRUT4_joint,1,10.497451307733087,5,0.7916406731241633,283.9059193322332,2.0,16.87,3.380874336045281e-8,small_step_and_objective
+HadCRUT5_joint,1,9.555912507582368,5,0.8170371285792826,284.24304273895564,2.0,16.87,8.253511474265451e-8,small_step_and_objective

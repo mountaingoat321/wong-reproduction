@@ -14,7 +14,9 @@ nice -n 19 julia --startup-file=no --history-file=no tests/runtests.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/recovered_models.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/climate_modes.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/carbon.jl
+nice -n 19 julia --startup-file=no --history-file=no tests/carbon_equilibrium.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/bounded_least_squares.jl
+nice -n 19 julia --startup-file=no --history-file=no tests/scipy_least_squares.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/coastal_paths.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/geographic_coasts.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/ice_models.jl
@@ -34,6 +36,7 @@ nice -n 19 julia --startup-file=no --history-file=no scripts/emissions_design.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/coupled_emissions_experiments.jl --pilot
 nice -n 19 julia --startup-file=no --history-file=no scripts/carbon_experiments.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/carbon_fit.jl
+nice -n 19 julia --startup-file=no --history-file=no scripts/benchmark_carbon_equilibrium.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/coastal_experiments.jl
 nice -n 19 python3 scripts/thermal_observations.py
 nice -n 19 julia --startup-file=no --history-file=no scripts/sea_level_hindcast.jl --pilot

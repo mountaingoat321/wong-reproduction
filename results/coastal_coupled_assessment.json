@@ -8,6 +8,6 @@
   "own_weighted95_threshold_trillion2019PPP": 0.5967176516203412,
   "sampling_caution": "Coast draws are shared across all climate members; conditional numerical errors are correlated and not included in climate percentile bars",
   "scope": "NON-REPRODUCTION: alternative emissions/calibration, uniformSLR, independent geography, annual2010\u20132100 and pairedbaseline",
-  "tail_caution": "The >3.5C category has only5 members and ESS4.23; conditional5th/95th percentiles are unresolved",
+  "tail_caution": "The >3.5C category has 5 members; conditional percentile precision is limited by finite weighted sampling",
   "target_comparison": "W25 printed medians1.2/1.5/2.1/2.6 trillion2010USD use different2010\u20132150 horizon, baseline and monetary data; no matching claim"
 }

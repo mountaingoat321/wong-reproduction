@@ -36,6 +36,7 @@ alternative distributions is relabeled as a published result.
 | Regional income contrast | Seven-region descriptive slope 0.00219 percentage points per thousand PPP dollars; R²=0.664 | Incomplete coverage and correlated numerical errors; no causal claim |
 | Expert-density inversion | Four assumed PDFs give posterior budget probabilities 4.56–11.31% despite 50% expert budget mass | Demonstrates ambiguity; not recovered target PDF |
 | HadCRUT5 climate calibration | Four chains pass diagnostics; held-out temperature RMSE 0.0854 K; SSP245 late-century median 2.223 K versus AR6 2.7 K | Restricted temperature/700m heat experiment |
+| HadCRUT5 coastal propagation | 250 paths, 59 coast units, 14,750 cases; conditional cost medians 0.216/0.308/0.599/1.117 trillion 2019 PPP | Highest-bin effective size 13.61; median coast-sampling SE 7.39%; regional discrepancy persists |
 | HadCRUT5 coupled propagation | 101/56/71/22 warming-bin states; event-weighted highest-bin mass 0.393%, versus base 0.0534% | Observation version affects the tail; coastal extension is separately validated |
 | Glacier versions | NSIDC holdout RMSE 0.228/0.241 mm/year; recovered OP58 0.400/0.412, versus respective trends 0.355/0.578 | Conditional fits; source versions and coverage differ |
 | Antarctic paleo fit | Four fitted windows χ²=0.0227; withheld annual mass-loss RMSE 32.35 Gt/year, bias −25.22 | Conditional point fit, not a joint posterior |
@@ -73,11 +74,13 @@ remain necessary for target identity.
 Finite ensemble size, conditional marginal pairing and incomplete optimization
 are computational or reconstruction limitations, not irreducible documentary
 barriers. The first free-carbon search failed its nested-model comparison;
-its results are preserved and a tested optimizer revision is queued. No failed
+its results are preserved. A second damped pilot failed to converge; a general
+numerical solver then completed twelve audited searches with the same Julia
+scientific residuals. No failed
 optimization, MCMC diagnostic or holdout check is hidden or converted into a
 scientific agreement claim.
 
-## Additional completed checks and active work
+## Additional completed checks and remaining scope
 
 Temperature-only propagation completed all 250 states and 2,500 sea-level cases.
 Its event-weighted highest-warming probability is 9.87%, versus 0.393% with
@@ -94,7 +97,21 @@ pilot refinements pass; maximum ocean-grid difference is 0.105 mm. Recovered
 Roquet2015 physical coefficient means provide dimensional context, not a new
 prior or an undocumented correction.
 
-HadCRUT5 coastal propagation is running after its pilot passed; corrected
-carbon fits follow serially. Their outcomes and the final integrated build will
-be added after execution. This checkpoint is not a declaration that the
-scientific objective is complete.
+HadCRUT5 coastal propagation completed its pilot and all 14,750 cases. A
+matched eight-draw comparison raises unconditional median cost from 0.235 to
+0.241 trillion PPP and the 95th percentile from 0.591 to 0.677 trillion. Five
+hundred 200-of-250 subsamples retain 12–22 high-bin states; high-bin median
+changes range from −0.071 to +0.029 trillion between the 5th and 95th percentiles
+of the changes. Equal-16-per-bin subsampling still changes upper quantiles
+substantially. These experiments do not establish population-tail convergence.
+Corrected carbon fits completed all twelve searches. The Mauna Loa-only
+withheld RMSE falls from1.738 to0.858ppm; combined Had4/Had5 errors change
+from4.589/4.185 to6.193/4.330ppm. An exchange-bound local solution has only
+0.19% higher training objective but predicts196.95 rather than94.42GtC ocean
+uptake. All twelve fits pass chemistry and time-step replays. This is a
+calibration/identifiability diagnostic, not a replacement coupled posterior.
+The full offline build passed486 Julia assertions and12 Python checks,
+verified533 curated artifacts and compiled the61-page report in966.65seconds.
+The long calibrations and coastal runs were executed separately; the driver
+rechecks their saved results rather than rerunning every long simulation.
+This checkpoint is not a declaration that the scientific objective is complete.

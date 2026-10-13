@@ -2,4 +2,4 @@ threads = 1
 scope = "NON-REPRODUCTION; alternative paleo/ocean forcing; fixed S14 physical cases and fast-loss sensitivity; no target posterior"
 maximum_step_years = 20.0
 cases = 36
-wall_seconds = 12.691834926605225
+wall_seconds = 18.098536014556885

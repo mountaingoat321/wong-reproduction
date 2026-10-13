@@ -27,8 +27,11 @@ nice -n19 python3 scripts/aggregate_coupled_coasts.py --draws 4
 nice -n19 python3 scripts/aggregate_coupled_coasts.py --draws 8
 nice -n19 python3 scripts/coastal_sampling_sensitivity.py
 nice -n19 python3 scripts/compare_coastal_assumptions.py
-run_julia scripts/carbon_vintage_fit.jl --free-physics --pilot
-run_julia scripts/carbon_vintage_fit.jl --free-physics
+run_julia tests/scipy_least_squares.jl
+run_julia tests/carbon_equilibrium.jl
+run_julia scripts/benchmark_carbon_equilibrium.jl
+run_julia scripts/carbon_vintage_fit.jl --free-physics --pilot --fast-chemistry --scipy
+run_julia scripts/carbon_vintage_fit.jl --free-physics --fast-chemistry --scipy
 run_julia scripts/coupled_emissions_experiments.jl --tail-stratified --hadcrut5 --pilot
 python3 - <<'PY'
 import csv

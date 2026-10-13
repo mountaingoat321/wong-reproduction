@@ -294,3 +294,119 @@ and conditional coastal sampling SE. Sample extrema are not credible limits;
 climate paths are purposively selected and the initial-value mappings differ
 from the target model.}
 \end{figure}
+
+\subsection{Coastal propagation of the temperature-version change}
+A separate HadCRUT5 coastal pilot passes the same policy and doubled-quadrature
+checks before 250 paths are propagated through 59 distinct coast units,
+representing eight draws per region. The full run contains 14,750 cases and
+takes 1508 s, including controlled pauses for serial verification. We compare
+it with the HadCRUT4 aggregate using the same eight coastal draws, retaining
+the original sixteen-draw base results separately. The 250 regional/global
+cost and variance identities are checked after aggregation.
+
+Figure\ref{fig:had5costcomparison} compares these matched geographic designs.
+Under 50\% budget-event weights, the unconditional cost median rises from
+0.235 to 0.241 trillion 2019 USD PPP, and the 95th percentile rises from
+0.591 to 0.677 trillion. Conditional medians are 0.216, 0.308, 0.599 and
+1.117 trillion for HadCRUT5, compared with 0.213, 0.295, 0.659 and 1.257
+for the matched HadCRUT4 design. The two upper conditional medians decrease
+because the independently sampled posterior changes category composition;
+this is not evidence that warming reduces a fixed coast's losses.
+HadCRUT5 conditional 5th--95th ranges are 0.149--0.285, 0.197--0.567,
+0.407--1.142 and 0.800--1.591 trillion. These bars omit the separate coastal
+sampling error, whose median relative value is 7.39\% and maximum is 13.07\%.
+
+The highest category grows from five states, with conditional effective size
+4.23, to 22 states, with effective size 13.61. Its weighted probability rises
+from 0.0534\% to 0.393\%. This is improved coverage, not converged tail
+resolution. All 22 high-category states and 35 third-category states lie at
+or above the HadCRUT5 ensemble's own weighted 95th cost percentile; none from
+the lower two categories does. This threshold is 0.677 trillion 2019 PPP,
+not the target's 2.7 trillion 2010 USD threshold. No computed case exceeds the
+latter after a CPI-only rescaling, which remains an incommensurate diagnostic
+and cannot imply a zero population probability.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/coastal_climate_constraint_comparison.pdf}
+\caption{Temperature-version substitution using matched coastal probability
+samples. Left: warming-conditioned cost medians and 5th--95th percentiles.
+Right: unconditional weighted cumulative distributions. Both use eight draws
+per region, 200-bin profiles, SSP4 and annual 2010--2100 accounting with a
+paired no-rise control. Physical posterior states are independently sampled;
+category composition changes. Coast-sampling errors are separate from the
+shown physical-parameter variation. Neither distribution is a target reproduction.}
+\label{fig:had5costcomparison}
+\end{figure}
+
+The new joint plot uses each member's modeled 1995--2014 mean sea level
+(Figure\ref{fig:had5joint}). The tight cost--sea-level relation reflects uniform
+geographic sea-level forcing and fixed economic parameters. It omits the
+published joint uncertainty rather than recovering a sharply determined
+physical relation. Separate economic-prior experiments quantify part of the
+omitted variation; their purposive paths cannot simply be merged into this
+probability ensemble.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=0.86\linewidth]{figures/coupled_coastal_joint_alternative_hadcrut5.pdf}
+\caption{HadCRUT5 coupled sea-level and cost alternative with conditional
+empirical marginals. Sea level uses each member's own 1995--2014 reference.
+Symbol area reflects 50\% budget-event weight; colors indicate annual 2100
+warming categories. Marginals are normalized within each category. Fixed
+valuation and uniform geographic sea-level forcing limit the modeled dispersion.
+The monetary basis and horizon remain different from target Figure 2.}
+\label{fig:had5joint}
+\end{figure}
+
+The regional ranking remains discrepant. In category three, the median regional
+minus global cost/GDP contrast is $+0.498$ percentage points in East Asia and
+the Pacific, but $-0.187$ in Latin America and the Caribbean, $-0.111$ in South
+Asia and $-0.179$ in sub-Saharan Africa. Changing temperature version therefore
+does not reproduce the target's broad regional inequality pattern
+(Figure\ref{fig:had5regional}). Planned-movement medians are 72.31 million
+without Antarctic triggering and 98.39 million with it; paired no-rise
+increments are 8.89 and 34.98 million. Their median conditional coast-sampling
+standard errors are 12.48 and 14.75 million for total movement. These counts
+include initialization and successive planned retreats, not unique lifetime
+migrants. The trigger groups differ in climate as well as ice behavior, so the
+contrast is not a causal estimate of migration attributable to Antarctic loss.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/coupled_coastal_regional_alternative_hadcrut5.pdf}
+\caption{HadCRUT5 regional cost alternatives. Left: median regional minus
+global cost/GDP by warming category. Center: regional burden relative to 2010
+GDP. Right: median conditional numerical standard error expressed in the same
+GDP units. Independent exposure and valuation inputs, uniform sea-level change
+and annual accounting remain unmatched to the target. The geographic ranking
+is not repaired by substituting the documented temperature version.}
+\label{fig:had5regional}
+\end{figure}
+
+
+\subsection{Sampling sensitivity with increased high-warming coverage}
+The HadCRUT5 ensemble permits a second finite-sample test with 22 high-category
+states, instead of five. Five hundred 200-of-250 subsamples preserve each
+emissions stratum's probability mass. They retain 12--22 high-category states.
+Across these subsamples, the 5th--95th range of high-category median changes
+is $-0.071$ to $+0.029$ trillion 2019 PPP; the corresponding change in the
+third category's upper cost quantile is $-0.206$ to zero. Equal samples of
+16 distinct states per warming category produce a high-category upper-quantile
+change from $-0.276$ to $+0.068$ trillion. In category three, the median
+upper-quantile change under equal sampling is $-0.275$ trillion.
+
+Figure\ref{fig:had5resampling} describes sensitivity within the saved states.
+Unlike the base equal-five test, equal-sixteen sampling now varies the retained
+high-category membership. It still cannot sample unobserved climate states or
+missing physical uncertainty. Coastal estimates remain fixed across replicates;
+their errors are not included in these bars. Neither a zero median difference
+nor a narrow range for one statistic proves convergence of the population tail.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/coastal_hadcrut5_resampling.pdf}
+\caption{HadCRUT5 finite-ensemble subsampling alternatives to the questions in
+S1 and S2. Points and bars give medians and 5th--95th percentiles of changes
+in each cost quantile across 500 subsamples, relative to the saved full ensemble.
+Left: 200 states with preserved emissions-stratum masses. Right: sixteen
+states per warming category. The bars describe subsample variation, not
+population confidence or posterior credible intervals.}
+\label{fig:had5resampling}
+\end{figure}

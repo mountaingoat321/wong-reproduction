@@ -80,14 +80,15 @@ The initial atmospheric CO$_2$ and fertilization coefficient are fitted under
 the documented bounds 275--295 ppm and 0--1. The chemical reference equilibrium
 is recomputed at each initial concentration. Temperature sensitivity of
 respiration and thermocline exchange remain fixed at $Q_{10}=2$ and
-16.87 m yr$^{-1}$. A noise-free recovery case verifies the optimizer;
-zero-forcing and driven-mass tests verify the changed reference chemistry.
+16.87 m yr$^{-1}$. An initial noise-free recovery case passes, but the subsequent audit below
+shows that this does not establish optimizer convergence on real data.
+Zero-forcing and driven-mass tests verify the changed reference chemistry.
 The combined observational objective gives equal weight to the mean squared
 Mauna Loa and Law Dome residuals. This weighting is an explicit alternative,
 not the recovered target likelihood. It also omits the documented ice-core
 gas-age smoothing and dating uncertainty.
 
-The Mauna Loa-only fit reaches the lower initial-CO$_2$ bound and has a held-out
+The original Mauna Loa-only fit reaches the lower initial-CO$_2$ bound and has a held-out
 RMSE of 1.79 ppm. Adding Law Dome reduces its early-record RMSE from 7.91 to
 1.99 ppm but increases the held-out Mauna Loa RMSE to 4.59 ppm. Substituting
 HadCRUT5 gives a similar 4.19 ppm held-out error. Halving the integration step
@@ -98,24 +99,112 @@ failed predictive experiments and are not substituted into the coastal runs.
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/observation_vintage_carbon.pdf}
-\caption{Restricted carbon fits against independently acquired observations.
+\caption{Original restricted carbon fits against independently acquired observations.
 Left: residuals at each irregular Law Dome gas age. Right: annual Mauna Loa
 residuals, with 2006--2021 held out beyond the dotted line. The combined fits
-improve the early record while degrading later predictions. Solver checks pass,
-so improving this fit requires investigating its initial state, observational
-mapping, parameter restrictions or residual model. It cannot be repaired by
-claiming numerical convergence as observational validation.}
+improve the early record while degrading later predictions. The initial noise-free check passed, but later constrained-solver audits below
+distinguish computational limitations from predictive discrepancies. Numerical
+convergence alone cannot establish observational validation.}
 \label{fig:vintagecarbon}
 \end{figure}
 The first attempt to fit $Q_{10}$ and thermocline transfer as additional
 coordinates failed an internal nested-model check: a clipped Gauss--Newton
 search stopped prematurely with training error above the restricted fit.
-Those trajectories and searches are preserved as failed computations. A revised
-solver uses bound-aware diagonal damping, backtracking and a maximum step in
-scaled coordinates. Six analytic and nonlinear checks pass, and the restricted
-fit is included as a fourth starting point. A retained free fit must have
-training objective no greater than that restricted solution. This requirement
-checks optimization, without tuning against held-out data or the target figures.
+Those trajectories and searches are preserved as failed computations. A second,
+bound-aware damped solver passes six analytic and nonlinear checks and includes
+the restricted fit as a starting point. Nevertheless, its real-data pilot
+reaches 100 iterations with projected gradient 0.0437 and objective 10.0613.
+This is an unconverged computation, not evidence for the fitted physics. The
+pilot is retained separately and its unfinished full run is interrupted.
+We therefore also evaluate the unchanged Julia residuals using the installed
+SciPy 1.5.4 bounded trust-region least-squares routine\cite{scipy15}. A pipe
+passes parameter and residual vectors; the library imports no climate-model
+implementation. Six cross-language tests check constrained analytical solutions
+and a nonlinear valley. Synthetic parameter recovery and comparison with the
+nested restricted model are required again before scientific interpretation.
+Four starting points test local-solution dependence without proving a global
+optimum. The objective contains no held-out data or target-figure values.
+
+Repeated carbonate roots dominate residual evaluation. We add an optional
+safeguarded Newton solution of the same equilibrium equation, retaining
+bisection as the default. Write $x=\log H$, $y=K_1/H$ and $z=K_1K_2/H^2$,
+where $H$ is hydrogen concentration and $K_1,K_2$ are dissociation constants.
+If $M$ is combined atmosphere--mixed-ocean carbon, atmospheric concentration is
+\begin{equation}
+ C=\frac{M}{A+B(1+y+z)},\qquad
+ \frac{dC}{dx}=\frac{CB(y+2z)}{A+B(1+y+z)}.
+\end{equation}
+Here $A$ converts atmospheric concentration to carbon and $B$ combines mixed-
+ocean volume and solubility. Differentiating the existing alkalinity residual
+then supplies the Newton step; steps outside the log-hydrogen bracket are
+bisected. This changes the root algorithm, not the physical closure.
+The absolute alkalinity tolerance is $10^{-16}$ mol/L. Across 102 tests,
+isolated roots, mass/alkalinity balances and three historical integrations
+agree with bisection. The central 172-year benchmark differs by
+$7.43\times10^{-11}$ ppm in CO$_2$ and $3.28\times10^{-11}$ Gt C in stocks,
+with about sevenfold local speedup. The unfinished slower free-fit pilot is
+interrupted after this equivalence check; completed restricted bisection fits
+and all failure records are preserved.
+
+
+\subsection{Audited carbon fits and predictive disagreement}
+The SciPy pilot passes noise-free four-parameter recovery to
+$3.2\times10^{-11}$ in scaled coordinates. The full experiment completes all
+twelve searches in 202 s, with no evaluation-limit stops. Three-point derivatives,
+Jacobian scaling and objective/step tolerances of $10^{-10}$ are recorded;
+the largest reported projected gradient is $1.55\times10^{-4}$. These are
+objective-based local stopping conditions, not a claim that every coordinate
+satisfies a $10^{-10}$ gradient criterion. Each selected training objective is
+below its corresponding re-audited restricted value. Replaying all twelve
+solutions verifies their objectives, agreement with bisection within
+$1.05\times10^{-10}$ ppm, and time-step differences below
+$1.91\times10^{-4}$ ppm. Selected fits conserve carbon within
+$3.96\times10^{-12}$ Gt C.
+
+Allowing respiration and thermocline transfer to vary improves the Mauna
+Loa-only held-out RMSE from 1.738 to 0.858 ppm, but its initial concentration
+remains at the 275 ppm lower bound (Table\ref{tab:carbonfree}). Adding Law Dome
+retains different predictive behavior: HadCRUT4 combined RMSE rises from 4.589
+to 6.193 ppm and HadCRUT5 combined RMSE from 4.185 to 4.330 ppm. The best
+combined fits improve early-record RMSE to 1.736 and 1.979 ppm. Thus, lower
+training error does not resolve transfer to the later observational period.
+The likelihood weighting, gas-age mapping, initial disequilibrium and structural
+response remain distinct scientific questions.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrrrr}\toprule
+Fit & $C_0$ & $\beta$ & $Q_{10}$ & Exchange & CO$_2$ RMSE & Ocean uptake\\
+ & ppm & & & m/yr & ppm & Gt C\\\midrule
+\input{report/carbon_parameters.tex}
+\bottomrule\end{tabular}
+\caption{Selected conditional carbon point fits. CO$_2$ RMSE uses withheld
+2006--2021 observations; ocean uptake is modeled from the 1850 initial state
+to 1994. The Mauna Loa-only initial concentration reaches its lower bound.
+These are fitted alternatives, not a target posterior or identified constants.}
+\label{tab:carbonfree}
+\end{table}
+
+The starting-point audit also exposes weak discrimination among physical
+responses. A second HadCRUT4 combined solution reaches the 200 m/year exchange
+bound, with objective 10.0805 instead of 10.0613, a difference of only 0.19\%.
+Its modeled 1994 ocean uptake is 196.95 Gt C, compared with 94.42 Gt C for the
+selected minimum, while held-out RMSE is 6.011 instead of 6.193 ppm. Selection
+uses the training objective throughout; held-out error is not used to choose a
+basin. The written $118\pm19$ Gt C inventory has a different preindustrial
+reference and is contextual evidence, not a matched likelihood or definitive
+rejection test. These differences prevent interpreting a stable minimum from
+several starts as a uniquely inferred carbon partition.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/carbon_parameter_sensitivity.pdf}
+\caption{Audited carbon-parameter alternatives. Left: withheld CO$_2$ errors
+for restricted and four-parameter fits. Center: selected ocean uptake compared
+with the written inventory, whose time origin differs. Right: respiration
+and transfer values from all four starts; stars mark selected training minima.
+The alternative exchange-bound solution illustrates local-solution dependence.
+None of these fits replaces the carbon point parameters in the coastal ensembles.}
+\label{fig:carbonparameter}
+\end{figure}
 
 \subsection{An original-provider glacier record and a version discrepancy}
 The NSIDC archive supplies a 2005 observational supplement to Dyurgerov's

@@ -6,7 +6,7 @@ using ..RecoveredModels: bisect, global_temperature
 transport, and H99 carbonate chemistry. It is not a recovered W25 calibration.
 Carbon is Gt C; time yr; concentration ppm; temperature anomaly K.
 """
-function parameters(;beta=0.287,q10=2.0,exchange=19.30,c0=280.0)
+function parameters(;beta=0.287,q10=2.0,exchange=19.30,c0=280.0,fast_equilibrium=false)
     c0>0 || throw(DomainError(c0,"positive reference CO2 required"))
     ppm_per_gtc=0.471; solubility=2.988e7
     k1=9.952e-7; k2=7.076e-10; kb=1.881e-9; kw=6.463e-15
@@ -22,7 +22,34 @@ function parameters(;beta=0.287,q10=2.0,exchange=19.30,c0=280.0)
      exchange=[exchange,10.33,7.23],c0=c0,ppm_per_gtc=ppm_per_gtc,
      solubility=solubility,k1=k1,k2=k2,kb=kb,kw=kw,boron=boron,
      alk=alk,dic0=dic0,conversion=conversion,hydrogen0=h0,
-     combined0=c0/ppm_per_gtc+conversion*dic0)
+     combined0=c0/ppm_per_gtc+conversion*dic0,fast_equilibrium=fast_equilibrium)
+end
+
+"""Safeguarded Newton solution of the same alkalinity and total-carbon
+equations as partition. The derivative is with respect to log hydrogen.
+The original bisection path remains the default and an independent reference.
+"""
+function partition_newton(perturbation,p)
+    total=p.combined0+perturbation
+    total>0 || throw(DomainError(total))
+    low=log(1e-11);high=log(1e-5);x=log(p.hydrogen0)
+    for iteration in 1:80
+        h=exp(x);y=p.k1/h;z=p.k1*p.k2/h^2
+        denominator=1/p.ppm_per_gtc+p.conversion/p.solubility*(1+y+z)
+        co2=total/denominator
+        derivative_co2=co2*(p.conversion/p.solubility)*(y+2z)/denominator
+        residual=co2/p.solubility*(y+2z)+p.boron/(1+h/p.kb)+p.kw/h-h-p.alk
+        derivative=derivative_co2/p.solubility*(y+2z)-co2/p.solubility*(y+4z)-
+            p.boron*(h/p.kb)/(1+h/p.kb)^2-p.kw/h-h
+        if abs(residual)<1e-16
+            atmosphere=(co2-p.c0)/p.ppm_per_gtc
+            return (co2=co2,atmosphere=atmosphere,mixed=perturbation-atmosphere,hydrogen=h)
+        end
+        residual>0 ? (low=x) : (high=x)
+        candidate=x-residual/derivative
+        x=isfinite(candidate) && low<candidate<high ? candidate : (low+high)/2
+    end
+    error("Carbonate Newton solve did not converge")
 end
 
 """Atmosphere--mixed-ocean instantaneous chemical equilibrium at fixed
@@ -30,6 +57,7 @@ alkalinity, salinity, and temperature. Combined perturbation includes BOTH.
 No finite air--sea gas-exchange time is represented.
 """
 function partition(perturbation,p)
+    p.fast_equilibrium && return partition_newton(perturbation,p)
     total=p.combined0+perturbation
     total>0 || throw(DomainError(total))
     co2(h)=total/(1/p.ppm_per_gtc+p.conversion/p.solubility*(1+p.k1/h+p.k1*p.k2/h^2))
