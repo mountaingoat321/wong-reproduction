@@ -1,0 +1,40 @@
+{
+  "maximum_sealevel2100_m": 1.44763115613763,
+  "maximum_warming2100_K": 4.100174026035959,
+  "members": 250,
+  "minimum_sealevel2100_m": 0.11097394615591331,
+  "minimum_warming2100_K": 0.6634046397090594,
+  "scope": "NON-REPRODUCTION: uncorrected conditional component budget; probability alternatives",
+  "sensitivities": {
+    "fit512_deep_iid": {
+      "maximum_absolute_difference_m": 0.02518612145249366,
+      "weighted_median_m": -3.379527639679747e-07,
+      "weighted_q05_m": -4.77895792788674e-06,
+      "weighted_q95_m": 0.003542920258205462
+    },
+    "fit512_shallow_common": {
+      "maximum_absolute_difference_m": 0.04978261732742631,
+      "weighted_median_m": 0.0001998077715850144,
+      "weighted_q05_m": -0.023760329188447227,
+      "weighted_q95_m": 0.03301714323516136
+    },
+    "fit512_shallow_iid_lagged": {
+      "maximum_absolute_difference_m": 0.010924581544450307,
+      "weighted_median_m": 2.4492685172877726e-05,
+      "weighted_q05_m": -0.007973094848206408,
+      "weighted_q95_m": 0.00010482063124933605
+    },
+    "fit64_shallow_iid": {
+      "maximum_absolute_difference_m": 0.3627116882630616,
+      "weighted_median_m": -1.2879188400066743e-05,
+      "weighted_q05_m": -0.03632010518975204,
+      "weighted_q95_m": 2.761860057631793e-05
+    }
+  },
+  "temperature_counts": {
+    "1": 107,
+    "2": 65,
+    "3": 73,
+    "4": 5
+  }
+}

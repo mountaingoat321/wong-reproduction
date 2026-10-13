@@ -22,6 +22,8 @@ nice -n 19 julia --startup-file=no --history-file=no tests/paleo_dais.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/scenario_design.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/sea_level_coupling.jl
 nice -n 19 python3 tests/test_mcmc_diagnostics.py
+nice -n 19 python3 tests/test_coastal_sampling.py
+nice -n 19 python3 tests/test_emissions_inversion.py
 nice -n 19 julia --startup-file=no --history-file=no scripts/diagnostics.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/recovered_diagnostics.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/dais_events.jl
@@ -38,17 +40,26 @@ nice -n 19 python3 scripts/assess_calibration.py
 nice -n 19 julia --startup-file=no --history-file=no scripts/climate_projections.jl
 nice -n 19 python3 scripts/assess_calibration.py --joint-heat
 nice -n 19 julia --startup-file=no --history-file=no scripts/climate_projections.jl --joint-heat
+nice -n 19 python3 scripts/assess_calibration.py --joint-heat --hadcrut5
+nice -n 19 julia --startup-file=no --history-file=no scripts/climate_projections.jl --joint-heat --hadcrut5
 nice -n 19 python3 scripts/assess_calibration.py --ice glaciers
 nice -n 19 python3 scripts/assess_calibration.py --ice greenland
 nice -n 19 julia --startup-file=no --history-file=no scripts/ice_projections.jl
 nice -n 19 python3 scripts/audit_geographic_quadrature.py
 nice -n 19 python3 scripts/audit_geographic_elevation.py
 nice -n 19 python3 scripts/verify_results.py
+nice -n 19 python3 scripts/check_coupled_results.py
 nice -n 19 python3 scripts/plot_results.py
 nice -n 19 python3 scripts/plot_continuation.py
 nice -n 19 python3 scripts/plot_extended.py
 nice -n 19 python3 scripts/plot_paleo.py
 nice -n 19 python3 scripts/plot_scenario_alternatives.py
+nice -n 19 python3 scripts/plot_sea_level_alternatives.py
+nice -n 19 python3 scripts/plot_sea_level_reference.py --from-saved
+nice -n 19 python3 scripts/plot_observation_vintages.py
+nice -n 19 python3 scripts/plot_coastal_coupled.py
+nice -n 19 python3 scripts/coastal_accounting_sensitivity.py --from-saved
+nice -n 19 python3 scripts/emissions_inversion_sensitivity.py
 nice -n 19 python3 scripts/report_tables.py
 nice -n 19 python3 scripts/extended_tables.py
 nice -n 19 python3 scripts/scenario_tables.py

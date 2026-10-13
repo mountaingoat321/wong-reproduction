@@ -75,13 +75,13 @@ fig, ax = plt.subplots(figsize=(10, 6.5))
 ax.set(xlim=(0, 10), ylim=(0, 7)); ax.axis('off')
 boxes = [
     (0.2, 5.2, 4.1, 1.1, 'Emissions + carbon + climate',
-     'Implemented: coupled climate, carbon alternative,\nobservational climate calibration and checks', '#d8e9f3'),
+     'Independent calibration, coupled emissions,\nexplicit probability and forcing alternatives', '#d8e9f3'),
     (5.5, 5.2, 4.1, 1.1, 'Sea-level components',
-     'Implemented: GIC/GIS response, heat expansion,\ngeometric DAIS and event-aware integration', '#d8e9f3'),
+     'Conditional ice fits, paleo constraints,\nshore feedback and component-budget alternatives', '#d8e9f3'),
     (5.5, 3.1, 4.1, 1.1, 'Coastal sea level and flood exposure',
-     'Implemented: fingerprint operator,\nGEV extremes, elevation-band damage', '#d8e9f3'),
+     'Independent geography and surge data;\nuniform-SLR alternative; fingerprint maps missing', '#d8e9f3'),
     (0.2, 3.1, 4.1, 1.1, 'Coastal costs and adaptation',
-     'Implemented: annual synthetic cash flows,\nretained strategy, discounting and summaries', '#d8e9f3'),
+     'Independent geographic cash flows and policies;\n250 coupled paths; verified coastal probability sampling', '#d8e9f3'),
     (0.2, 0.5, 9.4, 1.4, 'Remaining requirements for the target climate-to-cost ensemble',
      'Target joint emissions/climate/ice calibration and initialization; component fingerprints;\nland motion; original elevation-area and exposure data; matched socioeconomic inputs.\nIndependent alternatives are tested separately and are not target numerical reproductions.', '#f3e5d8')]
 for x, y, w, h, title, desc, color in boxes:

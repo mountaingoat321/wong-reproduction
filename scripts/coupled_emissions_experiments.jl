@@ -5,10 +5,13 @@ const M=RecoveredModels;const R=Reproduction;const C=CarbonCycle;const S=Scenari
 function main()
     pilot="--pilot" in ARGS;perclass=pilot ? 4 : 128
     tail="--tail-stratified" in ARGS
+    had5="--hadcrut5" in ARGS
+    had5 && !tail && error("The HadCRUT5 sensitivity uses --tail-stratified")
+    climate_stem=had5 ? "climate_hadcrut5" : "climate_joint"
     substeps=tail ? 16 : 8
-    prefix="coupled_emissions"*(tail ? "_stratified" : "")*(pilot ? "_pilot" : "")
+    prefix="coupled_emissions"*(tail ? "_stratified" : "")*(had5 ? "_hadcrut5" : "")*(pilot ? "_pilot" : "")
     seed=tail ? 20251043 : 20251040;rng=MersenneTwister(seed);started=time()
-    @assert TOML.parsefile("results/climate_joint_mcmc_status.toml")["convergence_criteria_met"]
+    @assert TOML.parsefile("results/"*climate_stem*"_mcmc_status.toml")["convergence_criteria_met"]
     draws=readdlm("results/emissions_alternative_samples.csv",',',Float64;skipstart=1)
     inside=findall(draws[:,6].<=1223);outside=findall(draws[:,6].>1223)
     # Balanced conditional subsamples improve representation of the rare
@@ -37,7 +40,7 @@ function main()
         weights=hcat([isodd(j) ? prior_probability/perclass : (1-prior_probability)/perclass for j in 1:n],
                      fill(1/n,n),[isodd(j) ? .75/perclass : .25/perclass for j in 1:n])
     end
-    posterior=readdlm("results/climate_joint_posterior.csv",',',Float64;skipstart=1)
+    posterior=readdlm("results/"*climate_stem*"_posterior.csv",',',Float64;skipstart=1)
     climate_indices=randperm(rng,size(posterior,1))[1:n]
     theta=posterior[climate_indices,3:11]
     forcing=readdlm("inputs/ssp_forcing.csv",',',Any;skipstart=1)
@@ -135,6 +138,7 @@ function main()
     if pilot;save("_refinement.csv","sample,forcing_rule,max_mass_error_GtC,max_temperature_substep_difference_K,max_co2_substep_difference_ppm",checks);end
     open("results/"*prefix*"_run.toml","w") do io
         TOML.print(io,Dict("seed"=>seed,"members"=>n,"wall_seconds"=>time()-started,"carbon_beta"=>fitted,
+            "climate_posterior"=>climate_stem,"fixed_observational_carbon_history"=>"HadCRUT4; isolates climate-posterior substitution without accepting failed new carbon fits",
             "scope"=>"NON-REPRODUCTION: paired alternative climate posterior and emissions weights; conditional carbon point fit; no target joint posterior",
             "initialization"=>"Observed-temperature carbon hindcast and forcing-calibrated climate state at2021; datum transformed for carbon feedback; CO2 forcing law changes at restart without tuning",
             "carbon_q10"=>2.,"carbon_exchange_m_yr"=>16.87,"nonco2"=>"Annual absolute-distance nearest SSP total CO2 emissions versus fixedSSP245",

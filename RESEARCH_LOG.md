@@ -364,3 +364,110 @@ BP2000, not118/18/4kyrBP. This removes a potential2000-year misalignment.
   difference0.105/255, affecting0.76% of pixels at antialiasing boundaries;
   visual inspection confirms legibility. The build now applies this to figures
   before LaTeX, retaining PDF hyperlinks and avoiding an enlarged report cap.
+
+- Checkpoint7fb2722 was committed and pushed after364 Julia assertions,
+  six Python checks and the33-page report build. The scientific project
+  continued; that checkpoint was not treated as completion.
+- The first tail-stratified climate pilot failed its declared CO2 refinement
+  tolerance:0.001908ppm exceeds0.001ppm. Its outputs remain preserved with
+  the dt8 label. Doubling the working resolution gives0.0004771ppm and
+  9.082e-6K under another step halving, with8.19e-12GtC mass closure.
+- The250-member extension completed in511.8s;107/65/73/5 members occupy the
+  warming bins. The highest category has only0.0534% weight under the50%
+  alternative and conditionalESS4.23. No claim of converged high-bin tails
+  follows from deliberately sampling rare emissions.
+- The250-member sea-level extension completed in58.3s for five closures and
+  two forcing rules. Base2100 levels span0.111–1.448m relative2010. Two AIS
+  point fits with nearly equal paleo misfit differ by up to0.363m in2100;
+  the alternative fit is not a negligible calibration detail.
+- Recovered each member's own1995–2014 datum from historical components and
+  saved forward levels. The0.007–0.018m shift leaves the50% alternative low
+  relative to writtenAR6 contextual ranges:median0.244m,66%range0.194–0.363m.
+  A Julia docstring attached to `using`, followed by ambiguous broadcast
+  syntax, caused two early script failures; both were corrected before
+  any datum result was accepted.1250 datum checks then passed.
+- Coastal probability sampling is validated against complete independent
+  0.5/1/2m experiments with5000 design replicates at4/16/32/64 draws per
+  region. Bias is within1.84 Monte Carlo standard errors; variance ratios
+  are0.966–1.027. Normal95% intervals under-cover at small sample sizes;
+  coverage at16 draws per region is93.3–94.0%, retained explicitly.
+- Three exact finite-population Python tests independently enumerate all
+  ordered sample pairs, including repeats, and verify unbiased totals and
+  unbiased variance estimation for arbitrary fixed control coefficients.
+- A six-path coastal pilot covers the sea-level extremes and each occupied
+  warming category across31 probability-sampled coasts. It completes in47.9s;
+  all twelve doubled-quadrature comparisons retain the same policy. Known
+  fine-resolution baselines and1m controls are recovered before scaling up.
+  The full250-path/119-coast SSP4 calculation is running serially at nice19.
+- Government CPI and official indexed AR6 written tables supply independent
+  price-year/context comparisons. Direct PDF downloads return403. These
+  browser-accessed values are documented without inventing raw-file hashes.
+- D25P's written supplementaryTable2 resolves observation products/periods that
+  were previously treated too broadly as missing. Independent MetOffice and
+  NOAA files were acquired, hashed and curated. GK07 gives a written3000m
+  decadal constraint, but not an independently recovered annual calibration
+  series. Additional primary-provider searches found a WOCE climatology and
+  other heat products, not evidence that these are the specified annual series.
+- Reweighting1000 HadCRUT4 posterior rows by the HadCRUT5 likelihood fails with
+  ESS14.06. This failure prompted a fresh4-chain,20000-retained-draw HadCRUT5
+  calibration; all declared Rhat/bulk/tail criteria pass. Held-out temperature
+  RMSE0.08536K; SSP2452081–2100 median2.223K, still below AR6's2.7K assessment.
+- Analytically adding stationary observable-temperature residuals changes
+  category probabilities without adding invented physical forcing. The highest
+  category's50%-budget probability changes0.0534%→0.0724%; not a target fit.
+- Allowing the carbon reference concentration to vary required re-solving
+  carbonate equilibrium. Eight additional steady-state/conservation assertions
+  pass, bringing the carbon suite to34. A noise-free optimizer test recovers
+  the known two-parameter solution to7.8e-13 in scaled coordinates.
+- The MLO-only fit reaches the275ppm lower bound. Adding83 LawDome readings
+  improves early fit but worsens2006–2021 RMSE to4.59ppm (Had4) or4.19ppm(Had5).
+  Refinement differences stay below0.000213ppm, so this is not explained by
+  the tested timestep error. These fits are not propagated downstream.
+- The first new plotting attempt used NumPy's simple CSV parser on a quoted
+  LawDome reference field containing a comma. It failed visibly, then was
+  corrected to the standard CSV parser. No scientific values were changed.
+  Draft prose also confused thermocline transfer with air–sea exchange; direct
+  source/code unit review corrected it to m/yr before report acceptance.
+- The full coupledSSP4 coastal run completed250×119 climate/coast combinations
+  in3015.79wallseconds including controlled pauses. Global conditional sampling
+  SE is6.26%median and9.22%maximum. Under50%budget weights, bin medians are
+  0.208/0.290/0.664/1.217trillion2019PPP. These do not match the target's monetary
+  basis, horizon or reference-cost convention. Five independent numerical
+  figure analogues now show global costs, the joint distribution, regional
+  burdens, tail distributions and AIS-conditioned planned movement.
+- The regional pattern differs from the target: category3 EAP is above the
+  globalcost/GDP ratio, whereas LAC,SouthAsia andSSA are below. This discrepancy
+  is retained, not described as reproduced inequality. The migration trigger
+  association has substantial conditional coastal sampling error and is not a
+  causal effect or unique-person count.
+- V19's publisher page identifies its exact Word SI filename. Both standard
+  publisher download paths return403, as does a government-hosted copy of the
+  main article. No local cache/checksum was fabricated. The written main method
+  remains accessible through the browser. Public searches also returned unrelated
+  implementation links, which were discarded without opening or using them.
+
+### Coupled checkpoint validation and recovered inversion convention
+- The serial offline driver completed successfully:372 Julia assertions,
+  9 Python checks,327 curated artifacts and all19 target inventory entries.
+  Coupled SSP2 was paused during the build and resumed automatically afterward.
+- Read Fuller2017's permitted scientific article, without following its code
+  or data links. Its likelihood convention corrects a broad earlier claim that
+  the inversion method itself was missing. The target expert density remains
+  underdetermined; four transparent PDF alternatives are implemented and all
+  3 additional distribution/Bayes checks pass. Independent SSP460 budget sum
+  is3263.329667GtCO2. Posterior budget probabilities4.56–11.31% demonstrate why
+  a50%expert assessment is distinct from forcing50%posterior mass.
+- The new density shapes give250-path importance ESS65–83 and normalizer
+  discrepancies2.42–5.22% against10000prior draws. No convergence or target
+  density recovery is claimed. The inversion and accounting plots were
+  generated from own saved numbers; other coupled figures were visually checked.
+- Five economic/accounting pilots passed doubled quadrature and policy checks.
+  Full SSP2 and subsequent carbon/Had5 extensions remain in progress at this
+  checkpoint. Unexecuted extensions are not counted as successful experiments.
+- Credential-pattern, size and resolved-path review found no sensitive material,
+  oversized curated file or project-external symlink among492 eligible files.
+  All intermediate simulations and tool caches remain ignored inside.local.
+- The refreshed report, including recovered inversion and accounting diagnostics,
+  compiles to46pages(3,635,854bytes) with no LaTeX warnings/overflow. The manifest
+  verifies333curated artifacts. A renewed pre-commit review covers499eligible
+  paths with no credential-pattern, size or project-boundary failures.

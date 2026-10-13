@@ -1,0 +1,6 @@
+uniform_proposal_members = 1000
+scope = "NON-REPRODUCTION: isolated temperature-observation likelihood substitution;700mheat calibration and all physical parameters retained; importance diagnostics required"
+heat3000_comparison = "Independent GK07 written1957–66 to1987–96 change12.8e22J, uncertainty at least8e22J; not a full annual dataset or a newly fitted likelihood"
+seed = 20251044
+evaluated_rows = 1236
+wall_seconds = 17.10138201713562

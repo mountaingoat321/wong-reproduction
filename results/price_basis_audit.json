@@ -1,0 +1,8 @@
+{
+  "curation": "Two annual-average entries transcribed from BLS written table page4, independently checked through browser PDF text; no figure digitization",
+  "factor_2019_to_2010_price_basis": 0.8529240349374357,
+  "input_sha256": "9d2b98a0c397b5712b9d5906f47e846af17866ae94afdf7bf98189e8d62639e9",
+  "retrieval_note": "Browser source accessible; direct BLS and official NewHampshire mirror downloads returned403; no raw PDF hash invented",
+  "scope": "Price-year sensitivity only: CPI deflation does not reconcile PPP benchmark, geographic inputs, horizon or coastal accounting",
+  "source_url": "https://www.bls.gov/cpi/tables/supplemental-files/historical-cpi-u-202109.pdf"
+}

@@ -1,0 +1,15 @@
+{
+  "AIS_step_difference_m": 2.452482661396971e-13,
+  "coastal_pilot_quadrature_relative_difference": 1.9054028646464297e-16,
+  "coastal_regional_sum_relative_residual": 0.0,
+  "completed_coupled_coastal_members": 250,
+  "full_carbon_mass_error_GtC": 1.4551915228366852e-11,
+  "reference_period_closure_m": 5.377642775528102e-18,
+  "sampling_normal_interval_coverage_range": [
+    0.9116,
+    0.948
+  ],
+  "scope": "Saved alternative experiments and numerical pilots; not target reproduction validation",
+  "tail_pilot_CO2_difference_ppm": 0.0004770653490595578,
+  "tail_pilot_temperature_difference_K": 9.081800160792852e-06
+}

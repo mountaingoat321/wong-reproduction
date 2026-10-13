@@ -1,0 +1,58 @@
+{
+  "chain_weight": {
+    "1": 0.17693042456648225,
+    "2": 0.08868790308982255,
+    "3": 0.7156075284022544,
+    "4": 0.01877414394144103
+  },
+  "dependence_caution": "Weight ESS ignores dependence inherited from the MCMC proposal; it is not a new posterior convergence test",
+  "evaluated_rows": 32,
+  "heat_reference": {
+    "change_1e22J": 12.8,
+    "note": "Written GK07 summary, not an assigned Gaussian SD or an annual calibration series",
+    "uncertainty_at_least_1e22J": 8.0
+  },
+  "importance_ESS_ignoring_chain_dependence": 3.327638085749236,
+  "maximum_weight": 0.5073100277606795,
+  "observed_version_difference_fit_RMSE_K": 0.05257203689097772,
+  "observed_version_difference_holdout_mean_K": 0.114462558125,
+  "original": {
+    "ecs_K": {
+      "median": 1.3595453603615892,
+      "q05": 1.1215904690935095,
+      "q95": 1.7430098055287035
+    },
+    "heat3000_decadal_change_1e22J": {
+      "median": 6.210124799638811,
+      "q05": 5.163203125262396,
+      "q95": 11.920783090665754
+    },
+    "ssp245_2081_2100_K": {
+      "median": 1.8575478588770087,
+      "q05": 1.5488178065351246,
+      "q95": 2.249989343825591
+    }
+  },
+  "original_holdout_RMSE_HadCRUT5_K": 0.1223441494837928,
+  "passes_minimum400_weight_ESS": false,
+  "proposal_rows": 32,
+  "scope": "NON-REPRODUCTION: isolated HadCRUT4 to HadCRUT5 likelihood substitution; all other likelihoods and priors retained",
+  "vintage_importance_diagnostic": {
+    "ecs_K": {
+      "median": 1.5529617756915084,
+      "q05": 1.1215904690935095,
+      "q95": 1.7047000565175514
+    },
+    "heat3000_decadal_change_1e22J": {
+      "median": 5.686225332826173,
+      "q05": 5.686225332826173,
+      "q95": 8.559299751708803
+    },
+    "ssp245_2081_2100_K": {
+      "median": 2.1201924548883264,
+      "q05": 1.5488178065351246,
+      "q95": 2.1201924548883264
+    }
+  },
+  "vintage_importance_holdout_RMSE_HadCRUT5_K": 0.08697566223541468
+}

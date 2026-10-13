@@ -8,6 +8,14 @@ set=@testset "Recovered carbon mass balance and split integration" begin
     @test C.partition(0.0,p).co2 ≈ 280.0 atol=1e-8
     @test maximum(abs.(C.rhs(x,0.0,0.0,p)))<1e-8
     @test maximum(abs.(C.prescribed_run(zeros(5),zeros(5);p=p).-x))<1e-8
+    for initial_co2 in (275.,295.)
+        reference=C.parameters(c0=initial_co2)
+        @test C.partition(0.,reference).co2≈initial_co2 atol=1e-8
+        @test maximum(abs.(C.rhs(x,0.,0.,reference)))<1e-8
+        @test maximum(abs.(C.prescribed_run(zeros(5),zeros(5);p=reference).-x))<1e-8
+        driven=C.prescribed_run(fill(2.,5),zeros(5);p=reference)
+        @test sum(driven[:,end])-sum(x)≈8. atol=1e-9
+    end
     forced=C.prescribed_run(fill(2.,5),fill(.5,5);p=p)
     @test sum(forced[:,end])-sum(x)≈8.0 atol=1e-9
     for perturbation in (-50.0,1.0,100.0,1000.0,5000.0)

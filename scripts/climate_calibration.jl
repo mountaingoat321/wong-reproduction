@@ -5,13 +5,15 @@ const M=RecoveredModels
 const C=Calibration
 const ROOT=normpath(joinpath(@__DIR__,".."))
 joint="--joint-heat" in ARGS
-stem=joint ? "climate_joint" : "climate"
+had5="--hadcrut5" in ARGS
+had5 && !joint && error("HadCRUT5 experiment requires --joint-heat")
+stem=had5 ? "climate_hadcrut5" : joint ? "climate_joint" : "climate"
 cfg=TOML.parsefile(joinpath(ROOT,"config",stem*"_calibration.toml"))
 forcing,header=readdlm(joinpath(ROOT,"inputs","ssp_forcing.csv"),',',Any;header=true)
 rows=forcing[forcing[:,1].=="ssp245",:]
 years=Int.(rows[:,2]); keep=years.<=cfg["end_year"]
 years=years[keep]; total=Float64.(rows[keep,3]); aerosol=Float64.(rows[keep,5])
-obs,_=readdlm(joinpath(ROOT,"inputs","hadcrut4.csv"),',',Float64;header=true)
+obs,_=readdlm(joinpath(ROOT,"inputs",had5 ? "hadcrut5_5010.csv" : "hadcrut4.csv"),',',Float64;header=true)
 fit=(cfg["fit_start"].<=obs[:,1].<=cfg["fit_end"])
 fit_idx=Int.(obs[fit,1]).-years[1].+1
 reference=findall(y->1961<=y<=1990,years)

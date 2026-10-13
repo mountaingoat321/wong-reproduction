@@ -1,0 +1,12 @@
+scenario = "SSP4"
+draws_per_region = 4
+pilot_is_purposive = true
+within_node_economics = "linear"
+wall_seconds = 63.135353088378906
+completed = true
+scope = "NON-REPRODUCTION: independently coupled alternativeSLR; uniform geography; sampled200-bin coasts;2019PPP;pairedzeroSLRbaseline"
+members = 6
+unique_coasts = 31
+raw_cases = ".local/coastal_coupled_2150_growth_pilot_cases.csv"
+last_year = 2150
+after2100_economics = "growth"

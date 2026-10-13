@@ -1,0 +1,109 @@
+\section{Recovered observation vintages and calibration tests}
+\subsection{What the written calibration specification now supplies}
+The later Darnell manuscript's supplementary Table 2\cite{darnell2025} identifies HadCRUT5.0.1.0
+temperature for 1850--2021, Law Dome CO$_2$ for 1854--1953, Mauna Loa CO$_2$ for
+1959--2017, and 0--3000 m ocean heat content for 1953--1996. It also identifies
+the IMBIE, glacier and global sea-level products used in the joint calibration.
+This recovers several input definitions that the initial assessment treated as
+missing. The later table is evidence about the methodological lineage; its
+identity with the target's unpinned 2024 manuscript remains unestablished.
+The 2024 text explicitly adds autoregressive residuals to simulated observables,
+and Urban and Keller provide the stationary AR(1) likelihood\cite{urban}.
+Neither the statistical family nor all observation versions should therefore
+be described as inaccessible.
+
+Original-provider archives supply the specified HadCRUT5 version and 83
+irregular Law Dome readings within the stated period. NOAA supplies a current
+Mauna Loa annual series. Its 2026 release date is recorded; it is not silently
+equated with the target's historical release. Gouretski and Koltermann's
+written 3000 m heat estimate is a $12.8\times10^{22}$ J increase between
+1957--1966 and 1987--1996, with uncertainty of at least $8\times10^{22}$ J
+\cite{gouretski}. We recover this aggregate constraint but not a verified annual
+1953--1996 series. We do not digitize their curve or assign their uncertainty
+statement a Gaussian standard deviation. The existing HadCRUT4/700 m posterior
+predicts a median increase of $6.17\times10^{22}$ J over those decades, with a
+parameter 5th--95th range of $4.86$--$12.37\times10^{22}$ J. Different depths,
+error definitions and averaging conventions require explicit treatment in any
+subsequent joint fit.
+
+\subsection{Temperature-version sensitivity}
+HadCRUT5 differs from HadCRUT4 by an RMS 0.0526 K over the training years and
+is on average 0.1145 K warmer during the held-out 2006--2021 period. This is a
+consequential input difference rather than a numerical tolerance. Importance
+reweighting 1,000 retained HadCRUT4 posterior rows under the HadCRUT5 likelihood
+has effective sample size 14.1; it fails the declared minimum of 400. Those
+weights are retained as a failed diagnostic and do not define an accepted
+replacement posterior.
+
+We instead run four fresh chains, retaining the same temperature/700 m heat
+likelihood, priors and 1850--2005 training boundary. Each chain has 8,000 warmup
+and 50,000 production iterations, thinned by ten. All coordinates and log
+density pass the declared diagnostics: maximum rank/folded split $\widehat R$
+is 1.00954, minimum bulk ESS is 474 and minimum tail ESS is 430. The fitted
+ECS median rises from 1.485 to 1.660 K; its HadCRUT5 5th--95th range is
+1.279--2.132 K. Held-out temperature RMSE is 0.0854 K and heat RMSE remains
+$0.879\times10^{22}$ J. These checks establish convergence and predictive
+behavior for the restricted experiment, not recovery of the target joint fit.
+
+Using 1,000 complete parameter rows, the SSP2-4.5 2081--2100 warming median
+rises from 1.973 to 2.223 K, with a 1.753--2.689 K parameter range in the new
+fit. The corresponding AR6 assessment is 2.7 (2.1--3.5) K. Under SSP5-8.5,
+the new estimate is 3.759 (2.971--4.476) K, compared with 4.4 (3.3--5.7) K.
+The temperature vintage explains part of the discrepancy but does not close it.
+The coupled coastal base ensemble below retains the earlier HadCRUT4 fit so
+that its successive numerical and socioeconomic tests remain matched.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/observation_vintage_climate.pdf}
+\caption{Observation-vintage alternatives. Upper left: original-provider
+temperature records on their common 1961--1990 datum; the dotted line marks
+the training cutoff. Upper right: independently sampled ECS posteriors under
+the same 700 m heat constraint. Lower left: held-out temperature predictions
+with stationary AR(1) errors and HadCRUT5 observations. Lower right: SSP2-4.5
+parameter medians and 90\% ranges relative to each model's 1850--1900 mean.
+The new fit changes the projection but does not recover the full target
+calibration.}\label{fig:vintagetemperature}
+\end{figure}
+
+The written residual convention also motivates an observable-classification
+test. Adding a stationary normal residual with variance
+$\sigma^2/(1-\rho^2)$ to annual 2100 temperature gives an exact Gaussian-mixture
+probability for each warming category. Under the 50\% budget weights, the
+four probabilities change from 58.815/33.350/7.781/0.0534\% to
+59.424/32.933/7.571/0.0724\%. This is an observation-error alternative:
+the residual does not drive carbon or ice dynamics, and no sea-level residual
+is silently added. It therefore tests classification separately from physical
+climate response.
+
+\subsection{Carbon constraints that fail to transfer}
+The initial atmospheric CO$_2$ and fertilization coefficient are fitted under
+the documented bounds 275--295 ppm and 0--1. The chemical reference equilibrium
+is recomputed at each initial concentration. Temperature sensitivity of
+respiration and thermocline exchange remain fixed at $Q_{10}=2$ and
+16.87 m yr$^{-1}$. A noise-free recovery case verifies the optimizer;
+zero-forcing and driven-mass tests verify the changed reference chemistry.
+The combined observational objective gives equal weight to the mean squared
+Mauna Loa and Law Dome residuals. This weighting is an explicit alternative,
+not the recovered target likelihood. It also omits the documented ice-core
+gas-age smoothing and dating uncertainty.
+
+The Mauna Loa-only fit reaches the lower initial-CO$_2$ bound and has a held-out
+RMSE of 1.79 ppm. Adding Law Dome reduces its early-record RMSE from 7.91 to
+1.99 ppm but increases the held-out Mauna Loa RMSE to 4.59 ppm. Substituting
+HadCRUT5 gives a similar 4.19 ppm held-out error. Halving the integration step
+changes CO$_2$ by at most $2.13\times10^{-4}$ ppm and carbon mass closes within
+$3.64\times10^{-12}$ Gt C. The observational discrepancy is therefore much
+larger than the tested temporal error. These restricted fits are retained as
+failed predictive experiments and are not substituted into the coastal runs.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/observation_vintage_carbon.pdf}
+\caption{Restricted carbon fits against independently acquired observations.
+Left: residuals at each irregular Law Dome gas age. Right: annual Mauna Loa
+residuals, with 2006--2021 held out beyond the dotted line. The combined fits
+improve the early record while degrading later predictions. Solver checks pass,
+so improving this fit requires investigating its initial state, observational
+mapping, parameter restrictions or residual model. It cannot be repaired by
+claiming numerical convergence as observational validation.}
+\label{fig:vintagecarbon}
+\end{figure}

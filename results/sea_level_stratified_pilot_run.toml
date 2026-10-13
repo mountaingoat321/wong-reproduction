@@ -1,0 +1,9 @@
+variants = ["fit512_shallow_iid", "fit64_shallow_iid", "fit512_deep_iid", "fit512_shallow_common", "fit512_shallow_iid_lagged"]
+raw_paths = ".local/sea_level_stratified_pilot_paths.csv"
+scope = "NON-REPRODUCTION: alternative uncorrected component budget; independent conditional fits; source-specified Antarctic shore factors"
+Antarctic_shore_fingerprint = -1.0
+members = 8
+seed = 20251041
+reference_year = 2010
+wall_seconds = 27.3530330657959
+limitations = "No target joint posterior; peripheral-glacier overlap retained; empirical upper-ocean coefficient; alternative transient ocean polynomial and2009.5splice"

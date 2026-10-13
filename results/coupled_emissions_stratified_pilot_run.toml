@@ -1,0 +1,12 @@
+nonco2 = "Annual absolute-distance nearest SSP total CO2 emissions versus fixedSSP245"
+raw_paths = ".local/coupled_emissions_stratified_pilot_paths.csv"
+wall_seconds = 75.33653998374939
+resolution = "80ocean cells;16Strang/RK4 substeps per year; pilot doubled to32"
+scope = "NON-REPRODUCTION: paired alternative climate posterior and emissions weights; conditional carbon point fit; no target joint posterior"
+carbon_q10 = 2.0
+members = 8
+sampling = "Five emission-budget strata: budget event; outside through overall95th;95–99th;99–99.9th;top0.1%; exact empirical class-mass weights"
+carbon_beta = 0.6679639559031261
+initialization = "Observed-temperature carbon hindcast and forcing-calibrated climate state at2021; datum transformed for carbon feedback; CO2 forcing law changes at restart without tuning"
+carbon_exchange_m_yr = 16.87
+seed = 20251043

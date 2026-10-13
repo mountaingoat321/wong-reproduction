@@ -1,0 +1,27 @@
+{
+  "carbon_boundary_cases": [
+    "HadCRUT4_MLO_only"
+  ],
+  "carbon_maximum_holdout_RMSE_ppm": 4.589387142502044,
+  "carbon_minimum_holdout_RMSE_ppm": 1.7945787415416492,
+  "climate": [
+    {
+      "ECS_median_K": 1.4847702397355294,
+      "experiment": "climate_joint",
+      "holdout_RMSE_K": 0.08703226851459453,
+      "maximum_Rhat": 1.0058183736209712,
+      "minimum_bulk_ESS": 648.9621300430194,
+      "minimum_tail_ESS": 589.0466244654868
+    },
+    {
+      "ECS_median_K": 1.6599192391513344,
+      "experiment": "climate_hadcrut5",
+      "holdout_RMSE_K": 0.08535569708767937,
+      "maximum_Rhat": 1.0095363417548708,
+      "minimum_bulk_ESS": 474.3692947944821,
+      "minimum_tail_ESS": 429.9706902368525
+    }
+  ],
+  "interpretation": "HadCRUT5 MCMC passed; failed importance weights and carbon fits are retained, not propagated into the base coastal ensemble",
+  "scope": "NON-REPRODUCTION: observation-vintage sensitivity and restricted carbon point fits"
+}

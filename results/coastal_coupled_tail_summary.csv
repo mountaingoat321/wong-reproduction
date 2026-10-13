@@ -1,0 +1,5 @@
+warming_bin,own_upper5_threshold_trillion2019PPP,probability_at_or_above_own_threshold,probability_above_literal2p7_after_CPI_only,own_tail_sample_count
+1,0.5967176516203412,0.0,0.0,0
+2,0.5967176516203412,0.02222604273285568,0.0,1
+3,0.5967176516203412,0.6190056755867516,0.0,48
+4,0.5967176516203412,1.0,0.0,5

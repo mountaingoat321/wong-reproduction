@@ -10,8 +10,11 @@ function interpolate(years,values,t)
 end
 function main()
     pilot="--pilot" in ARGS;tail="--tail-stratified" in ARGS
-    prefix="sea_level"*(tail ? "_stratified" : "")*(pilot ? "_pilot" : "")
-    source="coupled_emissions"*(tail ? "_stratified" : "")*(pilot ? "_pilot" : "")
+    had5="--hadcrut5" in ARGS
+    had5 && !tail && error("The HadCRUT5 sensitivity uses --tail-stratified")
+    suffix=(tail ? "_stratified" : "")*(had5 ? "_hadcrut5" : "")*(pilot ? "_pilot" : "")
+    prefix="sea_level"*suffix
+    source="coupled_emissions"*suffix
     paths=readdlm(".local/"*source*"_paths.csv",',',Any;skipstart=1)
     climate=readdlm("results/"*source*"_parameters.csv",',',Float64;skipstart=1)
     endpoints=readdlm("results/"*source*"_endpoints.csv",',',Any;skipstart=1)
@@ -99,8 +102,9 @@ function main()
                     k2100=findfirst(==(2100.),grid);k2150=length(grid)
                     endpoint=endpoints[(endpoints[:,1].==j).&(endpoints[:,2].==rule),:]
                     temp=Float64(endpoint[1,6]);category=searchsortedfirst([1.5,2.5,3.5],temp)
+                    triggered=any(air[k]>fit["threshold_degC"] && ais.volume[k]>=18. for k in 1:k2100)
                     push!(summaries,(j,rule,variant,temp,category,total[k2100],total[k2150],
-                        (ais.antarctic[k2100]-ais.antarctic[reference]),thermal[k2100]-thermal[reference],weights[j,:]...))
+                        (ais.antarctic[k2100]-ais.antarctic[reference]),thermal[k2100]-thermal[reference],weights[j,:]...,triggered))
                     for k in 2:length(grid)
                         fields=[components["glaciers"],components["greenland"],ais.antarctic,thermal,storage]
                         changes=[c[k]-c[reference] for c in fields]
@@ -125,7 +129,7 @@ function main()
             println(io,header);for row in rows;println(io,join(row,","));end
         end
     end
-    save("_endpoints.csv","sample,forcing_rule,variant,warming2100_K,warming_bin,total2100_m,total2150_m,antarctic2100_m,thermal2100_m,weight_prior,weight_budget50,weight_budget75",summaries)
+    save("_endpoints.csv","sample,forcing_rule,variant,warming2100_K,warming_bin,total2100_m,total2150_m,antarctic2100_m,thermal2100_m,weight_prior,weight_budget50,weight_budget75,AIS_fast_trigger_by2100",summaries)
     save("_parameters.csv","sample,glacier_posterior_row,greenland_posterior_row,common_LWS_standard_normal",parameters)
     if pilot;save("_refinement.csv","sample,forcing_rule,variant,max_antarctic_step_difference_m",refinements);end
     open("results/"*prefix*"_run.toml","w") do io

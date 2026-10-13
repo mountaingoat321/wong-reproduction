@@ -122,6 +122,15 @@ SP.POP.TOTL, NY.GDP.MKTP.PP.CD and NY.GDP.MKTP.KD, retrieved12October2026.
 Provider terms: https://www.worldbank.org/ext/en/legal/terms-conditions/datasets
 # Additional independent paleo and scenario inputs
 
+`us_cpi_annual.csv` contains the two independently verified BLS annual CPI-U
+table entries for2010 and2019 (218.056 and255.657,1982–84=100). Values were
+transcribed from the written government table, page4 of the September2021
+historical release, accessible through the browser PDF reader. Direct BLS and
+an official state-government mirror returned403 to the download client; no
+unavailable raw-file hash is claimed. `scripts/price_basis.py` records a hash
+of the curated input and computes a price-year sensitivity only. This does
+not establish equivalence of PPP benchmarks or the target economic inputs.
+
 `waelbroeck_sealevel.csv` retains only the observational-proxy sea-level section
 of NOAA Waelbroeck2002, its bounds and two published chronologies. Temperatures
 in that archive are not used. `dais_alternative_forcing.csv` combines curated
@@ -145,3 +154,15 @@ the manifest allowlist, regenerate these products with
 `prepare_ssp_emissions.py` from the project root under the documented local
 cache environment. Source URLs, sizes, citations and hashes are recorded in
 `docs/EXTERNAL_INPUTS.csv`.
+
+The observation-vintage continuation adds `hadcrut5_5010.csv` (the explicitly
+archived MetOffice5.0.1.0 annual diagnostic, restricted1850–2021),
+`law_dome2006_calibration.csv` (83 original-provider irregular gas-age readings,
+1854–1953, preserving sample/reference labels), and `noaa_mlo_co2.csv` (NOAA
+MaunaLoa annual observations1959–2021 from the2026-10-09 release). Exact raw
+URLs and hashes are in `docs/EXTERNAL_INPUTS.csv`; regenerate the curated
+subsets with `python3 scripts/prepare_calibration_vintages.py` after the
+allowlisted raw download. LawDome dating/spreading uncertainties are documented
+by NOAA but are not replaced by an invented Gaussian age convolution. The
+MLO station series is distinct from the earlier global NOAA series. Current
+provider releases are not asserted to equal historical target vintages.

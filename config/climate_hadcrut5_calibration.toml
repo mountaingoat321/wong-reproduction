@@ -1,0 +1,29 @@
+# ALTERNATIVE HadCRUT5.0.1.0 temperature + 0--700m heat calibration.
+# Observation-vintage continuation; not the complete W25 joint posterior.
+# Same temperature record/holdout as the temperature-only experiment.
+# Heat: NOAA 1955--2005 fit; 2006--2021 independent holdout.
+# Two AR1 processes independent conditional on physical parameters.
+seed = 20251045
+start_year = 1750
+end_year = 2021
+fit_start = 1850
+fit_end = 2005
+holdout_start = 2006
+holdout_end = 2021
+cells = 80
+integrator = "exact_modes"
+substeps = 4
+warmup = 8000
+draws_per_chain = 50000
+save_every = 10
+adapt_window = 1500
+proposal_scale = 1.8
+chains = 4
+parameter_names = ["ecs_K", "diffusivity_cm2_s", "aerosol_scale", "offset_K", "innovation_sd_K", "rho", "heat_offset_1e22J", "heat_innovation_sd_1e22J", "heat_rho"]
+# B17 Table A1 uniform bounds; ECS .7 K restriction as temperature-only case.
+lower = [0.7, 0.1, 0.0, -0.3, 0.05, 0.0, -50.0, 0.1, 0.0]
+upper = [10.0, 4.0, 2.0, 0.3, 5.0, 0.999, 0.0, 10.0, 0.999]
+# ECS/diffusivity/innovation scales are logarithmic; correlations use logits.
+# All Jacobians are included, keeping these same physical-coordinate priors.
+proposal_scales = [0.04, 0.08, 0.025, 0.008, 0.06, 0.15, 0.25, 0.06, 0.15]
+initial = [2.0, 0.3, 0.7, -0.015, 0.08, 0.5, -10.0, 0.5, 0.8]

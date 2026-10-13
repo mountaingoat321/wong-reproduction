@@ -1,0 +1,7 @@
+{
+  "constant_subtraction_caution": "The initial annual payment includes upfront capital. Repeating its subtraction confuses one-off investment with recurring rates; this diagnostic is rejected as a target annual mapping.",
+  "constant_subtraction_minimum_trillion2019PPP": -44.227688694202364,
+  "known_complete_domain_no_rise_baseline_trillion2019PPP": 1.9583160162940663,
+  "retained_interpretations": "Full costs, removal of2010payment, removal of2010\u20132019payments, and pairedzeroSLRbaseline are distinct accounting conventions; none is asserted identical to target decadal spinup",
+  "scope": "NON-REPRODUCTION: fixed annual policies, four regional draws, six purposive paths,2010\u20132100"
+}

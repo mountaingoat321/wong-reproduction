@@ -141,3 +141,161 @@ covariance is silently assigned to the target. The independently fitted GIC
 and ice-sheet components retain the documented peripheral-glacier overlap;
 their sum is labeled an uncorrected alternative budget. No target sea-level
 reproduction or complete posterior uncertainty is claimed.
+
+## S066 — Tail sampling without changing the emissions prior
+
+The same 10000 prior emissions draws are partitioned into five disjoint strata:
+the budget event (235 draws), the remaining draws through the overall 95th
+percentile (9265), the 95th–99th percentile (400), the 99th–99.9th percentile
+(90), and the highest 0.1% (10). Sample 96/64/48/32/10 without replacement,
+pair independent complete climate rows, and retain exact empirical stratum
+probabilities in each of the three weighting measures. This is a numerical
+sampling design, not a new scientific emissions distribution. It improves
+coverage of rare emissions without guaranteeing convergence of climate tails.
+The initial eight-member tail pilot at 8/16 coupling substeps fails the declared
+0.001 ppm CO2 refinement tolerance (0.001908 ppm). The preserved failed pilot
+is superseded by 16/32 substeps: maximum CO2 difference 0.0004771 ppm,
+temperature difference 9.082e-6 K and carbon balance error 8.186e-12 GtC.
+Only the refined method is used for the 250-member extension.
+
+## S067 — Probability sampling of independent coastal units
+
+Use independent regional sampling with replacement, assigning every eligible
+coast positive probability: 90% proportional to its absolute independently
+computed fine-resolution SSP4/1m incremental cost and 10% uniform. The full
+regional total of that auxiliary cost is known. For a new coupled path, estimate
+each regional total as beta times the known auxiliary total plus the sample
+mean of `(new_cost-beta*auxiliary_cost)/selection_probability`, where beta is
+2100 sea-level change divided by 1m. Unbiasedness is a mathematical property
+of the sampling design and does not assume costs are physically linear in sea
+level. Estimate conditional sampling variance from the weighted residuals.
+Validate empirical bias, variance and approximate interval coverage against
+previously computed complete-domain experiments before scaling up. Shared
+coast draws correlate numerical errors between climate members; these errors
+must not be confused with climate uncertainty. A purposive extreme-path pilot
+is only a validation experiment, never a probability estimate.
+
+## S068 — Price-year sensitivity
+
+Independent BLS CPI-U written tabulations give annual indices 218.056 (2010)
+and 255.657 (2019), a ratio 0.852924. Applying this scalar tests price-year
+sensitivity only. It does not reconcile international PPP benchmarks, geographic
+inputs, socioeconomic trajectories, the cost baseline or the time horizon.
+The government table was read through the browser; direct download returned
+403, so no raw-file checksum or successful raw acquisition is claimed.
+
+## S069 — Model-specific sea-level reference period
+
+Compute each coupled member's own arithmetic mean of annual global component
+levels over 1995–2014. Historical GIC/GIS, heat and mean land-water rates provide
+the earlier segment; the two paleo AIS fits supply volume from1995 to2009.5,
+and the same shore-coupled half-year update connects to2010. Saved forward
+2010–2014 levels complete the twenty values. Subtracting this mean is a derived
+datum transformation, not calibration to the paper or AR6. The base shifts are
+0.00715–0.01828m. Written AR6 Table9.9 medians/likely ranges are contextual
+comparisons: the independent emissions distributions are not matched SSP runs.
+
+## S070 — Recovered observation versions and residual definitions
+
+D25P supplementary Table2 explicitly names HadCRUT5.0.1.0 (1850–2021), Law
+Dome CO2 (1854–1953), Mauna Loa (1959–2017), Gouretski/Koltermann3000m heat
+(1953–1996), IMBIE2018/2019, Dyurgerov/Meier2005, and Church/White2011 with
+an endpoint2013. D25P is a later manuscript, not an established target-vintage
+identity. D24 explicitly adds AR(1) residuals to observables; U10 supplies the
+stationary likelihood. These are recovered definitions, not generic blockers.
+Independent Met Office/NOAA archives supply the specified temperature version,
+83 irregular Law Dome readings and a current Mauna Loa annual series. The
+latter's2026 release is not asserted to match the target's older data.
+GK07 supplies a written3000m decadal change12.8e22J and uncertainty at least8e22J;
+no annual series or Gaussian standard deviation is invented from that statement.
+
+## S071 — Fresh HadCRUT5 calibration and failed importance diagnostic
+
+Substitute HadCRUT5.0.1.0 in the restricted temperature/NOAA700m-heat likelihood,
+retaining the same priors and1850–2005 training boundary, with2006–2021 held
+out. Reweighting1000 old posterior rows fails its minimum400 effective-weight
+sample criterion (ESS14.06). Four fresh chains use seed20251045 and the recorded
+HadCRUT5 configuration. All diagnostics pass: maximumRhat1.00954, minimum
+bulk/tailESS474/430. This is an accepted restricted alternative fit, not a
+joint carbon/ice posterior. Its six SSP projections improve the input vintage
+and shift median warming but do not close the discrepancy with AR6.
+
+## S072 — Observable temperature noise versus physical forcing
+
+For the HadCRUT4 tail ensemble, integrate the normal AR(1) stationary residual
+analytically when assigning annual2100 warming probabilities. Its variance is
+sigma²/(1−rho²). This is an observable-error sensitivity, not added stochastic
+energy forcing and not a joint sea-level residual process. The coupled physical
+paths and coastal calculations retain parameter-only warming classifications.
+
+## S073 — Initial-carbon and response-parameter point fits
+
+Recompute carbonate equilibrium at the fitted1850 reference concentration,
+bounded275–295ppm from U10, together with fertilization beta in[0,1]. The first
+restricted fits retain Q10=2 and thermocline exchange16.87m/yr. Equal mean-square
+weight for Mauna Loa and Law Dome groups is an explicit objective choice, not a
+recovered likelihood. Keep irregular gas ages; do not invent age distributions
+or convolve a guessed smoothing kernel. These fits fail held-out prediction or
+hit a bound and are not used in downstream projections. An additional declared
+sensitivity frees Q10 and thermocline exchange within U10 Table1 bounds[.2,5]
+and[.5,200]m/yr, using three starts. A point optimum is not a posterior or proof
+of a global optimum. All numerical pilot and observational outcomes are retained.
+
+## S074 — Coastal socioeconomic and horizon sensitivities
+
+SSP2 uses the same250 climate/sea-level members and first eight regional coast
+draws as the nested SSP4 comparison, isolating the socioeconomic input change.
+Main experiments retain annual2010–2100 accounting. Six purposive pilot paths
+compare two2150 extensions: freeze2100 economic values, or continue each
+variable's2090–2100 geometric growth rate. Neither is asserted to be a recovered
+SSP definition beyond2100. DP23's written exponential interpolation motivates
+another pilot replacing within-node linear interpolation by geometric growth.
+Compute a paired zero-rise baseline separately for each changed convention.
+Pilot global differences use the shared coast sample and paired design variance;
+they do not estimate population probabilities over the purposive climate paths.
+
+## S075 — Finite-sample and regional diagnostic interpretations
+
+Compare nested4/8/16 draws per coastal region while holding climate paths fixed.
+For climate sampling, repeatedly select200of250 paths within their emissions
+strata and restore each stratum's exact mass. Also compare five distinct paths
+per warming category. Retain the original probability weights within categories.
+These are numerical diagnostics, not target4000/5000 or202-per-bin reproductions.
+The highest category has only five independent members, so keeping all five
+cannot establish tail convergence. A seven-region GDP association uses
+population-weighted2100 incomes, independently anchored2010 populations and
+SSP population-scale ratios. The cost contrast is SSP4−SSP2 of the3°C−2°C
+median regionalcost/GDP difference, inferred from the target's written discussion.
+Report it as a descriptive association in2019PPP, including coverage and sampling
+limitations; do not assign causal interpretation or regression p-values.
+
+## S076 — Propagating the temperature-vintage change
+
+A separate tail-stratified emissions experiment substitutes complete rows from
+the accepted HadCRUT5 posterior with the same emissions selection and random
+seed. The successful old conditional carbon fit and its HadCRUT4 historical
+forcing remain fixed, as do the conditional ice histories. This isolates the
+climate-posterior substitution and does not silently promote failed new carbon
+fits. Pairing row indices across different chains is a common-random-number
+sampling device, not a physical matching of individual posterior states.
+
+## S077 — Expert-density inversion (recovered method; alternative densities)
+Fuller2017 Statistical calibrations evaluates the expert density at the model
+output as a likelihood. We derive p(theta|f) proportional to p0(theta)f(C(theta)).
+D24 supplies expert budget mass and conditional SSP4-6.0 mode, but not its PDF.
+Four declared alternatives use scaled Beta(1,1)/Beta(2,2) below1223GtCO2 and a
+shifted Gamma(shape2/4) above it. Tail scale is derived to give the independently
+summed SSP460 mode3263.329667GtCO2. Each assessment has50% below-budget mass;
+posterior model outputs need not. Tests integrate each density and verify its
+mode and the Bayesian weighting identity. Physical paths are reused unchanged.
+These are non-reproductions. The250-path normalizer differs from the10000-prior
+estimate by2.42–5.22%; highest-warming tails remain unresolved.
+
+## S078 — Initial-cost bookkeeping (diagnostic alternatives)
+The six-path pilot holds annual policies fixed and compares gross costs,
+removal of2010payment, removal of2010–2019payments and the pairedno-rise
+counterfactual. The complete no-rise sum1.958316trillion2019PPP controls gross
+estimates. Repeated annual subtraction of a one-off2010investment is rejected:
+it produces costs as low as−44.23trillion. No tested convention is asserted to
+recover the target decadal spinup accounting. The gross/incremental difference
+can reverse the direction of an apparent cost-level comparison.

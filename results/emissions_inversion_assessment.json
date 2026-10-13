@@ -1,0 +1,11 @@
+{
+  "SSP460_mode_GtCO2": 3263.3296667440036,
+  "budget_GtCO2": 1223.0,
+  "integration": "Annual discrete2022\u20132100sum, consistent with the independent emissions budget definition",
+  "missing": "Darnell2024/2025 and W25 do not specify the expert density family or width",
+  "normalizer_max_relative_discrepancy": 0.05216983564126987,
+  "scope": "NON-REPRODUCTION: four chosen expert PDF shapes; prior-times-likelihood method recovered from Fuller2017 writing",
+  "significance": "50% expert assessment mass is not imposed as50% posterior event probability",
+  "source_method": "https://doi.org/10.1371/journal.pone.0190115, Statistical calibrations",
+  "tail_caution": "Only5 physical paths above3.5C; reweighting cannot supply missing tail states"
+}

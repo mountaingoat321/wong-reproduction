@@ -1,0 +1,7 @@
+constraints = "U10 beta[0,1],CO2initial[275,295]ppm; Q10=2,exchange16.87 fixed; steady1850 pools; observed-temperature forcing; holdout2006–2021"
+scope = "NON-REPRODUCTION: conditional two-parameter point fit; equal mean-square weight for modern and LawDome groups; no posterior or age convolution"
+cases = 1
+wall_seconds = 39.77474021911621
+
+[pilot_checks]
+noise_free_parameter_recovery_scaled = 7.795986078917849e-13

@@ -9,7 +9,7 @@ numerical figures remain unreproduced.** Independent Julia implementations now
 include coupled DOECLIM heat transport, a mass-conserving carbon-cycle alternative,
 geometric Antarctic dynamics, and annual coastal adaptation cash flows. A
 converged temperature-only calibration fails held-out observational checks; that
-failure is retained, and a joint temperature/heat calibration improves holdout predictions but underestimates AR6 warming.
+failure is retained, and joint temperature/heat calibrations improve holdout predictions but underestimate AR6 warming. A documented HadCRUT5-version fit passes convergence and held-out checks. A250-member coupled alternative now reaches global/regional coastal costs and planned movement, with explicit coastal sampling errors.
 These are research results and diagnostics, not recovered Wong posterior draws.
 
 No target-author implementation, processed bundle, simulation output, posterior
@@ -200,9 +200,66 @@ It checks doubled Antarctic temporal resolution and component sums. Its raw
 paths stay in `.local/`; metadata, endpoints and quantiles remain in `results/`.
 The Antarctic shore factors−1/+1 are documented in B17. The global component
 sum remains an **uncorrected alternative** because observational component
-overlap and the target joint calibration are unresolved. Larger tail-stratified
-extensions and coastal probability-sampling experiments are active development;
-their run metadata must exist before they can be treated as executed results.
+overlap and the target joint calibration are unresolved. The250-member tail extension, five sea-level closures and two forcing rules are complete. The SSP4 coastal ensemble uses119distinct probability-sampled coasts with the original200-bin profiles;16draws per region. This is29,750climate/coast combinations. Conditional global samplingSE is6.26%median and9.22%maximum. The highest warming category has only5members/ESS4.23, so its tail percentiles are not converged.
+
+## Coupled alternatives and observation-version recovery
+
+The extended sea-level and coastal experiments retain exact empirical emissions
+stratum masses. An initial8/16-substep tail pilot failed the CO2 tolerance;
+its preserved results have the `dt8` label. The accepted16/32-substep pilot
+passes before250members are run. In the same one-thread environment above:
+
+```bash
+nice -n19 julia --startup-file=no --history-file=no scripts/coupled_emissions_experiments.jl --tail-stratified --pilot
+nice -n19 julia --startup-file=no --history-file=no scripts/coupled_emissions_experiments.jl --tail-stratified
+nice -n19 julia --startup-file=no --history-file=no scripts/sea_level_ensemble.jl --tail-stratified --pilot
+nice -n19 julia --startup-file=no --history-file=no scripts/sea_level_ensemble.jl --tail-stratified
+nice -n19 julia --startup-file=no --history-file=no scripts/sea_level_reference.jl
+python3 scripts/plot_sea_level_alternatives.py
+python3 scripts/plot_sea_level_reference.py
+python3 scripts/coastal_sampling_design.py
+nice -n19 julia --startup-file=no --history-file=no scripts/coastal_coupled_experiments.jl --pilot
+python3 scripts/aggregate_coupled_coasts.py --pilot
+nice -n19 julia --startup-file=no --history-file=no scripts/coastal_coupled_experiments.jl
+python3 scripts/aggregate_coupled_coasts.py
+python3 scripts/plot_coastal_coupled.py
+python3 scripts/check_coupled_results.py
+```
+
+The coastal design requires the completed fine-resolution1m control and raw
+original-provider elevation profiles described above. All future paths and
+per-coast outputs stay in `.local/`; parameters, endpoints, weighted summaries,
+sampling errors and run metadata are retained. `plot_sea_level_reference.py
+--from-saved` regenerates its figure from committed quantiles without raw paths.
+The full SSP4 run took3016wallseconds including controlled pauses. Its50%-budget
+median costs0.208/0.290/0.664/1.217trillion2019PPP use different units, baseline
+and horizon from the target. Regional inequality does not reproduce the target
+pattern. Planned movement includes initialization, not unique lifetime migrants.
+
+New observation inputs are prepared with
+`python3 scripts/prepare_calibration_vintages.py`. The importance-reweighting
+experiment (`scripts/climate_vintage_sensitivity.jl`, then
+`scripts/assess_vintage_predictive.py`) fails with effective weight sample14.1.
+Do not use those weights as an accepted posterior. The independent replacement
+fit uses:
+
+```bash
+nice -n19 julia --startup-file=no --history-file=no scripts/climate_calibration.jl --joint-heat --hadcrut5
+python3 scripts/assess_calibration.py --joint-heat --hadcrut5
+nice -n19 julia --startup-file=no --history-file=no scripts/climate_projections.jl --joint-heat --hadcrut5
+nice -n19 julia --startup-file=no --history-file=no scripts/carbon_vintage_fit.jl --pilot
+nice -n19 julia --startup-file=no --history-file=no scripts/carbon_vintage_fit.jl
+python3 scripts/plot_observation_vintages.py
+```
+
+HadCRUT5 calibration retains20000draws and passes all declared criteria;
+holdouttemperatureRMSE0.0854K. Restricted carbon fits fail transfer to later
+CO2 observations; they are retained and are not used in the coastal ensemble.
+`scripts/run_coupled_extensions.sh` runs the next serial sensitivity stage:
+SSP2 and horizon/interpolation/accounting pilots, a matched SSP2 ensemble,
+carbon-response fits, and a separately validated HadCRUT5 climate/sea extension.
+This checkpoint was made while that stage was running. Treat only experiments
+with completed run metadata and recorded diagnostics as executed results.
 
 ## Scientific record
 
@@ -220,9 +277,7 @@ their run metadata must exist before they can be treated as executed results.
 
 Analytical, conservation, numerical-convergence and accounting checks establish
 implementation properties. They do not establish that a model or dataset is the
-one used in the target publication. Remaining work includes carbon and sea-level
-calibration, emissions inversion, and independently recovered elevation-area,
-exposure, economic, fingerprint and vertical-land-motion inputs. These are active
+one used in the target publication. Remaining work includes full joint carbon/sea-level calibration, emissions inversion, matching the original exposure/economic inputs, and recovering compatible fingerprints and vertical-land motion. Independent elevation/exposure/economic alternatives have already been acquired and simulated. These are active
 research tasks, not a declaration that reproduction is impossible or complete.
 
 ## Repository and instructions
@@ -234,3 +289,13 @@ user-supplied email; global settings are unchanged. Instructions are
 and the [academic style guide](brad-lipovsky-academic-style-guide.md).
 Guidance source revisions and hashes, and original environment/authentication
 checks, are preserved in [docs/INITIALIZATION.md](docs/INITIALIZATION.md).
+
+The further inversion audit reads Fuller et al.2017's scientific likelihood
+method. Four explicitly assumed expert PDFs satisfy the documented budget mass
+and SSP460 conditional mode, but give posterior budget probabilities4.56–11.31%.
+They are not recovered target distributions. Reproduce the executed lightweight
+analyses with `python3 tests/test_emissions_inversion.py`,
+`python3 scripts/emissions_inversion_sensitivity.py` and
+`python3 scripts/coastal_accounting_sensitivity.py --from-saved`.
+The complete offline driver passed372 Julia assertions and9 Python checks;
+the3 new inversion checks also passed and have been added to that driver.

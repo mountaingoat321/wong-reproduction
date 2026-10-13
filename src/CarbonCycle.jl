@@ -6,8 +6,9 @@ using ..RecoveredModels: bisect, global_temperature
 transport, and H99 carbonate chemistry. It is not a recovered W25 calibration.
 Carbon is Gt C; time yr; concentration ppm; temperature anomaly K.
 """
-function parameters(;beta=0.287,q10=2.0,exchange=19.30)
-    c0=280.0; ppm_per_gtc=0.471; solubility=2.988e7
+function parameters(;beta=0.287,q10=2.0,exchange=19.30,c0=280.0)
+    c0>0 || throw(DomainError(c0,"positive reference CO2 required"))
+    ppm_per_gtc=0.471; solubility=2.988e7
     k1=9.952e-7; k2=7.076e-10; kb=1.881e-9; kw=6.463e-15
     boron=4.09e-4; alk=2.434e-3
     h0=exp(bisect(logh->begin

@@ -266,3 +266,43 @@ changes reconciled GIS/AIS estimates4.1%/3.3% over2002–2020, below the reporte
 uncertainties. This prevents an exact component-accounting claim without
 reconciliation but is not an absolute barrier to an explicitly uncorrected
 alternative budget or overlap sensitivity.
+
+## Observation-vintage and probabilistic-coupling extension
+
+D25P supplementaryTable2 is a written, version-qualified observation inventory.
+It identifies HadCRUT5.0.1.0, LawDome, MaunaLoa,3000mheat and the historical
+ice/GMSL records. D24's calibration paragraph specifies autoregressive residuals
+added to observables; U10 supplies the stationary likelihood and bounds on
+initialCO2[275,295]ppm,beta[0,1],Q10[.2,5],thermoclinetransfer[.5,200]m/yr.
+The independent calibration retains an explicit700mheat alternative and fixed
+training/holdout separation. The later written inventory does not authorize
+copying original calibrated parameters or processing code.
+
+The cost sampling estimator follows directly from probability sampling. In
+region r, let p_i>0 sum to1 over all eligible coasts, x_i be their known1m
+control costs, X_r=sum_i x_i, and y_i a new coupled-path cost. For n independent
+with-replacement draws I_j and fixed beta, estimate
+`Yhat_r = beta*X_r + mean_j[(y_Ij-beta*x_Ij)/p_Ij]`.
+Its expectation is sum_i y_i regardless of how nonlinear the physical costs
+are. The sample variance of the bracketed quantities divided by n estimates
+the design variance. Independent regional draws add variances; shared draws
+across climate members induce covariance. Do not interpret an individual-path
+SE as a posterior interval or as the standard error of a median.
+
+Own1995–2014sea-level datums use20annual values per model member, not an offset
+borrowed from AR6 or a target plot. The documented Antarctic-shore factors−1/+1
+supply shore feedback only. Independent component histories, alternative
+storage covariance and conditional ice fits remain separate from the missing
+global fingerprint inputs. Scope, assumptions and observed numerical outcomes
+are recorded in S065–S076 and the result manifests.
+
+## F17 probabilistic inversion and remaining density ambiguity
+Fuller et al.2017, Statistical calibrations, describes the expert assessment as
+a likelihood evaluated at simulated output, multiplied by wide parameter
+priors. The resulting output density need not reproduce assessment probabilities.
+This recovers the weighting method, but not D24's unspecified expert density.
+The independent implementation tests four Beta/shifted-Gamma assessments with
+identical documented50%budget mass and conditional SSP460mode, then multiplies
+the documented parameter-prior weights by those densities. It does not divide
+by an estimated output prior density or force posterior budget probability50%.
+See S077, src/emissions_inversion.py and the written F17 source manifest.

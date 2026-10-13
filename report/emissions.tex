@@ -15,7 +15,7 @@ The written 50\% and 75\% expert assessments therefore imply substantial
 reweighting. They do not specify a unique density, and the baseline requirement
 that SSP4-6.0 be modal imposes information beyond a single event probability.
 To isolate this ambiguity, two explicit alternatives minimize relative entropy
-with respect to the sampled uniform prior subject only to the budget-event
+with respect to the empirical sample from the documented prior subject only to the budget-event
 probability. If $A$ denotes draws within the budget, $n_A$ its size and $p$ the
 imposed probability, the weights are
 \begin{equation}
@@ -91,3 +91,44 @@ fourth category therefore denotes absence in this finite sample, not proof of
 zero probability. A separate tail-stratified emissions experiment is motivated
 by this limitation; it preserves empirical prior class masses with explicit
 weights rather than changing parameters to create high warming.
+\subsection{Recovering the probabilistic-inversion convention}
+The cited method of Fuller et al.~\cite{fuller2017} uses the expert assessment
+as a likelihood evaluated at the model output. For emissions parameters
+$\theta$, prior $p_0(\theta)$, cumulative emissions $C(\theta)$ and expert
+density $f$, the resulting density is
+\begin{equation}
+ p(\theta\mid f)\propto p_0(\theta)f[C(\theta)].
+\end{equation}
+Consequently, assigning half the expert density below a carbon budget does
+not require half the posterior model outputs to fall below that budget.
+The earlier event-weighting experiment is a different statistical assumption.
+
+We test four explicit expert-density alternatives. Each assigns half its
+mass below $B=1223$ GtCO$_2$, using either a uniform or scaled Beta$(2,2)$
+density on $(0,B)$. Above $B$, a shifted gamma density has shape 2 or 4 and
+scale $(M-B)/(k-1)$, where $k$ is its shape. Thus its conditional mode is
+$M=3263.330$ GtCO$_2$, the independently computed annual SSP4--6.0 sum for
+2022--2100. The two documented assessment constraints are respected, but
+the density families and shapes are alternatives, not recovered target inputs.
+Integration and mode tests verify all four densities.
+
+Reweighting the 10,000 independent prior draws yields posterior budget
+probabilities of 4.56--11.31\%, despite the common 50\% assessment mass.
+Reweighting the 250 propagated paths gives 4.36--11.05\%; their normalizing
+constant differs from the larger prior sample by 2.42--5.22\%. Effective
+sample sizes are 65--83 for the propagated paths. Median 2100 warming is
+1.78--1.85 K, and unconditional median incremental coastal cost is
+0.266--0.277 trillion 2019 USD PPP. These calculations identify a consequential
+statistical distinction without identifying the missing target density.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/emissions_inversion_sensitivity.pdf}
+\caption{Four explicitly assumed expert densities and their propagation
+through the same independent climate, sea-level and coastal calculations.
+Left: equal assessment mass below the budget and the same conditional
+above-budget mode do not determine a unique density. Middle: warming
+probabilities after multiplying the parameter prior by the expert density.
+Right: conditional coastal cost medians and 5th--95th order statistics.
+Five physical paths remain in the highest warming category; reweighting
+does not resolve its tails. All panels are non-reproductions.}
+\end{figure}

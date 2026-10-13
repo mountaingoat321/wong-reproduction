@@ -1,0 +1,8 @@
+draws_per_region = 4
+raw_cases = ".local/coastal_coupled_pilot_cases.csv"
+scope = "NON-REPRODUCTION: independently coupled alternativeSLR; uniform geography; sampled200-bin coasts;SSP4;annual2010–2100;2019PPP;pairedzeroSLRbaseline"
+pilot_is_purposive = true
+members = 6
+completed = true
+wall_seconds = 47.93797206878662
+unique_coasts = 31

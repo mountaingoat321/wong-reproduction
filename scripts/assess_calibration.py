@@ -62,7 +62,11 @@ def diagnostics(x):
 if __name__ == '__main__':
     joint='--joint-heat' in sys.argv
     stem='climate_joint' if joint else 'climate'
+    if '--hadcrut5' in sys.argv:
+        assert joint
+        stem='climate_hadcrut5'
     description=('temperature and 0--700m heat' if joint else 'temperature-only')+' calibration'
+    if '--hadcrut5' in sys.argv:description='HadCRUT5.0.1.0 '+description
     if '--ice' in sys.argv:
         component=sys.argv[sys.argv.index('--ice')+1]
         assert component in ('glaciers','greenland')

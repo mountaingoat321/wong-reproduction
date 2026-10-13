@@ -12,35 +12,32 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Coastal cost distributions depend on both sea-level response and the joint
-uncertainty assigned to climate, exposure, and adaptation. This project examines
-whether the results of Wong et al.\ (2025) can be reconstructed from scholarly
-documentation without consulting the authors' implementation or computational
-outputs. We recover component equations, implement numerical kernels in Julia,
-and compare manufactured cases with analytical limits and an independent SciPy
-integration. Continued source recovery supplies coupled climate and Antarctic
-dynamics, a closed carbon-cycle alternative, and independent observational inputs.
-A temperature-only calibration passes convergence diagnostics but fails held-out
-temperature and upper-ocean heat checks. These failures motivate a separate
-temperature--heat calibration, which reduces held-out temperature RMSE from
-0.209 to 0.087\,K but underestimates assessed future warming. Independent
-geographic exposure, economic inputs and ice-mass observations support further
-explicit alternatives; the failed checks are retained.
-Further recovery permits paleo Antarctic hindcasts, a conditional fit to four
-written constraints, and emissions-driven coupled carbon--climate experiments.
-Complete coastal calculations at two elevation resolutions separate a numerical
-exposure approximation from missing target geographic specifications.
-The calculations verify heat conservation, ice-response convergence,
-flood-loss integration, and economic accounting. They also expose a finite-step
-residual in the printed emissions recurrence and a lower-bound discrepancy in
-an Antarctic temperature transform. These are findings about written equations,
-not evidence of defects in the inaccessible original software. A complete
-independent joint calibration and the target coastal input bundle were not
-recovered. Consequently, none of the thirteen numerical target figures is
-independently reproduced. An original workflow diagram, verified component
-calculations, explicitly labeled alternative experiments, a complete figure register,
-and recovery requirements document ongoing work. This report does not conclude
-that all scientifically feasible reproduction work is exhausted.
+Coastal cost distributions depend on the coupled climate response and the
+uncertainty assigned to exposure and adaptation. We independently reconstruct
+the written model lineage of Wong et al.\ (2025), without consulting its
+implementation or computational outputs. Scholarly source recovery supplies
+climate and carbon equations, Antarctic geometry and paleo constraints,
+coastal cost functions, and independent observational and geographic inputs.
+The resulting Julia calculations verify heat and carbon conservation,
+ice-response convergence, flood integration and economic accounting.
+A temperature-only calibration passes sampling diagnostics but fails held-out
+observations. Joint temperature--heat calibration improves prediction, and
+substituting the documented HadCRUT5 version raises median SSP2-4.5 warming
+from 1.97 to 2.22 K; the result remains below the AR6 assessment.
+Restricted carbon fits expose a conflict between early and modern CO$_2$
+constraints rather than resolving it. A 250-member emissions-driven alternative
+now propagates through sea-level components and sampled coastal costs.
+Its warming-conditioned median incremental costs span 0.208--1.217 trillion
+2019 USD PPP under annual 2010--2100 accounting. The regional ranking differs
+from the target's written findings, and the highest warming category contains
+only five members. Numerical coast-sampling errors and alternative closure
+sensitivities are reported separately from climate variation.
+None of the thirteen numerical target figures is established as independently
+reproduced: the target joint probability model, geographic inputs and accounting
+remain unmatched. The original workflow schematic, verified mechanisms,
+explicitly labeled numerical alternatives and complete figure inventory document
+substantial continued progress without converting missing specifications into
+invented published results.
 \end{abstract}
 
 \section{Objective and evidentiary boundary}
@@ -101,16 +98,18 @@ exposure and extreme-water inputs as the forward model. It cannot be inferred
 from a global cost total.
 
 Figure\ref{fig:workflow} identifies the implemented kernels and the missing
-links. These kernels can be exercised independently. They do not constitute a
-calibrated climate-to-cost simulation.
+links. These components can be exercised independently. The continuing experiments
+also connect independently calibrated climate and ice responses under explicitly
+alternative probability and accounting assumptions.
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\textwidth]{figure4_workflow.pdf}
 \caption{Original conceptual schematic corresponding to target Figure 4.
 Blue boxes identify implemented component calculations and their physical
 interfaces. The lower box lists unresolved inputs and model closure. The arrows
-describe required exchanges, not a claim that a complete coupled ensemble has
-been executed. This diagram is not counted as a reproduced numerical result.}
+describe physical exchanges implemented in explicitly alternative coupled
+experiments; unresolved target inputs are listed separately. This diagram is
+not counted as a reproduced numerical result.}
 \label{fig:workflow}
 \end{figure}
 
@@ -293,8 +292,10 @@ peak, not calendar-year emissions projections.
 
 The discrepancy separates two interpretations of the published specification:
 literal annual accumulation and a continuous logistic trajectory that vanishes
-asymptotically. No choice was imposed on a global simulation. The effect on
-temperature and costs cannot be calculated without the missing coupled model.
+asymptotically. The subsequent emissions-driven alternatives retain the literal
+annual recurrence. This manufactured test alone does not quantify its effect
+on calibrated temperature or coastal costs; the continuous interpretation has
+not been propagated through a matched coastal experiment.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{diagnostic_emissions.pdf}
@@ -422,9 +423,9 @@ Table\ref{tab:status} covers all main and supplementary figures and the main
 table. Unlettered joint and marginal views are listed separately. Every entry's
 dependencies, source provenance, assumptions, commands, comparison status and
 failure explanation are also recorded in \texttt{docs/FIGURE\_STATUS.csv}.
-For unavailable outputs, the generation command is explicitly unavailable;
-there is no plotting command that can turn missing model predictions into an
-independent reproduction. Supplementary Figure 10 is one histogram containing
+The inventory gives separate commands and saved outputs for the implemented
+alternatives. Their execution does not resolve the target experiment's remaining
+input and calibration differences. Supplementary Figure 10 is one histogram containing
 all-member and Antarctic-trigger-conditioned distributions of proactive migrants.
 
 \small
@@ -446,23 +447,29 @@ require calibrated time series plus AR6 comparisons. Figure 5 requires spatial
 fingerprints and site matching. Figure 6 requires matched GTSR and DINAS extreme
 levels. Figure 7 requires the original type of upper-tail joint distribution.
 Figures 8 and 9 require paired SSP2/SSP4 economics. Figure 10 requires retained
-segment migration histories and Antarctic-trigger states. The implemented
-summary and aggregation routines do not supply these missing physical inputs.
+segment migration histories and Antarctic-trigger states. Later sections
+generate these quantities for explicitly alternative experiments while retaining
+the distinction between model execution and independent target reproduction.
 
 \input{report/continuation.tex}
 \input{report/extended.tex}
+\input{report/observation_vintages.tex}
 \input{report/paleo.tex}
 \input{report/emissions.tex}
+\input{report/sea_level.tex}
+\input{report/coupled_coasts.tex}
 
 \section{Unresolved inputs and implications}
 
 The joint parameter distribution is a central missing scientific object.
 The cited methodology combines paleo Antarctic constraints, modern climate
 and component-sea-level observations, uncertain emissions, and autoregressive
-residuals. Complete target likelihood definitions, data vintages, measurement
-errors, initial states, and residual treatment were not recovered. Reusing
-published posterior samples is prohibited here. Independent calibration is now
-being performed with versioned exogenous observations and explicitly alternative
+residuals. The later written supplement identifies several data vintages, and
+the cited climate methods specify AR(1) residuals. The exact target combination
+of annual 3000 m heat data, cross-component measurement errors, initial states
+and joint calibration conventions has not been recovered. Reusing
+published posterior samples is prohibited here. Independent conditional
+calibrations now use versioned exogenous observations and explicitly alternative
 likelihood choices. Independent draws from older marginal quantiles would
 discard physically relevant dependence.
 
@@ -490,11 +497,12 @@ transient ocean forcing, rather than absence of all boundary information.
 Emissions priors and the2022--2100 budget interval are also recovered; a unique
 expert density and its full joint calibration remain unspecified.
 
-The active stages are therefore to extend the independent calibration, reconcile
-the remaining carbon/ice variants, and propagate the alternative coupled pathways
-through sea-level and geographic cost calculations.
-Small coupled experiments precede any target-sized ensemble. The regional
-alternatives do not establish quantitative agreement with target inequality.
+The independent pathways now drive a complete alternative sea-level budget and
+a sampled geographic cost calculation. Fresh temperature-vintage calibration
+and restricted carbon fits test consequential input choices. Further extensions
+must address the remaining carbon/ice calibration and target dependence rather
+than merely increasing sample size. The regional alternatives do not establish
+quantitative agreement with target inequality.
 
 \section{Assessment of the research-agent process}
 
@@ -674,5 +682,22 @@ Only independent proxy sea-level data and documented chronologies are used.
 Reduced Complexity Model Intercomparison Project, protocol5.1.0.
 \href{https://doi.org/10.5281/zenodo.4589756}{Versioned exogenous input archive}.
 Only input emissions are used; model results and implementations are not consulted.
+\bibitem{ar6sea} Fox-Kemper, B., and coauthors (2021).
+Ocean, Cryosphere and Sea Level Change. In \emph{Climate Change 2021:
+The Physical Science Basis}, Chapter 9, Table 9.9.
+\href{https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/}{IPCC AR6 WGI Chapter 9}.
+Printed summary ranges are comparison evidence only.
+\bibitem{darnell2025} Darnell, C., and coauthors (2025).
+The interplay of future emissions and geophysical uncertainties for projections
+of sea-level rise.
+September 2025 version; supplementary Table 2 and written methods only.
+\href{https://osf.io/download/52ev7/}{Archived written manuscript}.
+\bibitem{fuller2017} Fuller, R. W., Wong, T. E., and Keller, K. (2017).
+Probabilistic inversion of expert assessments to inform projections about
+Antarctic ice sheet responses. PLOS ONE, 12, e0190115.
+\url{https://doi.org/10.1371/journal.pone.0190115}.
+\bibitem{gouretski} Gouretski, V., and Koltermann, K. P. (2007).
+How much is the ocean really warming? \emph{Geophysical Research Letters},
+34, L01610. \href{https://doi.org/10.1029/2006GL027834}{doi:10.1029/2006GL027834}.
 \end{thebibliography}
 \end{document}

@@ -1,0 +1,28 @@
+{
+  "alternative2100": [
+    {
+      "distribution": "weight_prior",
+      "median_m": 0.30395002004763516,
+      "q17_m": 0.2424506117845544,
+      "q83_m": 0.4909518996386828
+    },
+    {
+      "distribution": "weight_budget50",
+      "median_m": 0.2438072879032912,
+      "q17_m": 0.1935353461568146,
+      "q83_m": 0.3626474479198332
+    },
+    {
+      "distribution": "weight_budget75",
+      "median_m": 0.22638661885389544,
+      "q17_m": 0.18030165576197996,
+      "q83_m": 0.2857462302081905
+    }
+  ],
+  "ar6_source": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+  "offset_max_m": 0.0182800124986516,
+  "offset_min_m": 0.007145416174984233,
+  "reference": "Arithmetic mean of annual1995\u20132014 model levels",
+  "scope": "NON-REPRODUCTION: own hindcast datum; uncorrected component overlap; AR6 is contextual, not emissions-matched validation",
+  "source_access": "Official indexed Table9.9 checked; direct webpage/PDF downloads returned403; no raw checksum claimed"
+}

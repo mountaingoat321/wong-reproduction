@@ -1,0 +1,11 @@
+{
+  "climate_sample_interpretation": "All250 tail-stratified alternative members; three separate weighting measures",
+  "covariance_note": "Common coast draws induce correlated numerical errors across climate members; SE is conditional design uncertainty, not climate posterior uncertainty",
+  "draws_per_region": 16,
+  "maximum_relative_cost_sampling_SE": 0.09219033288462955,
+  "median_relative_cost_sampling_SE": 0.06259246124112922,
+  "members": 250,
+  "migration_note": "Movement counts include initial adaptation; not unique lifetime migrants or solely SLR-attributable displacement",
+  "region_strata": 8,
+  "scope": "NON-REPRODUCTION: spatially uniform coupled alternativeSLR and independent geographic data"
+}

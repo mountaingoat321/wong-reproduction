@@ -2,14 +2,16 @@ using TOML, DelimitedFiles, Random, Statistics
 include("../src/RecoveredModels.jl")
 const M=RecoveredModels
 joint="--joint-heat" in ARGS
-stem=joint ? "climate_joint" : "climate"
+had5="--hadcrut5" in ARGS
+had5 && !joint && error("HadCRUT5 experiment requires --joint-heat")
+stem=had5 ? "climate_hadcrut5" : joint ? "climate_joint" : "climate"
 output(suffix)="results/"*stem*suffix
 cfg=TOML.parsefile("config/"*stem*"_calibration.toml")
 status=TOML.parsefile(output("_mcmc_status.toml"))
 status["convergence_criteria_met"] || error("Calibration convergence criteria not met; do not silently propagate.")
 posterior,_=readdlm(output("_posterior.csv"),',',Float64;header=true)
 forcing,_=readdlm("inputs/ssp_forcing.csv",',',Any;header=true)
-obs,_=readdlm("inputs/hadcrut4.csv",',',Float64;header=true)
+obs,_=readdlm("inputs/"*(had5 ? "hadcrut5_5010.csv" : "hadcrut4.csv"),',',Float64;header=true)
 rng=MersenneTwister(cfg["seed"]+100)
 n=1000;indices=randperm(rng,size(posterior,1))[1:n]
 parameters=posterior[indices,3:2+length(cfg["parameter_names"])]
