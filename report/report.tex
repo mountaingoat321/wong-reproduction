@@ -6,7 +6,7 @@
 \usepackage{microtype}
 \setlength{\emergencystretch}{3em}
 \graphicspath{{figures/}}
-\title{Independent reconstruction of the documented coastal adaptation model of Wong et al. (2025)}
+\title{Independent reconstruction of the coastal adaptation model of Wong et al. (2025): continuing research report}
 \author{Research-agent record prepared for Sophia Ludtke}
 \date{12 October 2026}
 \begin{document}
@@ -18,7 +18,12 @@ whether the results of Wong et al.\ (2025) can be reconstructed from scholarly
 documentation without consulting the authors' implementation or computational
 outputs. We recover component equations, implement numerical kernels in Julia,
 and compare manufactured cases with analytical limits and an independent SciPy
-integration. The calculations verify heat conservation, ice-response convergence,
+integration. Continued source recovery supplies coupled climate and Antarctic
+dynamics, a closed carbon-cycle alternative, and independent observational inputs.
+A temperature-only calibration passes convergence diagnostics but fails held-out
+temperature and upper-ocean heat checks. These failures motivate a separate
+temperature--heat calibration; they are retained as evidence of model limitations.
+The calculations verify heat conservation, ice-response convergence,
 flood-loss integration, and economic accounting. They also expose a finite-step
 residual in the printed emissions recurrence and a lower-bound discrepancy in
 an Antarctic temperature transform. These are findings about written equations,
@@ -26,8 +31,9 @@ not evidence of defects in the inaccessible original software. A complete
 independent joint calibration and the target coastal input bundle were not
 recovered. Consequently, none of the thirteen numerical target figures is
 independently reproduced. An original workflow diagram, verified component
-calculations, a complete figure register, and explicit recovery requirements
-provide an auditable basis for further work.
+calculations, explicitly labeled alternative experiments, a complete figure register,
+and recovery requirements document ongoing work. This report does not conclude
+that all scientifically feasible reproduction work is exhausted.
 \end{abstract}
 
 \section{Objective and evidentiary boundary}
@@ -74,13 +80,14 @@ The coastal model uses 12,148 DIVA segments and decadal calculations from 2010
 through 2150. Planning intervals are 2010--2050, 2060--2100, and 2110--2150.
 Protection and retreat standards are associated with return periods of 1, 10,100,
 1,000, and 10,000 years, alongside no adaptation. The paper specifies nine
-adaptation combinations; the excluded combination is not identified by the
-recovered text. A nominal one-year return period also requires a convention
-beyond the usual GEV quantile at probability $1-1/R$, which is an endpoint when
-$R=1$. Neither detail is silently filled in here.
+adaptation combinations. The complete 2022 scholarly supplement resolves the
+menu: protection at 10--10,000 years and retreat at 1--10,000 years. The nominal
+one-year level is annual maximum high tide, obtained for the GTSR experiment by
+scaling the DINAS one-year level by the GTSR/DINAS 100-year ratio. It is not the
+GEV quantile at probability zero.
 
-The methods describe both periodic optimization and persistence of an initial
-strategy and return level, with later height augmentation. Actual adaptation
+The 2022 main methods specify first-period cost minimization, persistence of
+the selected strategy and return level, and later height augmentation. Actual adaptation
 already in place is not globally observed; the original calculation initializes
 an optimal adaptation state. Reconstructing this spin-up requires the same
 exposure and extreme-water inputs as the forward model. It cannot be inferred
@@ -132,10 +139,10 @@ Recoverable carbon kernels are net primary production
 $N=N_0[1+\beta\ln(C/C_0)]$, with $N_0=60$\,Gt\,C\,yr$^{-1}$ and
 $C_0=280$\,ppm, and heterotrophic respiration
 $(a_1D+a_2S)Q_{10}^{\Delta T/10}$ \cite{ricciuto}. Here $D$ and $S$ are
-detrital and soil carbon, and $a_1,a_2$ are turnover rates. The full terrestrial
-allocation and nonlinear ocean-carbon buffering were not reconstructed.
-Consequently, these expressions are not used to claim a closed global carbon
-budget. The implemented CO$_2$ forcing is $3.7\log_2(C/C_0)$\,W\,m$^{-2}$
+detrital and soil carbon, and $a_1,a_2$ are turnover rates. The continuation
+recovers terrestrial allocation and carbonate equilibrium, allowing the closed,
+explicitly alternative calculation in Section\ref{sec:continuation}.
+The implemented CO$_2$ forcing is $3.7\log_2(C/C_0)$\,W\,m$^{-2}$
 \cite{urban}.
 
 The ocean verification operator solves
@@ -186,12 +193,11 @@ x=aT+b-T_f,\qquad T_f=-1.8\,{}^\circ\mathrm{C}.
 \label{eq:anto}
 \end{equation}
 An additional threshold-triggered loss rate can be evaluated when its threshold
-and rate are supplied. Full DAIS dynamics are not implemented: the target
-requires a particular corrected version, global-sea-level feedback, paleo
-calibration, and initial state. The axisymmetric geometry and conservation
-equations in Shaffer\cite{shaffer} are documented in the recovery record, but
-that standalone model has not been established as an interchangeable target
-component. Land-water increments likewise remain externally specified.
+and rate are supplied. The continuation implements DAIS accumulation, marine
+discharge and differentiated geometry from Shaffer\cite{shaffer}, with sign and
+unit corrections derived explicitly. Present-day equilibrium and warming tests
+verify these mechanisms. The target paleo calibration, initial state and full
+coupling remain distinct recovery tasks. Land-water increments remain externally specified.
 
 Local relative sea level is represented by
 $L_i(t)=\sum_c F_{ic}S_c(t)+v_i(t-t_0)$, where $F$ contains component
@@ -243,11 +249,12 @@ physical and socioeconomic inputs are missing.
 
 \section{Verification results}
 
-All 80 Julia assertions pass across seven groups: emissions/carbon/forcing;
+All 80 original Julia assertions pass across seven groups: emissions/carbon/forcing;
 ocean conservation and convergence; sea-level limits; spatial accounting and
 references; extreme levels and damage integration; costs and optimization;
 and ensemble/regional arithmetic (the sea-level group includes ODE accuracy).
-These are numerical verification tests, not validation against Earth observations.
+These original tests are numerical verification tests. Additional mechanism tests
+and observational checks are described in Section\ref{sec:continuation}.
 The tests require no third-party Julia packages. Configuration values are
 explicitly marked as manufactured in \texttt{config/validation.toml}.
 Table\ref{tab:metrics} is generated directly from the diagnostic files and the
@@ -435,6 +442,8 @@ Figures 8 and 9 require paired SSP2/SSP4 economics. Figure 10 requires retained
 segment migration histories and Antarctic-trigger states. The implemented
 summary and aggregation routines do not supply these missing physical inputs.
 
+\input{report/continuation.tex}
+
 \section{Unresolved inputs and implications}
 
 The joint parameter distribution is a central missing scientific object.
@@ -442,9 +451,9 @@ The cited methodology combines paleo Antarctic constraints, modern climate
 and component-sea-level observations, uncertain emissions, and autoregressive
 residuals. Complete target likelihood definitions, data vintages, measurement
 errors, initial states, and residual treatment were not recovered. Reusing
-published posterior samples is prohibited here. Independent calibration would
-be permissible, but it first requires these specifications and the corresponding
-exogenous observations. Independent draws from older marginal quantiles would
+published posterior samples is prohibited here. Independent calibration is now
+being performed with versioned exogenous observations and explicitly alternative
+likelihood choices. Independent draws from older marginal quantiles would
 discard physically relevant dependence.
 
 The historical DIVA exposure bundle is another independent obstacle. The CIAM
@@ -455,21 +464,18 @@ dataset is inaccessible; it establishes that a complete permissible target
 bundle was not recovered in this investigation. No modern coastline segmentation
 was substituted for the 12,148 target segments.
 
-Independent GTSR and SSP data records were located \cite{gtsr,ssp}. Their
-existence does not determine which GDP interpretation, scenario vintage,
-currency conversion, coastal mapping, extreme-value fitting method, or
-post 2100 extension the target used. The 2022 coastal-uncertainty methods
-\cite{wong2022} identify six uncertain socioeconomic parameters, but access
-attempts for their academic supplementary PDF returned challenge or access
-pages. Those pages were not treated as valid PDFs, and no code repository was
-used as a workaround. Acquiring large inputs before resolving these interfaces
-would consume resources without establishing a faithful reconstruction.
+Independent GTSR data and six SSP forcing inputs have been acquired
+\cite{gtsr,ssp}. The GTSR release supplies coastal features and a later release
+supplies Gumbel parameters, but invalid records, repeated station labels and
+return-level discrepancies require explicit treatment. The 2022 academic
+supplement was recovered in the scholarly preprint, resolving the six
+socioeconomic marginal priors and several decision conventions. Country
+economics, original elevation-area/exposure data, component fingerprints and
+the precise target data vintages remain unresolved.
 
-The next scientifically defined stages are therefore: recover and version the
-complete calibration inputs and likelihood; complete and verify SNEASY and
-the target DAIS variant; recover permissible historical segment and economic
-inputs; resolve return-period, strategy, and cash-flow conventions; then run
-small coupled ensembles before scaling to 5,000 members. No result in this report
+The active stages are therefore to extend the independent calibration, reconcile
+the remaining carbon/ice variants, and recover permissible segment and economic
+inputs. Small coupled experiments precede any target-sized ensemble. No result in this report
 supports a quantitative conclusion about the target's regional cost inequality.
 
 \section{Assessment of the research-agent process}
@@ -491,19 +497,20 @@ their prose descriptions. These checks do not reveal the original implementation
 The principal limitation is evidence recovery, not numerical throughput.
 An agent can write functioning code while failing to identify the scientific
 experiment if it supplies convenient values for missing inputs. This project
-does not count such code as a successful reproduction. No observation-based
-calibration, full carbon closure, complete DAIS integration, or global adaptation
-ensemble has been demonstrated. The kernel verification establishes a narrower
-capability: translation of documented equations into testable calculations with
-explicit domains, units, and limiting cases.
+does not count such code as a successful reproduction. The initial assessment
+stopped too early: further scholarly reading recovered major mechanisms and
+independent inputs. Observation-based calibration, carbon mass closure and DAIS
+integration are now demonstrated, while a global adaptation ensemble remains
+unreproduced. The failed holdout checks show why solver verification and posterior
+convergence cannot substitute for validation of the predicted observable.
 
 The research log records source access failures, incidental search exposure,
 interpretation decisions, and verification outcomes. No subagents were used.
 The work followed Brad Lipovsky's supplied research instructions and academic
-style guide. The final assessment concerns this bounded execution; it is not a
+style guide. This assessment concerns the recorded execution; it is not a
 general benchmark of all AI research systems.
 
-\section{Reproducibility and conclusions}
+\section{Reproducibility and current scope}
 
 Run \texttt{bash scripts/run\_all.sh} from the project root to execute the
 offline verification, generate numerical diagnostics and figures, and compile
@@ -516,13 +523,15 @@ temporary files and tool caches are directed into the designated project.
 Source acquisition is a separate optional, hash-checked command. The scientific
 build does not require network access or downloaded authors' outputs.
 
-The independent calculations verify recoverable response and cost kernels and
-quantify two written-specification discrepancies. An original conceptual
+The independent calculations verify response and cost mechanisms, quantify
+written-specification discrepancies, and test alternative observation-conditioned
+climate scenarios. An original conceptual
 Figure 4 is complete. Main Figures 1--3, supplementary Figures 1--10 and modeled
 Table 1 remain unreproduced. A printed-table arithmetic agreement is not promoted
 to numerical-model agreement. The missing calibration and coastal inputs must
-be recovered before a defensible coupled ensemble or assessment of the target
-scientific conclusions can be produced.
+be resolved before an assessment of the target scientific conclusions can be
+claimed. These remaining tasks do not invalidate the completed mechanism tests
+or authorize treating this progress report as project completion.
 
 \begin{thebibliography}{99}
 \bibitem{wong2025} Wong, T. E., Dake, S., Feke, K., Darnell, C., and Srikrishnan, V.
@@ -582,5 +591,28 @@ Dataset provenance checked at Vrije Universiteit Amsterdam and 4TU.
 \href{https://iiasa.ac.at/models-tools-data/ssp}{Provider documentation},
 accessed 12 October 2026. Multiple GDP interpretations and data vintages require
 explicit selection before a target reconstruction.
+\bibitem{tanaka} Tanaka, K. (2008). Inverse estimation for the simple Earth
+system model ACC2. Doctoral thesis. Chapter 2 supplies physical equations;
+software appendices were not consulted.
+\href{https://pure.mpg.de/rest/items/item_2389991_2/component/file_2389990/content}{Scholarly thesis}.
+\bibitem{siegenthaler} Siegenthaler, U., and Oeschger, H. (1987).
+Biospheric CO$_2$ emissions during the past 200 years reconstructed by
+deconvolution of ice core data. \emph{Tellus B}, 39, 140--154.
+\href{https://b.tellusjournals.se/articles/1693/files/submission/proof/1693-1-15260-1-10-20221121.pdf}{Published methods and reservoir diagram}.
+\bibitem{hooss1999} Hooss, G., and coauthors (1999). A nonlinear impulse
+response model of the coupled carbon cycle--climate system (NICCS).
+MPI scientific report, carbon chemistry section.
+\href{https://climatehomes.unibe.ch/~joos/papers/hooss99mpi.pdf}{Scholarly report}.
+\bibitem{vehtari} Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., and
+Buerkner, P.-C. (2021). Rank-normalization, folding, and localization:
+an improved $\widehat R$ for assessing convergence of MCMC.
+\emph{Bayesian Analysis}. \href{https://doi.org/10.1214/20-BA1221}{doi:10.1214/20-BA1221}.
+\bibitem{inputs} Independent input providers. Met Office HadCRUT4.6.0.0
+(Morice et al., 2012); CEDA radiative forcing (Smith, 2023); CMIP6 concentrations
+(Meinshausen et al., 2020); NOAA GML CO$_2$ (Lan et al.); NOAA NCEI ocean heat
+and thermosteric sea level (Levitus et al., 2012); Global Carbon Budget 2023
+(Friedlingstein et al., 2023). Exact citations, units, licenses, subset
+definitions and versioned hashes are in \texttt{inputs/README.md} and
+\texttt{docs/EXTERNAL\_INPUTS.csv}.
 \end{thebibliography}
 \end{document}

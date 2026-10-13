@@ -12,6 +12,17 @@
     "tests/runtests.jl": "ba99eea328e9dfa09913d9813423b7f3f154d06370c8255422f73be083198be4"
   },
   "command": "bash scripts/run_all.sh",
+  "continuation_checkpoint": {
+    "command": "bash scripts/run_all.sh",
+    "curated_artifacts_checked": 77,
+    "exit_code": 0,
+    "julia_assertions": 238,
+    "posterior": "Saved temperature-only posterior rechecked; joint posterior excluded pending convergence",
+    "python_diagnostic_assertions": 6,
+    "report_pages": 20,
+    "scope": "Mechanism verification and explicit alternative experiments; target ensemble not reproduced",
+    "wall_seconds": 357.33650851249695
+  },
   "curated_artifacts_verified": 26,
   "date_utc": "2026-10-12",
   "julia_tests_failed": 0,

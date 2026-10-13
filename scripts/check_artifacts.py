@@ -18,11 +18,14 @@ for problem in ['Undefined control sequence', 'undefined references', 'Citation'
 assert 'Overfull \\hbox' not in log, 'Report layout overflow requires inspection'
 artifacts = sorted(list((ROOT / 'results').glob('*.csv')) +
                    list((ROOT / 'results').glob('*.toml')) +
-                   [ROOT / 'results' / 'verification.json'] +
+                   [p for p in (ROOT / 'results').glob('*.json') if p.name != 'artifact_sha256.json'] +
                    list((ROOT / 'figures').glob('*.pdf')) +
                    list((ROOT / 'figures').glob('*.png')) + [pdf])
 manifest = {}
 for path in artifacts:
+    # An active, unaccepted calibration is not a verified build artifact.
+    if path.name.startswith('climate_joint_') and not path.name.startswith('climate_joint_initial_'):
+        continue
     assert str(path.resolve()).startswith(str(ROOT) + '/')
     assert 0 < path.stat().st_size < 5_000_000
     manifest[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()

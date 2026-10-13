@@ -1,0 +1,14 @@
+{
+  "carbon": {
+    "baseline_2022_co2_ppm": 461.3804725539933,
+    "max_mass_balance_error_GtC": 9.549694368615746e-12,
+    "observed_2022_co2_ppm": 417.08
+  },
+  "climate": {
+    "heat_holdout_parameter_median_bias_1e22J": 16.105207576816287,
+    "heat_holdout_parameter_median_rmse_1e22J": 16.458217549976407,
+    "temperature_holdout_mean_bias_K": 0.18872714798452003,
+    "temperature_holdout_predictive_90_coverage": 0.625,
+    "temperature_holdout_rmse_K": 0.20924293572229313
+  }
+}

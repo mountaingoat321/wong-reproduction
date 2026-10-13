@@ -1,5 +1,59 @@
 # Research and AI reconstruction log
 
+## Observations, calibration and closed mechanisms, 2026-10-12
+
+Recovered independent CEDA forcings, CMIP6 concentrations, HadCRUT4, NOAA CO2,
+NOAA depth-specific ocean heat/thermosteric observations, and GCB2023 emissions.
+Only specified observational/input columns are extracted. The ICOS download
+initially returned an HTML license page; it was rejected as a workbook, then
+retrieved through the provider's public CC BY acceptance link. Source hashes
+were corrected before use. No account or external message was created.
+
+Implemented a mass-conserving carbon alternative from written S87/R08 land and
+H99/T08 ocean equations. All 21 checks pass; 18 historical sensitivities and
+three future-emissions cases have total-carbon residuals below 1e-11 GtC.
+The uncalibrated default overpredicts 2022 CO2 (461.38 versus NOAA 417.08 ppm).
+No future result from this default is counted as a reproduced target projection.
+Missing pre-1850 land-use emissions remain blank in the input file, with two
+explicit assumptions tested only in the sensitivity script.
+
+The first four-chain temperature-only MCMC had split Rhat up to 1.033 and was
+not accepted. A longer run samples log ECS and diffusivity with the correct
+Jacobian: 6000 warmup and 30000 production steps per chain, saving every fifth
+step to limit artifact size. Rank/folded Rhat <=1.00427 and bulk/tail ESS >=1894
+pass the preset 1.01/400 criteria. The exact AR1 likelihood is checked against
+dense Gaussian covariance; separate diagnostics detect shifted and unequal-scale
+chains. Six SSP projections use 1000 joint draws; additional 250/500 subsets
+measure Monte Carlo variation. However, 2006–2021 temperature holdout RMSE is
+0.209 K, bias +0.189 K, and predictive 90% coverage is 10/16. The depth-matched
+700m ocean heat check also fails (parameter-median RMSE 16.46e22 J). A separate
+temperature-plus-heat calibration is running; the earlier failure is retained.
+
+DAIS event splitting resolves the previous irregular step refinement. At the
+known runoff event (year 41.92982456 in the 6 K warming case), one-sided stage
+evaluation retains the printed discontinuity. Two-year versus one-year endpoint
+radius differs by 1.57e-7m; further refinement reaches floating-point limits.
+The climate heat-to-depth observable adds four checks (69 recovered-model
+assertions now pass). The annual synthetic coastal cash-flow model passes 60
+checks of accounting, irreversible upgrades, and first-period policy retention.
+
+GTSR input recovery progressed beyond the 100-year shapefile to the independent
+2019 Gumbel parameter archive. A NetCDF3 reader correctly rejected its HDF5
+format; already installed h5py3.1.0 reads it, without installing dependencies.
+Quality checks corrected the initial interpretation of station labels: 12148
+feature rows contain only 7868 distinct labels. The label is not a unique DIVA
+segment identifier. Nearest-neighbor mapping finds 133 invalid rows; these are
+not replaced by more distant data. The newer fitted return levels differ from
+the older product, so neither is silently declared the exact W25 coastal input.
+Searching the IIASA legacy country download returned a 404/connection failure;
+PIK's former DINAS URL returns404 and the Demis host is unavailable. These are
+documented access results, not proof that recovery is permanently impossible.
+
+All substantive simulations run on one low-priority computational thread.
+Short test execution temporarily suspended the owned MCMC process, with a
+finally block restoring it; no other user's process or files were touched.
+The report and figure inventory are being updated as continuing deliverables.
+
 ## Continued execution and first recovery checkpoint, 2026-10-12
 
 The user rejected treating the initial assessment as completion. Reread the task,
@@ -132,3 +186,46 @@ the confirmed result is 0. This resolved execution-status uncertainty without
 changing scientific code or results. Details and source hashes are retained in
 docs/BUILD_VERIFICATION.json. All 13 report pages were rendered and visually
 reviewed. No target ensemble was run and no numerical target figure was claimed.
+
+
+### Joint calibration refinement and reproducible-build integration
+
+The first joint temperature/heat run failed the same acceptance criteria used
+for the temperature-only run (maximum rank/folded Rhat 1.0218; heat-correlation
+bulk ESS about 285). Its diagnostics are preserved separately and its raw draws
+are archived in ignored local storage. It was not propagated into projections.
+The revised sampler uses log innovation scales, logit correlations, correct
+Jacobian terms, a 1,500-iteration warmup covariance window and 50,000 production
+iterations per chain. An initial Julia parsing error in a dotted decimal
+expression prevented startup; spacing was corrected before the run began.
+The physical prior and likelihood remain unchanged. The offline driver now
+includes all implemented mechanism suites and alternative experiments using
+the accepted saved temperature posterior. Input-quality and experiment registers
+separate data acquisition, verified numerics, model validation and target status.
+
+
+### Expanded build and independent geographic inputs
+
+The expanded offline driver completed with exit 0 in 357.34 seconds: 238 Julia
+assertions, six Python diagnostic assertions, all deterministic experiments,
+six 1,000-draw SSP scenarios, plotting and two LaTeX passes. Artifact checks
+verified 77 files and all 19 target statuses. The report is now 20 pages; its
+new text and figures were visually inspected. None of these alternatives
+changes a target panel to reproduced.
+
+Independent SLIIDERS v1.1 inputs were acquired from the dataset-only Zenodo
+archive (28.0 MB; CC BY-NC 4.0), without its construction code or model outputs.
+This resolves an alternative geographic exposure route, not exact DIVA
+recovery. Sum-preserving aggregation produces six elevation bins. All Gumbel
+scales are positive and finite, but 775 segment/administrative units have zero
+coastal length. Economics uses 2019 USD PPP and stops in 2100. These differences
+must remain explicit in any subsequent global experiment. A small Blosc codec
+wheel was installed only under the ignored project-local dependency directory.
+
+The long joint MCMC was interrupted before any complete chain was retained to
+verify a more efficient exact solver of the same linear finite-volume climate
+ODE. Diagonal similarity produces a symmetric tridiagonal operator; all modes
+are propagated analytically under piecewise-linear annual forcing. Fifteen
+checks compare it with an independent augmented dense matrix exponential and
+second-order Crank–Nicolson refinement. The accepted temperature-only posterior
+and its numerical convention remain preserved.

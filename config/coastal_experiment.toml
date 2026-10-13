@@ -1,0 +1,20 @@
+# SYNTHETIC SEGMENT: these are no country's observations or calibrated exposure.
+# Monetary units constant 2010 USD; areas km2; length km; elevations m.
+length = 10.0
+edges = [0.0, 1.0, 2.0, 3.0, 5.0, 10.0]
+areas = [10.0, 10.0, 10.0, 20.0, 50.0]
+land_value = 1000000.0
+wetland_area = 5.0
+wetland_value = 5376000.0
+protection_coefficient = 6020000.0
+high_tide = 0.5
+us_income_2010 = 50000.0
+movefactor = 1.0
+vslmult = 200.0
+vslel = 0.47
+wvel = 1.16
+wvpdl = 0.47
+[gev]
+location = 1.0
+scale = 0.25
+shape = 0.05

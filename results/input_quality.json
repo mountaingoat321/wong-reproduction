@@ -1,0 +1,20 @@
+{
+  "all_valid": {
+    "n": 12015,
+    "q100_max_absolute_difference_m": 6.791250202406963,
+    "q100_median_difference_m": 0.10044594554942288,
+    "q100_rmse_difference_m": 0.39989211957520304
+  },
+  "distinct_archive_station_labels": 7868,
+  "feature_rows": 12148,
+  "max_nearest_distance_km": 217.92930598624585,
+  "missing_nearest_parameters": 133,
+  "nearest_station_label_disagreements": 4301,
+  "same_station_label": {
+    "n": 7847,
+    "q100_max_absolute_difference_m": 3.0698056798631135,
+    "q100_median_difference_m": 0.11073044255861508,
+    "q100_rmse_difference_m": 0.37608198389416797
+  },
+  "valid_nearest_parameters": 12015
+}

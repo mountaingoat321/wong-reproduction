@@ -16,6 +16,12 @@ suite=@testset "Recovered coupled mechanisms" begin
             @test dot(s.mass,s.A*x+2s.forcing)≈net atol=1e-12
         end
         s=M.climate_system(cells=20)
+        uniform=ones(22)
+        @test M.ocean_heat_to_depth(s,uniform,0.)==0
+        @test M.ocean_heat_to_depth(s,uniform,700.) ≈
+            3.62e14*M.SECONDS_PER_YEAR*s.cv*(57.5+s.ocean_fraction*(700-57.5))
+        @test M.ocean_heat_to_depth(s,uniform,4057.5) ≈ M.ocean_heat(s,uniform;mixed_depth=57.5)
+        @test M.ocean_heat_to_depth(s,uniform,30.) ≈ 3.62e14*M.SECONDS_PER_YEAR*s.cv*30
         @test all(iszero,M.climate_run(s,zeros(5)))
         q=fill(3.7,21)
         out=M.climate_run(s,q;substeps=8)

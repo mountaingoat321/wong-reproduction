@@ -75,15 +75,15 @@ fig, ax = plt.subplots(figsize=(10, 6.5))
 ax.set(xlim=(0, 10), ylim=(0, 7)); ax.axis('off')
 boxes = [
     (0.2, 5.2, 4.1, 1.1, 'Emissions + carbon + climate',
-     'Implemented: emissions, NPP/respiration,\nCO2 forcing, ocean diffusion kernels', '#d8e9f3'),
+     'Implemented: coupled climate, carbon alternative,\nobservational climate calibration and checks', '#d8e9f3'),
     (5.5, 5.2, 4.1, 1.1, 'Sea-level components',
-     'Implemented: GIC/GIS response, heat expansion,\nAntarctic temperature/threshold kernels', '#d8e9f3'),
+     'Implemented: GIC/GIS response, heat expansion,\ngeometric DAIS and event-aware integration', '#d8e9f3'),
     (5.5, 3.1, 4.1, 1.1, 'Coastal sea level and flood exposure',
      'Implemented: fingerprint operator,\nGEV extremes, elevation-band damage', '#d8e9f3'),
     (0.2, 3.1, 4.1, 1.1, 'Coastal costs and adaptation',
-     'Implemented: cost accounting, discounting,\nfinite-candidate choice, regional summaries', '#d8e9f3'),
-    (0.2, 0.5, 9.4, 1.4, 'Global numerical projections remain unavailable',
-     'Required: complete SNEASY/DAIS specification and joint calibration; historical forcing;\ncomponent fingerprints and land motion; DIVA exposure; matched GTSR and SSP inputs.\nNo calibrated climate-to-cost ensemble or target numerical figure has been generated.', '#f3e5d8')]
+     'Implemented: annual synthetic cash flows,\nretained strategy, discounting and summaries', '#d8e9f3'),
+    (0.2, 0.5, 9.4, 1.4, 'Remaining requirements for the target climate-to-cost ensemble',
+     'Target joint emissions/climate/ice calibration and initialization; component fingerprints;\nland motion; original elevation-area and exposure data; matched socioeconomic inputs.\nIndependent alternatives are tested separately and are not target numerical reproductions.', '#f3e5d8')]
 for x, y, w, h, title, desc, color in boxes:
     ax.add_patch(FancyBboxPatch((x,y),w,h,boxstyle='round,pad=0.06',facecolor=color,edgecolor='#52606d'))
     ax.text(x+w/2,y+h-.22,title,ha='center',va='center',weight='bold',fontsize=10)

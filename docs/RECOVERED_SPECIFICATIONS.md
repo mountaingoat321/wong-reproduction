@@ -122,3 +122,41 @@ terms: `length*pc*(H²+mc*H)+length*landvalue*1.7H`, with consistent km/metre
 conversion needed for occupied area. The 1.7H geometry is explicit. The old
 generic protection kernel did not include land occupation; a full trajectory
 implementation must include it.
+
+
+## Implemented alternatives and observational operators
+
+The continued report (`report/continuation.tex`) gives the independently closed
+S87/H99/T08 carbon equations and their version differences. `src/CarbonCycle.jl`
+keeps the atmospheric/mixed-ocean inventory as a single mass variable and solves
+constant-alkalinity carbonate equilibrium by hydrogen-ion bisection. Four land
+stocks conserve carbon with NPP allocation, transfers and Q10 respiration.
+Atmospheric/mixed and deep-ocean exchanges cancel exactly in the summed inventory.
+A Strang split couples the carbon and climate solvers. This version is an
+uncalibrated alternative, not asserted to recover all target SNEASY details.
+
+`ocean_heat_to_depth` integrates the 57.5m water-only surface heat capacity and
+partial finite-volume cells to an explicit depth. It excludes atmospheric heat.
+It permits direct depth matching to NOAA 0–700m observations. The global climate
+observable remains the documented surface-air combination; HadCRUT4 instead
+blends land air and sea-surface temperature. Their direct comparison is an
+explicit representation approximation, retained from the legacy calibration
+convention. Changing that observation operator requires a separate experiment.
+
+The temperature calibration uses 1850–2005 for fitting and 2006–2021 for validation.
+Its independent heat check fits only a datum offset over 1955–2005. The joint
+experiment instead estimates a heat datum and separate AR1 innovation/correlation
+parameters using the same pre-2006 heat interval. Measurement uncertainty adds
+to the stationary AR1 covariance through an exact scalar Kalman filter. Process
+and observation errors are distinct; parameter intervals and predictive intervals
+are labeled separately. MCMC is accepted only after rank/folded split Rhat<1.01
+and bulk/tail ESS>=400 for every parameter and log density.
+
+`src/CoastalPaths.jl` evaluates all ten documented adaptation candidates on annual
+cash flows, selects the first planning period's optimum and retains its strategy
+and return period through later upgrades. The independent timing, wetland-loss,
+land-loss and maintenance conventions are recorded in ASSUMPTIONS S038–S039.
+Synthetic income/density growth is deliberately not labeled SSP2 or SSP4.
+Real hazard parameters alone do not turn an invented exposure profile into an
+observed coast. Geographic aggregation remains pending the missing exposure and
+country crosswalk inputs.

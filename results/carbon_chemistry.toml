@@ -1,0 +1,4 @@
+hydrogen_preindustrial_mol_L = 5.123625610670798e-9
+dic_preindustrial_mol_L = 0.0020809086744191492
+scope = "H99 chemistry with T08 transport and S87/R08 land feedback; uncalibrated alternative"
+small_perturbation_mixed_fraction = 0.10711553197865842

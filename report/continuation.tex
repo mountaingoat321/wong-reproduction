@@ -1,0 +1,225 @@
+\section{Continued recovery, implementation and observational experiments}
+\label{sec:continuation}
+
+The earlier assessment identified missing mechanisms too broadly. Reading the
+complete Tanaka thesis and the 2022 scholarly preprint recovered the DOECLIM
+constants, the coastal decision menu and the socioeconomic priors. Independent
+providers supplied forcing, temperature, carbon emissions, ocean heat and
+coastal-hazard inputs \cite{inputs}. The active audit in
+\texttt{docs/BLOCKER\_AUDIT.md} distinguishes recovered specifications,
+derived corrections, explicit alternatives and remaining data gaps.
+
+\subsection{Coupled energy balance and numerical heat transport}
+
+The land--troposphere and ocean--troposphere boxes exchange heat and lose energy
+through separate radiative feedbacks \cite{tanaka,urban}. For land fraction
+$f=0.29$, their temperatures $T_L,T_S$ satisfy
+\begin{align}
+C_L\dot T_L&=Q-\lambda_LT_L-\frac{k}{f}(T_L-bT_S),\\
+C_S\dot T_S&=Q-\lambda_ST_S+\frac{k}{1-f}(T_L-bT_S)-F_O.
+\end{align}
+Here $b=1.3$, $C_L=0.52$ and $C_S=7.8$\,W\,yr\,m$^{-2}$\,K$^{-1}$.
+The global surface-air observable is $fT_L+(1-f)bT_S$. The equilibrium land/SST
+ratio is 1.43 and $k=1.59-0.31\lambda_L$. Together with an equilibrium warming
+of ECS under 3.7\,W\,m$^{-2}$, these relations determine both feedbacks and the
+exchange coefficient. The explicit formulas are recorded in
+\texttt{docs/RECOVERED\_SPECIFICATIONS.md}.
+
+An 80-cell, 4000\,m interior ocean exchanges heat continuously with the mixed
+layer and has an insulated bottom. Finite-volume fluxes cancel under a global
+heat-capacity weighted sum; this is tested independently of equilibrium fitting.
+Crank--Nicolson integration uses four steps per year. Refining the vertical grid
+from 80 to 160 cells changes the year-70 warming under 1\% annual CO$_2$ growth
+by 0.000787\,K; the next doubling changes it by 0.000197\,K. This approximately
+fourfold error reduction agrees with second-order spatial convergence.
+
+The 60\,m effective mixed-layer capacity contains about 2.5\,m of
+atmospheric-equivalent capacity. Comparisons with NOAA integrate only 57.5\,m
+of water and the appropriate fractional interior cells down to the stated
+observational depth. Whole-column heat is not compared to a 700\,m record.
+HadCRUT4 blends land air temperature with SST, whereas the legacy DOECLIM
+observable includes enhanced marine-air warming. Treating that blended record
+as the global-air observable follows the simplified legacy calibration and is
+an additional representation approximation, not an exact observation operator.
+
+\subsection{A closed, explicitly alternative carbon cycle}
+
+The recovered terrestrial stocks are 100, 500, 120 and 1500\,Gt\,C in leaves,
+wood, detritus and soil \cite{siegenthaler}. Baseline NPP of 60\,Gt\,C\,yr$^{-1}$
+allocates 35 to leaves and 25 to wood. Leaf turnover sends 35 to detritus;
+wood sends 20 to detritus and 5 to soil. Detritus respires 45 and transfers 10
+to soil; soil respires 15. Linear turnover rates are these fluxes divided by
+their source stocks. Fertilization modifies NPP and the documented $Q_{10}$
+factor modifies the two respiration fluxes \cite{ricciuto}. All internal
+transfers cancel in the global carbon balance.
+
+Ocean carbon uses an instantaneously equilibrated atmosphere--mixed-layer
+reservoir and three deeper reservoirs. Constant alkalinity, total boron and
+carbonate equilibrium determine atmospheric CO$_2$ and mixed-layer carbon from
+their combined inventory \cite{hooss1999}. The nonlinear scalar root is solved
+by bisection in log hydrogen concentration. At 280\,ppm the reconstructed DIC
+is 0.002080909\,mol\,L$^{-1}$, consistent with the printed H99 value to its
+reported precision. The mixed-layer depth and deep exchange parameters are
+from the later Tanaka description. Mixing these documented versions, and
+holding carbonate chemistry temperature fixed, defines an alternative closure;
+it does not establish exact recovery of the target SNEASY version.
+
+Second-order splitting couples carbon RK4 steps to climate CN steps. Twenty-one
+checks establish baseline equilibrium, chemical partition, stock positivity,
+second-order coupled convergence and total-carbon conservation. Across 18
+historical sensitivities, the largest carbon-budget residual is below
+$10^{-11}$\,Gt\,C. Conservation alone does not validate the response: the
+uncalibrated default predicts 461.38\,ppm in 2022, compared with NOAA's
+417.08\,ppm. The GCB historical table has no pre-1850 land-use emissions; the
+input retains blanks, while separate calculations prescribe zero or the 1850
+rate before 1850. These are alternatives, not recovered observations.
+
+\begin{figure}[p]
+\centering\includegraphics[width=\textwidth]{carbon_alternative.pdf}
+\caption{Uncalibrated carbon--climate experiments, not target reproductions.
+Left: historical CO$_2$ sensitivities to fertilization and the explicitly
+assumed early land-use input, with independent NOAA observations. Centre:
+documented emissions recurrence initialized from GCB2023, with three prescribed
+peak years. Right: coupled warming under fixed SSP2-4.5 non-CO$_2$ forcing.
+The historical mismatch limits interpretation of these future curves.}
+\end{figure}
+
+\subsection{Temperature-only calibration and failed holdout checks}
+
+The first observational experiment estimates ECS, heat diffusivity, aerosol
+multiplier, temperature offset, AR1 innovation scale and AR1 correlation.
+HadCRUT4.6.0.0 years 1850--2005 form the training data; years 2006--2021 are
+held out. Known observational standard deviations are approximated by the total
+95\% interval widths divided by $2(1.96)$. This approximation omits the record's
+full temporally correlated measurement covariance. A scalar Kalman filter
+integrates the latent AR1 residual exactly under these assumptions; tests match
+the dense Gaussian covariance likelihood to $10^{-12}$.
+
+Uniform bounds follow the B17 climate table, except that ECS is restricted to
+0.7--10\,K: the recovered exchange relation becomes negative below about
+0.68\,K. CEDA effective forcing supplies historical and future inputs, with
+both aerosol components multiplied by the same parameter. This differs from
+the older indirect-aerosol convention and from Darnell's uncertain emissions
+and nearest-SSP forcing construction. Neither the posterior nor the six
+scenario experiments is claimed as the Wong ensemble.
+
+An initial short run failed convergence checks. The retained calculation uses
+four dispersed chains, each with 6000 warmup and 30,000 production steps;
+every fifth state is retained. Proposal adaptation stops before production.
+Log ECS and log diffusivity proposals include their Jacobian, preserving the
+physical-coordinate prior. Independently implemented rank/folded split
+$\widehat R$ and bulk/tail ESS follow Vehtari et al.\ \cite{vehtari}.
+The largest $\widehat R$ is 1.00427 and the smallest ESS is 1894, satisfying
+the prespecified limits of 1.01 and 400.
+
+Conditional forecasts propagate the final training-period residual state and
+include both AR1 innovation and observational uncertainty. Despite sampler
+convergence, holdout temperature RMSE is 0.209\,K, with mean bias
+$+0.189$\,K. Only 10 of 16 held-out annual temperatures lie inside the nominal
+90\% predictive intervals. After fitting only an additive heat datum offset
+over 1955--2005, the 700\,m heat parameter-median RMSE in 2006--2021 is
+$16.46\times10^{22}$\,J. These failures motivate a separate temperature--heat
+calibration; they are not removed from the record.
+
+One thousand complete joint parameter rows generate six SSP trajectories;
+250- and 500-row subsets test sampling variation. The physical temperature
+intervals exclude future residual noise. SSP2-4.5 mean warming over
+2081--2100 is 2.924\,K, with a parameter 90\% interval of 1.976--4.188\,K.
+The corresponding printed AR6 assessment is 2.7 [2.1, 3.5]\,K. This comparison
+uses the same averaging/reference periods but compares different inference
+systems; it is not a numerical reproduction of Supplementary Figure S3.
+
+\begin{figure}[p]
+\centering\includegraphics[width=\textwidth]{climate_alternative.pdf}
+\caption{Temperature-only calibration and independent observational checks.
+The upper-right forecast includes residual and measurement uncertainty. The
+lower-left scenario bands contain parameter uncertainty only. Ocean heat is
+compared at the actual observational depth, with a training-period datum offset.
+The temperature and heat holdout discrepancies prevent treating this converged
+alternative posterior as validation of the target model.}
+\end{figure}
+
+\subsection{Antarctic events and observational thermal expansion}
+
+DAIS geometry, accumulation and marine discharge are now implemented. The
+discharge water depth follows sea level minus bed elevation, correcting the
+printed sign from geometry; coefficient units follow dimensional consistency.
+The equilibrium volume of $2.478479\times10^{16}$\,m$^3$ differs from Shaffer's
+rounded $2.478\times10^{16}$\,m$^3$ by 0.0193\%. This is a reproduced
+methodological benchmark, not a reproduced Wong figure.
+
+The printed runoff gate activates at $h_0+cT_A=0$. Over marine bed this can
+produce a discontinuous accumulation rate. Splitting time steps at that event
+and evaluating endpoint stages on the appropriate side removes the earlier
+irregular refinement. In the 6\,K, century-long warming ramp, the event occurs
+at year 41.92982456. Two-year and one-year steps differ in year-200 radius by
+$1.57\times10^{-7}$\,m; finer steps reach floating-point limits. The dashed
+curves in Figure\ref{fig:recovered} instead activate runoff when the runoff
+line exceeds local edge height, and remain explicit alternative physics.
+These tests express sea level by mass conservation using ice/water densities
+and ocean area, whereas B17 scales its initial Antarctic volume to 57\,m.
+The two observable conventions are not silently interchanged.
+
+\begin{figure}[p]
+\centering\includegraphics[width=.98\textwidth]{recovered_mechanisms.pdf}
+\caption{Independent mechanism tests. Left: prescribed Antarctic warming,
+with fixed ocean temperature and sea level, isolates the runoff convention.
+Right: climate grid refinement under 1\% annual CO$_2$ growth. Neither panel
+is a global calibrated projection.}\label{fig:recovered}
+\end{figure}
+
+An independent coefficient check uses NOAA heat and thermosteric sea level
+from the same depth range. OLS over 1955--2005 at 0--700\,m gives
+$1.392\times10^{-25}$\,m\,J$^{-1}$; fitting 2005--2015 at 0--2000\,m gives
+$1.107\times10^{-25}$\,m\,J$^{-1}$. Held-out thermosteric RMSEs through 2021
+are 0.414 and 0.757\,mm, respectively. First-difference slopes provide a check
+against merely fitting a common trend. Because heat and sea level share
+hydrographic observations, these are descriptive constraints rather than
+independent-error coefficient posteriors. They are not substituted silently
+for the unavailable V19 prior or a full-depth expansion coefficient.
+
+\begin{figure}[p]
+\centering\includegraphics[width=.98\textwidth]{thermal_observations.pdf}
+\caption{Independent NOAA heat and thermosteric observations with fitted
+depth-specific linear relations. Later years through 2021 were withheld.
+This coefficient check is an explicit alternative to the target calibration.}
+\end{figure}
+
+\subsection{Coastal cash flows and input quality}
+
+The annual coastal experiment retains the documented ten-choice menu and
+first-period decision rule. Sixty checks establish nonnegative cash-flow
+components, first-period policy selection, no repeated relocation at fixed
+sea level and telescoping incremental dike construction costs. Upgrades at
+2010, 2051 and 2101, annual payment timing and a paired no-SLR counterfactual
+are explicit alternatives to the target's decadal accounting and initial-step
+subtraction. Forty-eight synthetic scenarios compare income/exposure, sea-level
+rise, retreat land accounting and linear versus quadratic maintenance.
+All exposure values are labeled fixtures; no global cost estimate is inferred.
+Doubling flood quadrature from 512 to 1024 panels changes the verification-case
+NPV by about 0.00024\,USD and leaves its policy unchanged.
+
+\begin{figure}[p]
+\centering\includegraphics[width=.98\textwidth]{coastal_alternative.pdf}
+\caption{Synthetic coastal alternatives. Left: paired-counterfactual incremental
+costs under two explicit land-accounting rules. Income and exposure both vary
+across the three fixtures, so this is not an isolated income effect.
+Right: annual components for one selected retreat policy, including discrete
+upgrades. These outputs do not estimate a named coast or a global cost.}
+\end{figure}
+
+The independent GTSR shapefile has 12,148 coastal feature rows but only 7868
+distinct station labels. The initial interpretation of these labels as unique
+DIVA identifiers was corrected by this audit. A second public release provides
+16,611 station-wise Gumbel fits. Geographic mapping leaves 133 nearest matches
+with invalid parameters; these remain missing, not filled from distant stations.
+The two input products also disagree in their 100-year levels. These findings
+prevent a silent merge or assumption of exact input equivalence. The full
+elevation-area, exposure, country mapping and DINAS tide records still require
+recovery before geographically aggregated coastal costs can be generated.
+
+Every alternative here has its own input, script, output and figure record.
+No alternative curve is entered into the target inventory as a recovered
+published numerical result. Ongoing calibration and data-recovery tasks remain
+active rather than being reclassified as irreducible merely because the first
+implementation lacked them.

@@ -42,12 +42,70 @@ end
 
 global_temperature(sys,x)=sys.land_fraction*x[1]+(1-sys.land_fraction)*sys.marine_air_factor*x[2]
 
+"""Exact modal propagation of the finite-volume climate ODE for forcing linear
+between annual nodes. Positive off-diagonals admit a diagonal similarity to a
+symmetric tridiagonal matrix. Projects directly to SAT and water heat; it does
+not approximate the physical eigenmodes or truncate their number.
+"""
+function climate_observables(sys,forcing;depths=(700.0,2000.0,4057.5))
+    a=sys.A; n=length(a.d)
+    all(a.dl.>0) && all(a.du.>0) || throw(DomainError(a,"modal solver requires positive exchanges"))
+    scale=vcat(1.0,cumprod(sqrt.(a.du./a.dl)))
+    eig=eigen(SymTridiagonal(a.d,sqrt.(a.dl.*a.du)))
+    lambda=eig.values; v=eig.vectors
+    input=v'*(scale.*sys.forcing)
+    decay=exp.(lambda)
+    left=similar(lambda);right=similar(lambda)
+    for i in eachindex(lambda)
+        z=lambda[i]
+        # Series avoid cancellation for the slow deep-ocean modes.
+        if abs(z)<1e-3
+            right[i]=1/2+z/6+z^2/24+z^3/120+z^4/720
+            left[i]=1/2+z/3+z^2/8+z^3/30+z^4/144
+        else
+            right[i]=(expm1(z)-z)/z^2
+            left[i]=(z*exp(z)-expm1(z))/z^2
+        end
+    end
+    weights=zeros(1+length(depths),n)
+    weights[1,1]=sys.land_fraction
+    weights[1,2]=(1-sys.land_fraction)*sys.marine_air_factor
+    for (j,depth) in enumerate(depths)
+        weights[j+1,2]=min(depth,57.5)
+        for i in 1:n-2
+            weights[j+1,i+2]=sys.ocean_fraction*clamp(depth-57.5-(i-1)*sys.dz,0.0,sys.dz)
+        end
+        weights[j+1,:].*=3.62e14*SECONDS_PER_YEAR*sys.cv/1e22
+    end
+    projection=(weights./scale')*v
+    out=zeros(size(weights,1),length(forcing));z=zeros(n)
+    for t in 2:length(forcing)
+        @. z=decay*z+input*(left*forcing[t-1]+right*forcing[t])
+        mul!(view(out,:,t),projection,z)
+    end
+    (temperature=vec(out[1,:]),heat=out[2:end,:])
+end
+
 """Effective ocean-column heat in J; includes the atmospheric-equivalent part
 of the published 60 m mixed-layer heat capacity. It is explicitly a heat proxy.
 Use mixed_depth=57.5 to examine exclusion of its ~2.5 m atmospheric equivalent.
 """
 function ocean_heat(sys,x; area=3.62e14,mixed_depth=60.0)
     area*SECONDS_PER_YEAR*sys.cv*(mixed_depth*x[2]+sys.ocean_fraction*sys.dz*sum(x[3:end]))
+end
+
+"""Heat in the water column above a specified physical depth. The 57.5 m
+water-only mixed layer is followed by finite-volume interior cells; partial
+cells contribute by overlap. Excludes the 2.5 m atmospheric heat equivalent.
+"""
+function ocean_heat_to_depth(sys,x,depth;area=3.62e14,mixed_depth=57.5)
+    depth>=0 || throw(DomainError(depth))
+    heat=min(depth,mixed_depth)*x[2]
+    for i in 1:length(x)-2
+        width=clamp(depth-mixed_depth-(i-1)*sys.dz,0.0,sys.dz)
+        heat+=sys.ocean_fraction*width*x[i+2]
+    end
+    area*SECONDS_PER_YEAR*sys.cv*heat
 end
 
 """Crank--Nicolson, uniform time grid and linear forcing between saved nodes.
@@ -99,12 +157,14 @@ function dais_geometry(radius,sea,p=dais_parameters())
     (volume=volume,dr=dr,ds=ds,coast_radius=rc)
 end
 
-function dais_accumulation(radius,air,p=dais_parameters();runoff_rule=:paper)
+function dais_accumulation(radius,air,p=dais_parameters();runoff_rule=:paper,runoff_active=nothing)
     precipitation=p.precip0*exp(p.kappa*air)
     gradient=p.nu*sqrt(precipitation); line=p.h0+p.c*air
     edge=p.bed-p.slope*radius
     active=runoff_rule==:paper ? line>0 : runoff_rule==:local_height ? line>edge :
         throw(ArgumentError("unknown runoff rule"))
+    # One-sided endpoint evaluation when a time step ends at a known event.
+    runoff_active!==nothing && (active=runoff_active)
     !active && return pi*precipitation*radius^2
     # Clipping the intersection to the physical disk is a geometric extension
     # for wholly ablating/accumulating disks, not a parameter adjustment.
@@ -126,10 +186,10 @@ function dais_discharge(radius,sea,ocean,p=dais_parameters())
 end
 
 function dais_radius_rhs(radius,air,sea,sea_rate,ocean,p=dais_parameters();
-                         fast_loss_m_per_year=0.0,ocean_area=3.62e14,runoff_rule=:paper)
+                         fast_loss_m_per_year=0.0,ocean_area=3.62e14,runoff_rule=:paper,runoff_active=nothing)
     geom=dais_geometry(radius,sea,p)
     loss_volume=fast_loss_m_per_year*ocean_area*p.rhow/p.rhoi
-    (dais_accumulation(radius,air,p;runoff_rule=runoff_rule)+
+    (dais_accumulation(radius,air,p;runoff_rule=runoff_rule,runoff_active=runoff_active)+
      dais_discharge(radius,sea,ocean,p)-loss_volume-geom.ds*sea_rate)/geom.dr
 end
 

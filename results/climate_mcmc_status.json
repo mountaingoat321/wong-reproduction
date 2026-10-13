@@ -1,0 +1,7 @@
+{
+  "experiment": "ALTERNATIVE temperature-only calibration; not W25 posterior",
+  "retained_draws": 24000,
+  "chains": 4,
+  "convergence_criteria_met": true,
+  "criteria": "rank/folded split Rhat <1.01; bulk and tail ESS >=400 for every coordinate and log density"
+}

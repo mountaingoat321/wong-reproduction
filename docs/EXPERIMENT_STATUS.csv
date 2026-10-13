@@ -1,0 +1,9 @@
+experiment,scope,status,command,figure,limitation
+DOECLIM verification,Mechanism verification,Implemented; energy balance and grid convergence pass,tests/recovered_models.jl; scripts/recovered_diagnostics.jl,figures/recovered_mechanisms.pdf,Not target calibration
+DAIS equilibrium and runoff,Methodological benchmark and sensitivity,Equilibrium volume within 0.0193%; event splitting resolves timestep discrepancy,scripts/dais_events.jl,figures/recovered_mechanisms.pdf,Alternative initialization; no target paleo posterior
+Temperature-only calibration,Non-reproduction observational experiment,MCMC passes; held-out T and heat validation poor,scripts/climate_calibration.jl; scripts/assess_calibration.py; scripts/climate_projections.jl,figures/climate_alternative.pdf,"24,000 draws; 1,000 joint rows for six SSP paths"
+Joint temperature/heat calibration,Non-reproduction observational experiment,First run fails convergence; revised sampler active,same climate scripts with --joint-heat,,Do not use unaccepted posterior
+Carbon closure,Non-reproduction sensitivity,Mass conservation passes; default historical CO2 validation fails,scripts/carbon_experiments.jl,figures/carbon_alternative.pdf,18 historical cases; three future emission paths
+Depth-specific thermal coefficient,Non-reproduction observational fit,1955–2005 / 2005–2015 fits and independent later holdouts,scripts/thermal_observations.py,figures/thermal_observations.pdf,Correlated heat/steric observational errors; no formal confidence claim
+Annual coastal paths,Non-reproduction synthetic experiment,60 tests and 48 sensitivity cases; quadrature converges,scripts/coastal_experiments.jl,figures/coastal_alternative.pdf,Synthetic exposure and economics; not regional/global costs
+GTSR archive mapping,Independent input audit,"12,015 valid nearest parameters; 133 missing; product discrepancy retained",scripts/audit_inputs.py,,Station labels are not unique segment IDs
