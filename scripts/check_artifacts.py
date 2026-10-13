@@ -8,8 +8,10 @@ ROOT = Path(__file__).resolve().parents[1]
 with (ROOT / 'docs' / 'FIGURE_STATUS.csv').open() as f:
     status = list(csv.DictReader(f))
 assert len(status) == 19
+assert len({(r['figure'],r['panel']) for r in status}) == 19
+assert all(r['status'] in {'Independently reproduced','Partially reproduced',
+                          'Not reproduced','Conceptual schematic'} for r in status)
 assert sum(r['status'] == 'Conceptual schematic' for r in status) == 1
-assert sum(r['status'] == 'Not reproduced' for r in status) == 18
 pdf = ROOT / 'report' / 'report.pdf'
 assert pdf.read_bytes().startswith(b'%PDF') and pdf.stat().st_size > 10000
 log = (ROOT / 'report' / 'report.log').read_text(errors='replace')

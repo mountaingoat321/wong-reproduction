@@ -166,3 +166,20 @@ allowlisted raw download. LawDome dating/spreading uncertainties are documented
 by NOAA but are not replaced by an invented Gaussian age convolution. The
 MLO station series is distinct from the earlier global NOAA series. Current
 provider releases are not asserted to equal historical target vintages.
+
+`dyurgerov2005_global.csv` contains43annual global glacierSLR observations from
+NSIDC G10002 Supplement2005 Appendix6 (doi:10.7265/N52N506F). Its global means
+are0.404mm/yr over1961–2003 and0.723over1994–2003, differing from the cited
+OP58 written0.51/0.93. It is an alternative observation vintage. Acquisition
+and column/closure checks: `python3 scripts/prepare_glacier_vintage.py`.
+For originalXLS parsing only, install the optional general library locally:
+`TMPDIR=$PWD/.local/tmp PIP_CACHE_DIR=$PWD/.local/pip-cache python3 -m pip install --target "$PWD/.local/python" --no-deps --no-compile --disable-pip-version-check xlrd==2.0.1`.
+The curatedCSV, fits and report do not require xlrd at runtime.
+
+The cited Dyurgerov–Meier OP58 report is now recovered separately from the NSIDC
+2005supplement. Run `python3 scripts/prepare_glacier_op58.py` to download the
+case-sensitive institutional PDF, verify itsSHA256 and extract Appendix3p117's
+printed observationaltable. `inputs/dyurgerov_meier2005_op58.csv` preserves
+roundedannual/cumulativevalues. No digitization, annualSD invention or target
+processed bundle is involved. `scripts/glacier_vintage_fit.jl --op58` and
+`python3 scripts/plot_glacier_vintage.py --op58` regenerate the separate fit.

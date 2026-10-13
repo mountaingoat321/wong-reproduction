@@ -1,0 +1,9 @@
+grid_points = 54
+maximum_noise_free_beta_error = 4.336808689942018e-18
+holdout_years = "1996–2003"
+initial_condition = "Independent1961origin for B17S0bounds; not established target initialization; V0 numerical prior reused with reference qualification"
+scope = "NON-REPRODUCTION: scalar pointfits conditional on27B17physicalgridpoints pertemperaturevintage; no AR1 likelihood or posterior"
+observable = "Annual SLR increments indexed by starting year under linearlyinterpolatedtemperature; no invented annual observationalSD"
+training_years = "1961–1995"
+coverage = "DM05includes peripheral glaciers and provider785000km2 extrapolation; GlaMBIEcontext uses362.5Gt/mm conversion"
+wall_seconds = 10.996952056884766

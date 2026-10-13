@@ -57,3 +57,31 @@ No author implementation, output bundle, digitized curve or posterior file was
 consulted for these recoveries. Public search can expose unrelated code links;
 these are discarded and never opened or used as specifications. Subsequent
 implementation and figure analogues remain explicitly labeled non-reproductions.
+
+## Additional written and original-provider recovery
+- Fuller2017 explicitly evaluates expert-assessment density as a likelihood.
+  This resolves the inversion convention, not the expert PDF family/width.
+  Four densities satisfying both documented baseline constraints were executed;
+  posterior budget probabilities differ from expert budget mass.
+- Darnell2023 Cornell thesis Sections2.1.1–2.1.2/AppendixB use an earlier RCP
+  and no-budget-inversion design. They do not specify the later expert density;
+  no parameter distributions were reverse-engineered from posterior figures.
+- NSIDC G10002's2005 glacier spreadsheet is publicly recoverable. It is not
+  proven identical to OP58: its global means differ from the current INSTAAR
+  written abstract. The OP58 old link fails certificate validation, the current
+  linked node returns404 and the Colorado government archive times out. This
+  record supports an executed observation-vintage fit, not exact-data identity.
+- Socioeconomic marginal priors are implemented in a new conditional sensitivity,
+  with independent correlation and relative initial-valuation mappings stated.
+  Temperature-only propagation tests the effect of the recovered but alternative
+  upper-ocean heat constraint. These are active numerical work, not blockers.
+
+## Superseding OP58 access result
+The exact case-sensitive institutional path `OP58_dyurgerov_meier.pdf` succeeds.
+The118-pageoriginalobservationalreport is hashed underDM05OP58. Appendix3p117
+provides43annualglobalSLR values and cumulative increments; table extraction
+(not figure digitization) verifies theabstractmeans .511/.927mm/yr. This resolves
+the earlier blanket access claim. The NSIDC January2005record is a different
+vintage. Both conditionalfits are now executed; OP58withheldRMSE .400/.412mm/yr
+versustrend.578. NoannualSD column or targetprocessed-observation mapping was
+recovered; peripheral-iceoverlap andjointlikelihood remain substantive questions.

@@ -1,0 +1,8 @@
+{
+  "high_bin_caution": "Equal5 keeps all5 high-bin members; zero resampling change in that category does not establish tail convergence",
+  "maximum_median_change_8_to_16_trillion2019PPP": 0.039969504377900256,
+  "replicates": 500,
+  "sampling_caution": "Nested coast samples are dependent; this is a numerical sensitivity, not proof of convergence",
+  "scope": "NON-REPRODUCTION: finite retained alternative ensemble; not5000vs4000 or202independentmembersperbin",
+  "seed": 20251046
+}

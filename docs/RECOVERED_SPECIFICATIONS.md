@@ -306,3 +306,15 @@ identical documented50%budget mass and conditional SSP460mode, then multiplies
 the documented parameter-prior weights by those densities. It does not divide
 by an estimated output prior density or force posterior budget probability50%.
 See S077, src/emissions_inversion.py and the written F17 source manifest.
+
+## OP58 recovery and heat-observable corroboration
+The citedDyurgerov–Meier2005OP58writtenobservationalreport is now downloaded
+from the exactinstitutionalcase-sensitiveURL recordedunderDM05OP58. Its
+Appendix3p117contains43annualglobalSLRincrements; extraction androunding checks
+are reproducible in `prepare_glacier_op58.py`. This supersedes the earlier
+inaccessible-record assessment; targetannualerror conventions remain unverified.
+Urbanet al.2014Sect2.1(doi:10.1002/2014GL059484) explicitly comparesGK073000m
+heat observations to4000mDOECLIMheat assuming little uptake below3000m. It lists
+ninephysical/AR1/offsetparameters. This corroborates the need to distinguish
+our alternative700mlikelihood fromthetargetobservational mapping; it does not
+supplythemissingannualGK07series. Onlywrittenmethods were consulted.

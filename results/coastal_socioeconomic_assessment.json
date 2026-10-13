@@ -1,0 +1,10 @@
+{
+  "descriptive_R_squared": 0.6636228276012448,
+  "horizon_caution": "Six deliberately chosen paths; freeze andcontinuedgrowth after2100 are assumptions, not recoveredSSPspecifications",
+  "minimum_covered_population2010_fraction": 0.8047586850468648,
+  "regression_caution": "Seven regions, correlated coastal sampling errors and incomplete population coverage; no pvalue or causal claim",
+  "regression_definition": "SSP4 minusSSP2 of the difference between category3 and category2 median regionalcost/GDP; interpretation fromW25 discussion andSI9",
+  "regression_intercept_pp": -0.023107233316288067,
+  "regression_slope_pp_per_thousand2019PPP": 0.0021884213909439927,
+  "scope": "NON-REPRODUCTION: same250alternativepaths; fixed economic parameters; uniformSLR; annual2010\u20132100 and2019PPP"
+}

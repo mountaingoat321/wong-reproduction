@@ -1,0 +1,2 @@
+case,beta,initial1850_co2_ppm,objective,iterations,MLO_training_RMSE_ppm,MLO_holdout_RMSE_ppm,MLO_holdout_bias_ppm,LawDome_RMSE_ppm,ocean1994_GtC,max_mass_error_GtC,substep_difference_ppm,boundary_hit,q10,thermocline_transfer_m_yr
+HadCRUT4_joint,0.5254551406085488,280.0604085218246,14.778455634098652,2,2.08822593509852,3.3519554078072256,-3.1804887562414947,3.2276567472518765,121.29126901795308,2.2737367544323206e-12,4.639011160634254e-5,false,0.9970574642456922,17.0143519945023

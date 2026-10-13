@@ -1,0 +1,18 @@
+{
+  "NSIDC_mean1961_2003_mm_yr": 0.40406276344344466,
+  "NSIDC_mean1994_2003_mm_yr": 0.7229444457299573,
+  "OP58_written_mean1961_2003_mm_yr": 0.51,
+  "OP58_written_mean1994_2003_mm_yr": 0.93,
+  "OP58_written_source": "https://www.colorado.edu/instaar/research/publications/instaar-occasional-papers",
+  "caution": "Sheet2 European regional area differs from Sheet1 while global columns agree. We preserve provider global columns; do not reconstruct their global weighting from inconsistent worksheet regional columns.",
+  "citation": "Dyurgerov2002 updated2005, G10002 Version1, NSIDC, doi:10.7265/N52N506F",
+  "coverage": "Observational extrapolation over785000km2 including peripheral ice; not identical to GlaMBIE coverage",
+  "cumulative_closure_mm": 0.0,
+  "provider_km3_per_mm": 362.0,
+  "rows": 43,
+  "selected_columns": "Sheet1 L/M/J; global SLR/volume; globalSLR cross-checked against Sheet2 S/T",
+  "sha256": "f289a3f0630131d8483f5e6cc6ace757db84d455a9ab18af3b27052cac7217df",
+  "source": "https://noaadata.apps.nsidc.org/NOAA/G10002/Supplement2005/App6_Supplement2005xls.xls",
+  "target_vintage": "NOT confirmed identical to DyurgerovMeier2005 OP58: its INSTAAR abstract reports0.51/0.93mm peryear, versus this archive0.404/0.723; do not rescale or call target input recovered",
+  "uncertainty": "No annual global standard-error column; do not invent observational error bars"
+}

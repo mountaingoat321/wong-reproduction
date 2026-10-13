@@ -299,3 +299,40 @@ analyses with `python3 tests/test_emissions_inversion.py`,
 `python3 scripts/coastal_accounting_sensitivity.py --from-saved`.
 The complete offline driver passed372 Julia assertions and9 Python checks;
 the3 new inversion checks also passed and have been added to that driver.
+
+Further source recovery and numerical diagnostics:
+- `python3 scripts/prepare_glacier_vintage.py` curates the original NSIDC2005
+  spreadsheet. Its annual global means differ from OP58; see input audit.
+- `julia --startup-file=no --history-file=no scripts/glacier_vintage_fit.jl`
+  and `python3 scripts/plot_glacier_vintage.py` regenerate54conditional fits and
+  their withheld-data comparison. Executed successfully; no posterior claim.
+- `julia --startup-file=no --history-file=no scripts/coastal_coupled_experiments.jl --economic-priors --pilot`
+  then `python3 scripts/aggregate_economic_sensitivity.py --pilot` passed.
+  Remove `--pilot` to run16economic draws across6purpose paths. That extension
+  is queued serially at this checkpoint, not yet reported complete.
+- `bash scripts/run_temperature_only_extension.sh` is queued after the economic
+  extension. It runs pilots before propagating250temperature-only climate draws.
+  `python3 scripts/compare_coupled_climate_vintages.py` requires all three
+  completed climate/sea-level variants and also applies the four expert PDFs.
+Use the project-local caches and one-thread environment documented above.
+
+The matched SSP2extension and sampling/horizon analyses are now complete.
+`scripts/coastal_sampling_sensitivity.py` regenerates500subsamples and the
+4/8/16coastal-draw comparison. `scripts/compare_coastal_assumptions.py
+--from-saved` rebuilds SSP2/SSP4regional and income-contrast figures without
+large inputs. They addressS1/S2/S8/S9as explicitnon-reproductions.
+
+`python3 scripts/prepare_glacier_op58.py` separately acquires the now-recovered
+cited observational report; `julia scripts/glacier_vintage_fit.jl --op58` and
+`python3 scripts/plot_glacier_vintage.py --op58` completed the54conditionalfits.
+The olderNSIDC spreadsheetprep optionally requires `xlrd==2.0.1`, installed
+only with `python3 -m pip install --no-deps --target "$PWD/.local/python"
+xlrd==2.0.1` after setting the localPIPcache/TMPDIR above. The offlinebuild
+reads curatedCSV and needs neitherxlrd nor rawPDF/XLS downloads.
+
+The firstfreecarbonsearch is preserved under `carbon_vintage_free_failed_linesearch_*`: its
+trainingobjective failed the nested-model test. The revised solver passes6analytic
+checks and adds the restrictedfit as a fourthstart. Thephysicalpilot/refit are
+queued after the otheractiveextensions; the initialfreefits are not accepted.
+`scripts/run_extension_analysis.sh` rebuilds completedextensionanalyses andthe
+report from curatedoutputs; its complete execution is pending these integrations.

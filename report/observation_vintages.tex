@@ -107,3 +107,80 @@ mapping, parameter restrictions or residual model. It cannot be repaired by
 claiming numerical convergence as observational validation.}
 \label{fig:vintagecarbon}
 \end{figure}
+\subsection{An original-provider glacier record and a version discrepancy}
+The NSIDC archive supplies a 2005 observational supplement to Dyurgerov's
+glacier compilation \cite{nsidcglaciers}. Its Appendix 6 contains 43 annual
+global sea-level contributions for 1961--2003. We extract spreadsheet cells,
+verify annual-to-cumulative closure exactly, and cross-check the two populated
+worksheets. No figure is digitized. The global columns agree even though some
+regional entries differ. No annual global uncertainty column is supplied.
+
+This archive is not confirmed identical to the cited Dyurgerov--Meier
+Occasional Paper 58. Its mean is 0.404 mm/year for 1961--2003 and 0.723 mm/year
+for 1994--2003, whereas the report's INSTAAR abstract states 0.51 and
+0.93 mm/year. The old institutional download failed certificate validation, an earlier
+current link returned 404, and the government archive timed out. A subsequent
+search recovered the correctly capitalized institutional PDF URL; the printed
+observations are evaluated separately below. The NSIDC values remain unchanged.
+
+A conditional least-squares experiment fits the glacier temperature sensitivity
+over 1961--1995 for 27 combinations of the documented volume, exponent and
+initial-state bounds, separately using HadCRUT4 and HadCRUT5 temperatures.
+The initial-state origin is explicitly assigned to 1961, and the observed
+annual increments are associated with intervals beginning in their labeled
+year. These choices, the rate objective and the absence of a joint AR(1)
+calibration make the experiment an alternative. A noise-free scalar fit
+recovers its known sensitivity to $4.4\times10^{-18}$ m/(K year).
+
+The selected HadCRUT4 fit has sensitivity $6.70\times10^{-4}$ m/(K year)
+and withheld 1996--2003 RMSE 0.228 mm/year; the HadCRUT5 fit gives
+$6.10\times10^{-4}$ and 0.241 mm/year. Both outperform a trend estimated
+from the same training years, whose withheld RMSE is 0.355 mm/year.
+The training minima occur on volume, exponent and initial-state grid boundaries;
+we do not interpret them as identified physical parameters or a global optimum.
+Comparison with GlaMBIE in 2004--2020 gives RMSE 0.230 and 0.220 mm/year,
+but the observation products have different spatial coverage. They differ by
+0.389 mm/year RMS during their four overlapping years. No fitted parameters
+from this sensitivity replace the accepted coupled sea-level calculations.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/glacier_observation_vintage.pdf}
+\caption{Glacier observation-vintage test. Gray points are the original NSIDC
+spreadsheet observations; colored lines are independently fitted conditional
+model rates. The shaded interval is withheld from fitting. Crosses show the
+newer GlaMBIE observations, which have different coverage. Right: training
+and withheld errors, with the later product treated as separate context.
+The archived NSIDC series differs from the cited report's written average;
+this is a non-reproduction.}
+\end{figure}
+
+\subsection{Recovery of the cited glacier report}
+The institutional OP58 report is now available at a correctly capitalized URL
+\cite{op58}. Appendix 3, printed page 117, supplies annual global observational
+SLR increments and cumulative values for 1961--2003. Text-table extraction gives
+means of 0.511 and 0.927 mm/year over the two stated intervals. Annual increments
+and cumulative values are independently rounded to 0.01 mm, so individual
+closure discrepancies reach 0.01 mm. We preserve that rounding and verify it
+against the printed volume conversion; no figure is digitized. The source
+includes peripheral glaciers and supplies no annual global uncertainty column
+in this table. Recovering it therefore resolves the unavailable-record claim,
+while leaving the target likelihood, processed input identity and component
+coverage conventions to be established.
+
+Repeating the same conditional 54-point glacier experiment on this record gives
+HadCRUT4 and HadCRUT5 sensitivity estimates of $8.25\times10^{-4}$ and
+$7.52\times10^{-4}$ m/(K year). The withheld 1996--2003 rate RMSE is
+0.400 and 0.412 mm/year, compared with 0.578 for the training linear trend.
+The selected physical grid points again lie on all three boundaries. Their
+2004--2020 GlaMBIE contextual RMSE is 0.201 and 0.202 mm/year, with unmatched
+coverage. The original observational products differ by 0.730 mm/year RMS in
+2000--2003. This is a reproducible observation-version comparison, not a fitted
+error bar or recovery of the target glacier posterior.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/glacier_op58_fit.pdf}
+\caption{Conditional glacier fit using the recovered OP58 printed observations.
+The same grid, training boundary and withheld years as the NSIDC experiment
+isolate the source-version change. The later GlaMBIE record is separate context.
+No fitted glacier parameters in this figure replace the base sea-level ensemble.}
+\end{figure}

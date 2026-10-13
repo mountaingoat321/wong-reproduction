@@ -1,0 +1,15 @@
+{
+  "extraction": "Text-table columns5and6 after year; no figure digitization; original observational compilation",
+  "maximum_rounded_increment_closure_mm": 0.010000000000001341,
+  "maximum_rounded_volume_conversion_mm": 0.005303867403314788,
+  "mean1961_2003_mm_yr": 0.5111627906976745,
+  "mean1994_2003_mm_yr": 0.9270000000000002,
+  "pdf_page": 118,
+  "printed_page": 117,
+  "rounding": "Annual SLR0.01mm, volume1km3; cumulative values preserved independently; no invented precision",
+  "rows": 43,
+  "scope": "Cited observational source recovered; identity of target processed calibration input remains unverified",
+  "sha256": "21a1058061daa49f6de541fb1084d2fda34d1a0f2b7eb14b8dd38f00a4fa6021",
+  "source": "https://www.colorado.edu/instaar/sites/default/files/attached-files/OP58_dyurgerov_meier.pdf",
+  "uncertainty": "No annual global uncertainty column in this table"
+}

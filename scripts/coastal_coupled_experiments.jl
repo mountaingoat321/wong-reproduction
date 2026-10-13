@@ -57,7 +57,8 @@ function main()
     endpoints=readdlm("results/sea_level_stratified_endpoints.csv",',',Any;skipstart=1)
     endpoints=endpoints[(endpoints[:,2].=="annual_nearest_emissions").&(endpoints[:,3].=="fit512_shallow_iid"),:]
     members=Int.(endpoints[:,1])
-    if pilot
+    economic="--economic-priors" in ARGS
+    if pilot || economic
         # Audit extremes and every occupied temperature category; no extrapolated
         # probability distribution is reported from this purposive pilot.
         members=sort(unique(vcat([Int(endpoints[argmin(endpoints[:,6]),1]),Int(endpoints[argmax(endpoints[:,6]),1])],
@@ -74,6 +75,13 @@ function main()
         end
     end
     @assert all(length(s)==length(years) && s[1]==0. && all(diff(s).>=0) for s in values(sealevel))
+    if economic
+        @assert scenario=="SSP4" && extension=="none" && !geometric && !accounting
+        include("coastal_economic_sensitivity.jl")
+        # World-age safe invocation of the independently defined experiment.
+        Base.invokelatest(economic_sensitivity,years,coasts,economies,sealevel,design,members;pilot=pilot)
+        return
+    end
     quad=G.quadrature(12);checks=[]
     noadapt_baseline=Dict();planned_baseline=Dict()
     for key in keys

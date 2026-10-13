@@ -299,3 +299,57 @@ estimates. Repeated annual subtraction of a one-off2010investment is rejected:
 it produces costs as low as−44.23trillion. No tested convention is asserted to
 recover the target decadal spinup accounting. The gross/incremental difference
 can reverse the direction of an apparent cost-level comparison.
+
+## S079 — Glacier observation vintage and conditional rate fit
+Original-provider NSIDC G10002 Supplement2005 Appendix6 supplies1961–2003
+annual globalSLR and cumulative columns. We preserve them after exact closure
+and cross-worksheet checks. They differ from the OP58 written means:0.404/0.723
+versus0.51/0.93mm/yr over1961–2003/1994–2003. Thus this is an explicitly
+alternative vintage, not confirmed recovery of the cited target series.
+For a diagnostic point fit, use27combinations of B17 volume/exponent/S0bounds,
+assign S0 to1961 explicitly, fit beta to1961–1995 annual increments, and
+withhold1996–2003. No annual observationalSD is invented; no AR1 posterior or
+physical parameter identification is claimed. Had4/Had5 holdoutRMSE0.228/0.241
+beats the same-training trend0.355mm/yr. Spatial coverage differs from GlaMBIE.
+The successful noise-freebeta check verifies the scalar optimizer only.
+
+## S080 — Socioeconomic marginal-prior sensitivity
+Use the six W22P TableS1 truncated-normal marginals with independent sampling
+(seed20251047), shared across six purpose climate paths. Independence is an
+assumption;16draws cannot resolve tails. Movefactor and VSL parameters enter
+directly. dvbm scales SLIIDERS land values relative to5.376; wvel/wvpdl perturb
+post2010income/population growth elasticities relative to1.16/.47. Initial
+wetland values stay provider values. These relative perturbations are not an
+exact transfer of the target's2010USD valuation. Each draw reoptimizes its own
+no-rise baseline. A two-draw/two-path pilot passes doubled quadrature/policy
+checks and recovers central costs to1.3e-15relative; the16-draw extension is
+queued serially. Common coasts supply paired design errors.
+
+## S081 — Conditional omission of the ocean-heat constraint
+An additional sensitivity propagates the already validated HadCRUT4 temperature-
+only calibration through the same tail-stratified emissions and sea-level chain.
+This deliberately omits the alternative700mheat likelihood to measure its
+influence; it does not recover the target3000m likelihood or imply heat should
+be ignored scientifically. Whole posterior rows remain intact. The six available
+climate coordinates are stored without fabricated heat-error parameters.
+Pilots must pass the same mass/timestep/AIS criteria before250members run.
+Comparisons are distributions, not matched physical posterior draws.
+
+## S082 — Carbon optimizer diagnosis and nested-model check
+The first free-physics Gauss–Newton search could reject every clipped step and
+stop prematurely. Its inferior training objective is computational failure.
+Preserve it separately. Use adaptive diagonal damping, an active bound set,
+a0.25unit-box maximumstep, and backtracking; report projectedgradient/stopreason.
+Add the restrictedfit as a fourth starting point and require the retained
+objective to be no worse. Multi-startconditional fits still do not prove a
+global optimum or supply posterior uncertainty. This algorithm change follows
+an internal nested-model inconsistency, not agreement with the target figure.
+
+## S083 — Recovered OP58 printed glacier observations
+The correctly capitalized institutional URL now supplies thecited2005report.
+Extract Appendix3p117'sannualobservationaltable1961–2003 using PDF text; preserve
+0.01mm annualSLR and1km3 volume rounding. Writtenmeanchecks pass. The NSIDC
+January2005supplement remains a distinctvintage. The OP58conditionalfit uses the
+same explicitlyassumed1961origin,1961–1995training,1996–2003holdout and27point
+physicalgrid pertemperatureversion asS079; do not silently replacebaseposteriors.
+The record includes peripheral ice; overlapwithIMBIE is not resolved by sourcing.

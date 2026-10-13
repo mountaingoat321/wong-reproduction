@@ -471,3 +471,48 @@ BP2000, not118/18/4kyrBP. This removes a potential2000-year misalignment.
   compiles to46pages(3,635,854bytes) with no LaTeX warnings/overflow. The manifest
   verifies333curated artifacts. A renewed pre-commit review covers499eligible
   paths with no credential-pattern, size or project-boundary failures.
+- Further permitted source recovery obtained Darnell's2023 Cornell thesis.
+  Sections2.1.1–2.1.2 and AppendixB predate the expert-budget inversion and use
+  RCP forcing. They do not recover its later PDF; no thesis posterior plots
+  were digitized and its referenced code/outputs were not followed.
+- NSIDC's original G10002/2005 Appendix6 spreadsheet was recovered and curated:
+  43annual global glacierSLR observations,1961–2003. Annual/cumulative closure
+  is exact; both populated worksheets agree in globalSLR columns. Their regional
+  Europe entries differ, so global columns are preserved without silently
+  reconstructing regional totals. No annual uncertainty column is invented.
+  xlrd2.0.1 was installed only in.local/python to read this legacyXLS.
+
+### Continued source recovery and extension checks
+The matched SSP2 run completed14,750state–coast cases after12refinement checks.
+Sampling500replicates, horizon and within-node interpolation pilots, and the
+seven-region income contrast are now executed and plotted. The four new plots
+were visually inspected. Category4remains unresolved withfive members; equal5
+resampling'szero variation is an identity, not convergence. Eight-to-sixteen
+coastal draws changes the largest median by0.03997trillion2019PPP.
+
+The initial free-carbon optimizer terminated aftertwo iterations and had a
+training objective worse than the nested restricted model. That is an optimizer
+failure, not a scientific finding against additional response parameters.
+All original searches/trajectories are preserved with `failed_linesearch` names.
+A damped bound-aware solver and a fourth nested-fit starting point are added.
+The first analytic test found the default projected-gradient tolerance allowed
+9.3e-7coordinateerror; tightening1e-6to1e-8resolves the sixanalytic/nonlinear
+checks. Noise-freephysical recovery and observational refits remain gated.
+
+A further allowed-source search recovered the case-sensitive institutional
+`OP58_dyurgerov_meier.pdf` URL. The118-pageobservationalreport is downloaded
+and hashed; previous inaccessibleURL claims are superseded. Appendix3p117has
+43annualglobalobservations1961–2003. Text-table extraction yieldsmeans.51116
+and.927mm/yr, consistent with its abstract. Annual/cumulativecolumns round
+independently; maximumincrementclosure.010mm is preserved, not adjusted.
+No curve is digitized. The NSIDC spreadsheet'sdifferentvintage remains recorded.
+The new data support another conditionalfit; they do not recover thetarget
+processed input orannualuncertainty convention.
+The OP58table and independentfit figure were visually inspected. The revised
+boundedleast-squares checks pass6/6. Its physicalrefit remains queued; failed
+three-start outcomes are not accepted. A furtherV19SI exact-filename search and
+publisherDOCXrequest again fail access. WrittenU14Sect2.1confirms the3000m
+observation/4000mDOECLIMheat assumption andnineparameterAR1calibration; the
+institutionalPDF is readable through the browser but directdownloadreturns403.
+No missing annualheat series is reconstructed from a plotted curve. Incidental
+code links in search results were discarded without opening or use.

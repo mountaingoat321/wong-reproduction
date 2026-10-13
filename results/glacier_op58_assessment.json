@@ -1,0 +1,12 @@
+{
+  "DM05_minus_GlaMBIE_overlap_RMSE_mm_yr": 0.7301142621354424,
+  "grid_caution": "Training minima reachvolume/exponent/initial-state grid boundaries; no inferred global optimum or calibrated uncertainty is claimed",
+  "observation_overlap_years": [
+    2000,
+    2001,
+    2002,
+    2003
+  ],
+  "qualification": "Observational products differ in coverage and vintage; this difference is not a measurement-error estimate",
+  "scope": "NON-REPRODUCTION:27conditionalB17physicalgridpoints; scalarbeta fits; fixed1961initialization convention; no posterior"
+}

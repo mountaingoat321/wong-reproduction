@@ -1,0 +1,7 @@
+{
+  "caution": "Sample ranges are not converged credible intervals; climate paths are purposive; parameter correlations and initial valuation mapping are assumptions",
+  "economic_draws": 2,
+  "maximum_absolute_paired_percent_difference": 18.42260443868507,
+  "purpose_paths": 2,
+  "scope": "NON-REPRODUCTION: four coast draws per region; six independent economic priors applied conditionally to chosen climate paths"
+}
