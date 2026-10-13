@@ -1,0 +1,10 @@
+simulated_coasts = 19
+gauss_nodes_per_smooth_interval = 12
+excluded_coasts = 43
+scenarios = ["SSP4 OECD"]
+scope = "NON-REPRODUCTION: SLIIDERS exposure, prescribed SLR, annual accounting and 2019 USD PPP"
+end_year = 2100
+eligible_coasts = 9531
+wall_seconds = 17.185660123825073
+slr_endpoints_m = [1.0]
+original_elevation_resolution = true

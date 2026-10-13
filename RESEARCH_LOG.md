@@ -229,3 +229,60 @@ are propagated analytically under piecewise-linear annual forcing. Fifteen
 checks compare it with an independent augmented dense matrix exponential and
 second-order Crank–Nicolson refinement. The accepted temperature-only posterior
 and its numerical convention remain preserved.
+
+## Joint calibration, geographic inputs and conditional ice work
+
+The revised exact-mode temperature/700m-heat calibration completed four chains
+and passed all recorded diagnostics (max Rhat1.00582; min bulkESS649 and
+tailESS589). Conditional temperature holdout RMSE falls to0.0870K and heat to
+0.879e22J, but SSP2452081–2100 median warming1.973K is below AR6's2.7K.
+This external discrepancy remains, without retuning coefficients to AR6.
+
+Nine conditional carbon fits recover a range of terrestrial/ocean combinations.
+The Q10=2, transfer16.87m/yr case yields beta0.66796, holdoutRMSE0.535ppm,
+and1994oceaninventory118.06GtC. Independent ocean constraints were checked
+but not fitted. The H99/T08 closure remains an alternative to exact SNEASY.
+
+Geographic pilot quadrature initially failed: no-adaptation costs differed up
+to9.0% between12and24nodes because elevation breaks did not resolve narrow
+hazard densities. Quantile cuts fixed the error;19pilot/stress-test coasts,
+114cases now agree within1.5e-11 with no policy change. This numerical fix
+preceded scaling to9531eligiblecoast-countryunits.43excluded groups remain
+listed. A separate original-elevation-resolution sensitivity is being run.
+
+Independent IMBIE/GlaMBIE observations support conditional ice-rate fitting.
+The first four-chain runs pass Rhat but fail one tailESS per component
+(glaciers282;Greenland223). Initial diagnostics are preserved; longer chains
+are required before propagation. An analytic glacier solver and the induced
+Greenland V0-b prior avoid hidden numerical and identifiability assumptions.
+IMBIE/GlaMBIE peripheral-glacier overlap prevents a naive complete GMSL sum.
+
+Further source audit recovered W17fast-dynamics uniform priors,18millionkm3
+cutoff, and updated paleo likelihoods. The September2025Darnell scholarly
+preprint still does not specify a unique cumulative-emissions likelihood density
+or annual nearest-SSP metric. This confirms a written-specification gap, rather
+than exhaustion of defensible alternative experiments. Independent EPICA and
+Spratt paleo proxy products were acquired for the next boundary-forcing audit.
+No implementation, posterior-sample, or model-output repositories were opened.
+
+The extended ice chains pass (maximum Rhat1.00112, minimum tail ESS1116).
+The glacier conditional holdout RMSE84.8Gt/yr is worse than an independently
+fitted training-trend baseline73.6Gt/yr. Greenland's128.9Gt/yr improves on the
+three simple baselines144–161Gt/yr. All six held-out years fall inside90%
+predictive intervals, which is insufficient evidence of physical adequacy.
+
+The full coarse geographic calculation completed57,186cases in838.3seconds,
+with summed component accounting error1.26e-15relative. SSP4 incremental NPV
+is0.421/0.990/2.305trillion2019USD PPP at prescribed0.5/1/2m sea level.
+The selected policy can exceed full-horizon no-adaptation cost in four cases,
+because optimization is deliberately limited to the first period. Regional
+GDP mappings retain98.05–98.12% of incremental costs. The original-resolution
+pilot changes2/114policies and aggregate incremental costs9.6%; 12vs24node
+quadrature agrees within1.75e-13. A full SSP4/1m refinement is queued after
+the expanded offline build, with an independent binary/CSV input equivalence
+check before scaling. Coarse results are preserved as sensitivity outputs.
+
+Further reading resolves S14's initial radius1.8636e6m, legacy57m/24.78e15m3
+sea-level scaling, the Eq15 subsurface-ocean polynomial, and the BP2000 versus
+NOAA BP1950 distinction. W17's BCE likelihood dates correspond to120/20/6kyr
+BP2000, not118/18/4kyrBP. This removes a potential2000-year misalignment.

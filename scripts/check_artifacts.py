@@ -23,11 +23,8 @@ artifacts = sorted(list((ROOT / 'results').glob('*.csv')) +
                    list((ROOT / 'figures').glob('*.png')) + [pdf])
 manifest = {}
 for path in artifacts:
-    # An active, unaccepted calibration is not a verified build artifact.
-    if path.name.startswith('climate_joint_') and not path.name.startswith('climate_joint_initial_'):
-        continue
     assert str(path.resolve()).startswith(str(ROOT) + '/')
-    assert 0 < path.stat().st_size < 5_000_000
+    assert 0 < path.stat().st_size < (10_000_000 if path == pdf else 5_000_000)
     manifest[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
 (ROOT / 'results' / 'artifact_sha256.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
 print('Verified {} curated artifacts and all19 target status entries.'.format(len(artifacts)))

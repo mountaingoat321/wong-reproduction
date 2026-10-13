@@ -65,3 +65,58 @@ under `.local/python` with `pip --no-deps --only-binary=:all: --target`, with pi
 cache and temporary paths inside `.local/`; no global packages changed. The
 reader inserts that project-local path and uses one Blosc thread. The CSVs do
 not require this package for subsequent numerical experiments.
+
+Independent ice observations are curated in `ice_mass_balance.csv` by
+`python3 scripts/prepare_ice_observations.py`. IMBIE2021 (BAS DOI
+10.5285/77B64C55-7166-4A06-9DEF-2E400398E452; Otosaka2023 DOI
+10.5194/essd-15-1597-2023) supplies Greenland/Antarctic satellite mass balance.
+The annual mean uses all 12 monthly rates; the annual SD is the mean monthly
+SD, an upper bound when within-year covariance is unspecified. GlaMBIE2024
+(DOI10.5904/wgms-glambie-2024-07; Nature2025 DOI10.1038/s41586-024-08545-z)
+supplies annual global glacier rates and reported standard errors. These are
+independent observational syntheses, not Wong simulation outputs. Data are
+publicly shared with citation; preserve provider attribution and uncertainty.
+IMBIE gravimetry can include peripheral glaciers also represented by GlaMBIE;
+these series are not automatically disjoint contributions to global sea level.
+
+`worldbank_regions_gdp.csv` uses WDI API v2 metadata and independent national
+GDP inputs (queries and hashes in EXTERNAL_INPUTS.csv). Regenerate using
+`python3 scripts/prepare_regions.py` after fetching the manifest inputs.
+The derived denominator is 2019 current-PPP GDP times the 2010/2019 real-GDP
+ratio. It includes available landlocked countries. Afghanistan/Pakistan are
+explicitly restored to pre-July2025 South Asia. These alternative monetary
+inputs and country coverage do not reproduce the paper's original GDP bundle.
+World Bank open data are attributed under their CC BY4.0 terms.
+
+`python3 scripts/prepare_sliiders.py --fine-pilot` extracts the original 0.1m
+profiles for 19 deterministic pilot/stress-test coasts into
+`sliiders_pilot_fine.csv`. Stocks are summed within coast-country groups;
+coarser profiles preserve total stocks but change within-bin exposure density.
+No input-construction code or pyCIAM model implementation is used.
+
+Two independent proxy products were acquired for continued Antarctic boundary
+forcing recovery: EPICA Dome C temperature (Jouzel2007; NOAA DOI
+10.25921/8t7e-z147) and the Spratt/Lisiecki2016 sea-level stack (NOAA DOI
+10.25921/rd66-5820). They are observation-based reconstructions with their own
+model-dependent corrections and age uncertainties, not raw direct measurements.
+They are not yet a verified DAIS forcing history. Their original metadata and
+exact bytes remain in the ignored cache; no Wong/BRICK output was retrieved.
+
+`python3 scripts/prepare_paleo_inputs.py` now curates four independent inputs:
+EPICA Dome C (`edc_temperature.csv`), Spratt/Lisiecki shortPC1 sea level
+(`spratt_sealevel.csv`), Mann2008 global land+ocean EIV temperature
+(`mann2008_global_temperature.csv`), and Church/White2011 annual tide-gauge
+sea level (`church_white2011.csv`). Their data/readme archives were acquired
+from NOAA and CSIRO; no reconstruction software was retrieved. Mann's exact
+variant is an explicit choice because S14 does not name it. Its uncertainty
+column remains unclassified and is not yet a likelihood standard deviation.
+Church/White observations are annual midpoints, in mm relative to1990, with
+1SD uncertainty. NOAA proxy dates use BP1950 and are converted to calendar CE;
+S14 instead uses BP2000. These are curated forcing candidates, not a completed
+or validated Antarctic hindcast. Attribute Mann et al.2008
+DOI10.1073/pnas.0805721105 and Church/White2011
+DOI10.1007/s10712-011-9119-1, plus the provider URLs in EXTERNAL_INPUTS.csv.
+
+World Bank attribution: The World Bank, World Development Indicators,
+SP.POP.TOTL, NY.GDP.MKTP.PP.CD and NY.GDP.MKTP.KD, retrieved12October2026.
+Provider terms: https://www.worldbank.org/ext/en/legal/terms-conditions/datasets

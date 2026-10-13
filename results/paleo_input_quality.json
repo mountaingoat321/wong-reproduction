@@ -1,0 +1,9 @@
+{
+  "chronology": "NOAA BP1950 converted to CE; S14 BP2000 is a different calendar origin",
+  "csiro_note": "Annual midpoints;1990 zero; uncertainty1SD; raw tide-gauge reconstruction product",
+  "edc_reference": "Last1000years; sea-water isotope and ice-elevation corrections supplied by observational provider",
+  "edc_retained": 4222,
+  "mann_first_finite_year": 500.0,
+  "mann_uncertainty": "Retained as reported; not classified as SD until primary methods checked",
+  "spratt_note": "Seven-record shortPC1 proxy stack; not original S14 three-record splice"
+}

@@ -68,6 +68,25 @@ function carbon_step(x,emissions,temperature,p,h)
     x+h/6*(a+2b+2c+d)
 end
 
+"""Carbon-only experiment with prescribed annual temperature and emissions.
+R08 explicitly permits observed temperature forcing. Linear interpolation and
+RK4 retain the same stock equations as the coupled experiment.
+"""
+function prescribed_run(emissions,temperature;p=parameters(),substeps=8)
+    length(emissions)==length(temperature) || throw(DimensionMismatch())
+    h=1/substeps;x=initial_state();out=zeros(8,length(emissions));out[:,1]=x
+    for i in 2:length(emissions)
+        for j in 1:substeps
+            fraction=(j-.5)/substeps
+            e=emissions[i-1]+fraction*(emissions[i]-emissions[i-1])
+            t=temperature[i-1]+fraction*(temperature[i]-temperature[i-1])
+            x=carbon_step(x,e,t,p,h)
+        end
+        out[:,i]=x
+    end
+    out
+end
+
 """Second-order Strang splitting: half climate CN, full carbon RK4 at
 midpoint temperature, half climate CN. Emissions and external forcing are
 linearly interpolated. Zero-anomaly climate and steady land pools at start.

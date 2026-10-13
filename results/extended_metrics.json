@@ -1,0 +1,24 @@
+{
+  "carbon_conditional": {
+    "holdout_rmse_max_ppm": 2.836875880628336,
+    "holdout_rmse_min_ppm": 0.4586520437502426,
+    "max_mass_error_GtC": 6.934897101018578e-12,
+    "max_time_refinement_ppm": 0.00033269011225911527
+  },
+  "ice_glaciers": {
+    "conditional_holdout_bias_Gt_yr": -48.31301045702577,
+    "conditional_holdout_rmse_Gt_yr": 84.77607486057968,
+    "last_training_year_holdout_rmse_Gt_yr": 183.64345874854888,
+    "predictive_90_coverage": 1.0,
+    "training_linear_trend_holdout_rmse_Gt_yr": 73.62714761890734,
+    "training_mean_holdout_rmse_Gt_yr": 117.23169910384729
+  },
+  "ice_greenland": {
+    "conditional_holdout_bias_Gt_yr": 21.024287685332652,
+    "conditional_holdout_rmse_Gt_yr": 128.8736262957964,
+    "last_training_year_holdout_rmse_Gt_yr": 144.06718113083613,
+    "predictive_90_coverage": 1.0,
+    "training_linear_trend_holdout_rmse_Gt_yr": 156.72087415987855,
+    "training_mean_holdout_rmse_Gt_yr": 161.36572826418882
+  }
+}

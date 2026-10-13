@@ -160,3 +160,43 @@ Synthetic income/density growth is deliberately not labeled SSP2 or SSP4.
 Real hazard parameters alone do not turn an invented exposure profile into an
 observed coast. Geographic aggregation remains pending the missing exposure and
 country crosswalk inputs.
+
+## Further Antarctic audit: initialization and boundary forcing
+
+S14 p1810 explicitly initializes hindcasts at R=1.8636e6 m at240kyrBP,
+not at an unspecified fitted radius. Its stated ±10% initialization sensitivity
+vanishes by about220kyrBP in that model experiment. This is a testable claim,
+not evidence that our different forcing history automatically has the same memory.
+SLE is scaled by57m per24.78e15m3; this differs from the physical-mass conversion
+used in earlier diagnostic figures because the documented convention accounts
+approximately for displaced seawater. Preserve both conventions explicitly.
+
+S14 Eq15 supplies To=0.00690*Ta^2+0.439*Ta+6.39 degC. It is a reduced fit used
+for steady-state calculations, not the full time-dependent DCESS ocean forcing.
+Using it in a paleo transient is a documented-formula alternative that omits
+history-dependent ocean response. It requires no copied simulation time series.
+S14 AppendixA specifies Ta=-18degC plus Antarctic anomaly; for the
+240000–1500BP interval it applies a -0.1degC adjustment to Jouzel2007 DomeC
+anomalies. The original proxy metadata states these anomalies are relative to
+the last1000years and corrected for isotope composition and ice-sheet elevation.
+For1851–2010 S14 multiplies Morice global anomalies by1.2.
+
+Chronology must be explicit: S14 defines0BP=AD2000; NOAA EPICA/Spratt define
+calendar BP relative to1950. W17F dates -118000,-18000,-4000CE correspond to
+S14's120000,20000,6000BP, respectively; treating them as118000,18000,4000BP
+would shift the calibration targets by2000years. Proxy chronology has its own
+uncertainty, which is not removed by calendar conversion.
+
+W17F Sect2.2–2.3 supplies uniform fast-loss priors lambda5–15mm/yr and
+Antarctic sea-level-temperature threshold-20 to-10degC, with18e15m3 volume
+cutoff. It updates the LIG likelihood to a normal mean5.5m SD0.95m truncated
+to3.6–7.4m, with other Gaussian windows documented in ASSUMPTIONS S053.
+The negative-valued gamma threshold convention is not fully specified in that
+prose and must not be guessed. These W17 windows differ from R17's earlier ones.
+
+The September2025 Darnell preprint (D25P) was also checked. Its written emissions
+methods retain the same independent truncated-normal parameter priors and
+1223GtCO2 budget probability, but do not specify a unique cumulative-emissions
+likelihood density or precise annual nearest-SSP metric. Fuller2017
+(DOI10.1371/journal.pone.0190115) clarifies the likelihood-based inversion
+procedure; it does not supply Darnell's missing density parameters.

@@ -1,0 +1,42 @@
+{
+  "cases": 57186,
+  "cases_selected_policy_exceeds_no_adaptation_full_horizon": 4,
+  "eligible_coast_country_units": 9531,
+  "experiment": "NON-REPRODUCTION; prescribed uniform SLR, independent SLIIDERS exposure and 2019 PPP",
+  "full_intermediate_sha256": "7225c2fce56eb2911b9c4e2d38c3fa40cd21b6ebf04c131e53f3b3c9310317ea",
+  "global_aggregation_relative_accounting_error": 1.2576207473157304e-15,
+  "regional_GDP_note": "All available WB national 2010 GDP valued at 2019 PPP; landlocked included; input vintage differs from target",
+  "regional_coverage": [
+    {
+      "incremental_cost_fraction_covered": 0.9811252653295369,
+      "scenario": "SSP2",
+      "sea2100_m": 0.5
+    },
+    {
+      "incremental_cost_fraction_covered": 0.9811887880885259,
+      "scenario": "SSP2",
+      "sea2100_m": 1.0
+    },
+    {
+      "incremental_cost_fraction_covered": 0.9805388961948179,
+      "scenario": "SSP2",
+      "sea2100_m": 2.0
+    },
+    {
+      "incremental_cost_fraction_covered": 0.9811148892443189,
+      "scenario": "SSP4",
+      "sea2100_m": 0.5
+    },
+    {
+      "incremental_cost_fraction_covered": 0.9812028185981393,
+      "scenario": "SSP4",
+      "sea2100_m": 1.0
+    },
+    {
+      "incremental_cost_fraction_covered": 0.9805569950743133,
+      "scenario": "SSP4",
+      "sea2100_m": 2.0
+    }
+  ],
+  "selection_note": "First-period optimum retained; whole-horizon cost dominance is not guaranteed"
+}

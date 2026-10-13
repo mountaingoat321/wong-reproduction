@@ -1,0 +1,30 @@
+# Alternative conditional calibration to annual mass-change rates.
+# Physical bounds: B17 Tables A3/A5; statistical rate-error bounds are NEW.
+# Observed HadCRUT4 temperature is prescribed; temperature errors are omitted.
+seed = 20251037
+fit_end = 2014
+holdout_start = 2015
+holdout_end = 2020
+warmup = 8000
+draws_per_chain = 90000
+save_every = 15
+adapt_window = 2000
+proposal_scale = 2.0
+chains = 4
+gt_per_m_sle = 362500.0
+
+[glaciers]
+initial_year = 1990
+parameter_names = ["beta_m_K_yr", "volume_m", "exponent", "initial_m", "innovation_sd_Gt_yr", "rho"]
+lower = [0.0, 0.3, 0.55, -0.0041, 0.1, 0.0]
+upper = [0.041, 0.5, 1.0, 0.0041, 250.0, 0.999]
+initial = [0.001, 0.4, 0.8, 0.0, 50.0, 0.3]
+proposal_scales = [0.12, 0.025, 0.04, 0.0008, 0.1, 0.25]
+
+[greenland]
+initial_year = 1961
+parameter_names = ["V0_minus_b_m", "negative_c_m_K", "alpha_1e3_K_yr", "beta_1e3_yr", "innovation_sd_Gt_yr", "rho"]
+lower = [-1.672, 0.001, 0.0, 0.0, 0.1, 0.0]
+upper = [1.672, 4.0, 1.0, 1.0, 250.0, 0.999]
+initial = [0.2, 2.0, 0.5, 0.2, 50.0, 0.5]
+proposal_scales = [0.08, 0.15, 0.05, 0.05, 0.1, 0.25]

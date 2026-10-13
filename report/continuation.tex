@@ -74,7 +74,7 @@ uncalibrated default predicts 461.38\,ppm in 2022, compared with NOAA's
 input retains blanks, while separate calculations prescribe zero or the 1850
 rate before 1850. These are alternatives, not recovered observations.
 
-\begin{figure}[p]
+\begin{figure}[htbp]
 \centering\includegraphics[width=\textwidth]{carbon_alternative.pdf}
 \caption{Uncalibrated carbon--climate experiments, not target reproductions.
 Left: historical CO$_2$ sensitivities to fertilization and the explicitly
@@ -129,7 +129,7 @@ The corresponding printed AR6 assessment is 2.7 [2.1, 3.5]\,K. This comparison
 uses the same averaging/reference periods but compares different inference
 systems; it is not a numerical reproduction of Supplementary Figure S3.
 
-\begin{figure}[p]
+\begin{figure}[htbp]
 \centering\includegraphics[width=\textwidth]{climate_alternative.pdf}
 \caption{Temperature-only calibration and independent observational checks.
 The upper-right forecast includes residual and measurement uncertainty. The
@@ -137,6 +137,47 @@ lower-left scenario bands contain parameter uncertainty only. Ocean heat is
 compared at the actual observational depth, with a training-period datum offset.
 The temperature and heat holdout discrepancies prevent treating this converged
 alternative posterior as validation of the target model.}
+\end{figure}
+
+\subsection{Joint temperature--heat calibration}
+
+The next experiment adds independent NOAA 0--700\,m heat observations over
+1955--2005, with a datum offset and separate AR1 residual parameters. The
+first joint run failed convergence ($\widehat R=1.0218$ and a heat-correlation
+ESS of about 285). Its diagnostics remain in the repository. A revised
+sampler uses logarithmic innovation scales, logit correlations and a recent
+warmup covariance window; Jacobians preserve the same physical priors.
+Four chains of 8000 warmup and 50,000 production iterations retain 20,000
+states. All acceptance checks pass: the maximum $\widehat R$ is 1.00582 and
+the minimum bulk/tail ESS is 589.
+
+An exact modal solver reduces computation while retaining all finite-volume
+degrees of freedom. A diagonal similarity transforms the climate operator
+into a symmetric tridiagonal matrix. Each mode is integrated analytically
+under linearly interpolated annual forcing. Fifteen checks agree with an
+independent augmented matrix exponential and establish second-order
+Crank--Nicolson convergence. Four substeps per year differ from the exact
+solution by at most 0.00133\,K in three historical comparisons; the exact
+solver is used consistently for the new joint fit and projections.
+
+The joint fit reduces held-out temperature RMSE to 0.0870\,K and bias to
+$+0.0402$\,K. Heat predictive RMSE is $0.879\times10^{22}$\,J. All 16 held-out
+years lie in both nominal 90\% predictive intervals. These short, correlated
+holdouts provide limited validation; coverage is not a proof of correct
+uncertainty. ECS has a median of 1.485\,K and a parameter 90\% interval of
+1.093--1.958\,K. Future warming is substantially below the AR6 assessment:
+SSP2-4.5 warming over 2081--2100 is 1.973 [1.518,2.483]\,K, compared with
+2.7 [2.1,3.5]\,K; SSP5-8.5 is 3.319 [2.569,4.160]\,K, compared with
+4.4 [3.3,5.7]\,K. This discrepancy remains unresolved. Improved historical
+prediction does not justify replacing the target's joint climate--carbon--ice
+calibration with this alternative.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\textwidth]{climate_joint_alternative.pdf}
+\caption{Alternative joint temperature and upper-ocean-heat calibration.
+Observations after 2005 are withheld. Future bands propagate parameter
+uncertainty under prescribed SSP forcing. The improved holdout performance
+and the low late-century warming relative to AR6 are both retained.}
 \end{figure}
 
 \subsection{Antarctic events and observational thermal expansion}
@@ -160,7 +201,7 @@ These tests express sea level by mass conservation using ice/water densities
 and ocean area, whereas B17 scales its initial Antarctic volume to 57\,m.
 The two observable conventions are not silently interchanged.
 
-\begin{figure}[p]
+\begin{figure}[htbp]
 \centering\includegraphics[width=.98\textwidth]{recovered_mechanisms.pdf}
 \caption{Independent mechanism tests. Left: prescribed Antarctic warming,
 with fixed ocean temperature and sea level, isolates the runoff convention.
@@ -178,7 +219,7 @@ hydrographic observations, these are descriptive constraints rather than
 independent-error coefficient posteriors. They are not substituted silently
 for the unavailable V19 prior or a full-depth expansion coefficient.
 
-\begin{figure}[p]
+\begin{figure}[htbp]
 \centering\includegraphics[width=.98\textwidth]{thermal_observations.pdf}
 \caption{Independent NOAA heat and thermosteric observations with fitted
 depth-specific linear relations. Later years through 2021 were withheld.
@@ -199,7 +240,7 @@ All exposure values are labeled fixtures; no global cost estimate is inferred.
 Doubling flood quadrature from 512 to 1024 panels changes the verification-case
 NPV by about 0.00024\,USD and leaves its policy unchanged.
 
-\begin{figure}[p]
+\begin{figure}[htbp]
 \centering\includegraphics[width=.98\textwidth]{coastal_alternative.pdf}
 \caption{Synthetic coastal alternatives. Left: paired-counterfactual incremental
 costs under two explicit land-accounting rules. Income and exposure both vary
@@ -215,8 +256,9 @@ DIVA identifiers was corrected by this audit. A second public release provides
 with invalid parameters; these remain missing, not filled from distant stations.
 The two input products also disagree in their 100-year levels. These findings
 prevent a silent merge or assumption of exact input equivalence. The full
-elevation-area, exposure, country mapping and DINAS tide records still require
-recovery before geographically aggregated coastal costs can be generated.
+target elevation-area, exposure and DINAS tide records still require recovery.
+The next section uses a separately sourced geographic input product for an
+explicit alternative, with different segmentation and monetary conventions.
 
 Every alternative here has its own input, script, output and figure record.
 No alternative curve is entered into the target inventory as a recovered

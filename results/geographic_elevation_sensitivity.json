@@ -1,0 +1,27 @@
+{
+  "cases": 114,
+  "fine_quadrature_maximum_relative_error": 1.7464783558467584e-13,
+  "fine_quadrature_policy_changes": 0,
+  "incremental_pv_USD2019PPP": {
+    "maximum_absolute_relative_change": 0.7161704770752938,
+    "median_relative_change": 0.0025418020199901026,
+    "pilot_sum_relative_change": 0.09560268361182067
+  },
+  "migrants": {
+    "maximum_absolute_relative_change": 0.6541840494281553,
+    "median_relative_change": 0.0,
+    "pilot_sum_relative_change": -0.003935149358686774
+  },
+  "no_adaptation_pv_USD2019PPP": {
+    "maximum_absolute_relative_change": 0.6079102096879289,
+    "median_relative_change": 0.00182399587263041,
+    "pilot_sum_relative_change": 0.043240630084883325
+  },
+  "policy_changes": 2,
+  "pv_USD2019PPP": {
+    "maximum_absolute_relative_change": 0.5185041053731557,
+    "median_relative_change": 0.002551794090807063,
+    "pilot_sum_relative_change": 0.03465903532214565
+  },
+  "scope": "Six bins vs original0.1m profiles; 19-coast pilot is not extrapolated globally"
+}

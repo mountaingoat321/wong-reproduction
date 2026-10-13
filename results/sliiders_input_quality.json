@@ -2,6 +2,7 @@
   "area_km2_total": 3520910.1157429214,
   "capital_USD2019PPP_total": 146458910869315.5,
   "countries": 211,
+  "distinct_physical_coasts": 9568,
   "nonfinite_surge_parameters": 0,
   "nonpositive_surge_scales": 0,
   "population_2019_total": 1252078248.342347,

@@ -12,23 +12,36 @@ export PYTHONDONTWRITEBYTECODE=1 MPLBACKEND=Agg SOURCE_DATE_EPOCH=1791849600
 for tool in julia python3 pdflatex; do command -v "$tool" >/dev/null; done
 nice -n 19 julia --startup-file=no --history-file=no tests/runtests.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/recovered_models.jl
+nice -n 19 julia --startup-file=no --history-file=no tests/climate_modes.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/carbon.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/coastal_paths.jl
+nice -n 19 julia --startup-file=no --history-file=no tests/geographic_coasts.jl
+nice -n 19 julia --startup-file=no --history-file=no tests/ice_models.jl
 nice -n 19 julia --startup-file=no --history-file=no tests/calibration.jl
 nice -n 19 python3 tests/test_mcmc_diagnostics.py
 nice -n 19 julia --startup-file=no --history-file=no scripts/diagnostics.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/recovered_diagnostics.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/dais_events.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/carbon_experiments.jl
+nice -n 19 julia --startup-file=no --history-file=no scripts/carbon_fit.jl
 nice -n 19 julia --startup-file=no --history-file=no scripts/coastal_experiments.jl
 nice -n 19 python3 scripts/thermal_observations.py
 nice -n 19 python3 scripts/audit_inputs.py
 nice -n 19 python3 scripts/assess_calibration.py
 nice -n 19 julia --startup-file=no --history-file=no scripts/climate_projections.jl
+nice -n 19 python3 scripts/assess_calibration.py --joint-heat
+nice -n 19 julia --startup-file=no --history-file=no scripts/climate_projections.jl --joint-heat
+nice -n 19 python3 scripts/assess_calibration.py --ice glaciers
+nice -n 19 python3 scripts/assess_calibration.py --ice greenland
+nice -n 19 julia --startup-file=no --history-file=no scripts/ice_projections.jl
+nice -n 19 python3 scripts/audit_geographic_quadrature.py
+nice -n 19 python3 scripts/audit_geographic_elevation.py
 nice -n 19 python3 scripts/verify_results.py
 nice -n 19 python3 scripts/plot_results.py
 nice -n 19 python3 scripts/plot_continuation.py
+nice -n 19 python3 scripts/plot_extended.py
 nice -n 19 python3 scripts/report_tables.py
+nice -n 19 python3 scripts/extended_tables.py
 nice -n 19 pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -output-directory=report report/report.tex > .local/tex/pass1.txt 2>&1
 nice -n 19 pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -output-directory=report report/report.tex > .local/tex/pass2.txt 2>&1
 python3 scripts/check_artifacts.py

@@ -22,7 +22,10 @@ integration. Continued source recovery supplies coupled climate and Antarctic
 dynamics, a closed carbon-cycle alternative, and independent observational inputs.
 A temperature-only calibration passes convergence diagnostics but fails held-out
 temperature and upper-ocean heat checks. These failures motivate a separate
-temperature--heat calibration; they are retained as evidence of model limitations.
+temperature--heat calibration, which reduces held-out temperature RMSE from
+0.209 to 0.087\,K but underestimates assessed future warming. Independent
+geographic exposure, economic inputs and ice-mass observations support further
+explicit alternatives; the failed checks are retained.
 The calculations verify heat conservation, ice-response convergence,
 flood-loss integration, and economic accounting. They also expose a finite-step
 residual in the printed emissions recurrence and a lower-bound discrepancy in
@@ -443,6 +446,7 @@ segment migration histories and Antarctic-trigger states. The implemented
 summary and aggregation routines do not supply these missing physical inputs.
 
 \input{report/continuation.tex}
+\input{report/extended.tex}
 
 \section{Unresolved inputs and implications}
 
@@ -461,22 +465,22 @@ supplement reports that its v1.5.5 database was no longer supported and that
 v1.8 was not public at that time \cite{diaz}. The EEA provider directory currently
 reports unavailable software \cite{diva}. This does not prove that every DIVA
 dataset is inaccessible; it establishes that a complete permissible target
-bundle was not recovered in this investigation. No modern coastline segmentation
-was substituted for the 12,148 target segments.
+bundle was not recovered in this investigation. The independent SLIIDERS segmentation is used only in labeled alternative
+experiments, not substituted as if it were the 12,148 target segments.
 
 Independent GTSR data and six SSP forcing inputs have been acquired
 \cite{gtsr,ssp}. The GTSR release supplies coastal features and a later release
 supplies Gumbel parameters, but invalid records, repeated station labels and
 return-level discrepancies require explicit treatment. The 2022 academic
 supplement was recovered in the scholarly preprint, resolving the six
-socioeconomic marginal priors and several decision conventions. Country
-economics, original elevation-area/exposure data, component fingerprints and
-the precise target data vintages remain unresolved.
+socioeconomic marginal priors and several decision conventions. Independent country economics and geographic exposure now support an
+alternative calculation. Original exposure, component fingerprints and the
+precise target input vintages remain unresolved.
 
 The active stages are therefore to extend the independent calibration, reconcile
-the remaining carbon/ice variants, and recover permissible segment and economic
-inputs. Small coupled experiments precede any target-sized ensemble. No result in this report
-supports a quantitative conclusion about the target's regional cost inequality.
+the remaining carbon/ice variants, and test exposure resolution in the recovered independent geographic inputs.
+Small coupled experiments precede any target-sized ensemble. The regional
+alternatives do not establish quantitative agreement with target inequality.
 
 \section{Assessment of the research-agent process}
 
@@ -533,6 +537,7 @@ be resolved before an assessment of the target scientific conclusions can be
 claimed. These remaining tasks do not invalidate the completed mechanism tests
 or authorize treating this progress report as project completion.
 
+\clearpage
 \begin{thebibliography}{99}
 \bibitem{wong2025} Wong, T. E., Dake, S., Feke, K., Darnell, C., and Srikrishnan, V.
 (2025). Coastal adaptation and damage costs at different global warming
@@ -614,5 +619,21 @@ and thermosteric sea level (Levitus et al., 2012); Global Carbon Budget 2023
 (Friedlingstein et al., 2023). Exact citations, units, licenses, subset
 definitions and versioned hashes are in \texttt{inputs/README.md} and
 \texttt{docs/EXTERNAL\_INPUTS.csv}.
+\bibitem{imbie} Otosaka, I. N., and coauthors (2023). Mass balance of the
+Greenland and Antarctic ice sheets from 1992 to 2020. \emph{Earth System Science
+Data}, 15, 1597--1616. \href{https://doi.org/10.5194/essd-15-1597-2023}{doi:10.5194/essd-15-1597-2023}.
+IMBIE2021 data: \href{https://doi.org/10.5285/77B64C55-7166-4A06-9DEF-2E400398E452}{British Antarctic Survey archive}.
+\bibitem{glambie} GlaMBIE Team (2025). Community estimate of global glacier
+mass changes from 2000 to 2023. \emph{Nature}.
+\href{https://doi.org/10.1038/s41586-024-08545-z}{doi:10.1038/s41586-024-08545-z}.
+Observational data: \href{https://doi.org/10.5904/wgms-glambie-2024-07}{GlaMBIE2024}.
+\bibitem{sliiders} Bolliger, I., and coauthors (2023). SLIIDERS v1.1 input
+dataset. \href{https://doi.org/10.5281/zenodo.7693868}{doi:10.5281/zenodo.7693868},
+CC BY-NC 4.0. Methods: Depsky and coauthors (2023),
+\href{https://egusphere.copernicus.org/preprints/2022/egusphere-2022-198/egusphere-2022-198-manuscript-version7.pdf}{written coastal input and model documentation}.
+\bibitem{worldbank} World Bank (2026 retrieval). World Development Indicators
+API v2, national population, PPP GDP and real GDP. Exact query URLs and hashes
+are in the external-input manifest. Historical grouping correction follows the
+\href{https://datatopics.worldbank.org/world-development-indicators/release-note/jul-2025.html}{July2025 release note}.
 \end{thebibliography}
 \end{document}

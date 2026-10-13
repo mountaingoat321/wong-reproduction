@@ -7,6 +7,9 @@ set=@testset "Recovered carbon mass balance and split integration" begin
     p=C.parameters(); x=C.initial_state()
     @test C.partition(0.0,p).co2 ≈ 280.0 atol=1e-8
     @test maximum(abs.(C.rhs(x,0.0,0.0,p)))<1e-8
+    @test maximum(abs.(C.prescribed_run(zeros(5),zeros(5);p=p).-x))<1e-8
+    forced=C.prescribed_run(fill(2.,5),fill(.5,5);p=p)
+    @test sum(forced[:,end])-sum(x)≈8.0 atol=1e-9
     for perturbation in (-50.0,1.0,100.0,1000.0,5000.0)
         a=C.partition(perturbation,p)
         @test a.atmosphere+a.mixed ≈ perturbation atol=1e-12

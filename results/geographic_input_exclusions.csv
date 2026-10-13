@@ -1,0 +1,44 @@
+coast_id,country,reason,area_km2,population2019,capital_USD2019PPP,wetland_km2
+seg_06666,MDA,no coastline in this country,3.4690541280433536,1919.184255361557,2.964575455932617e6,28.81139821605757
+seg_06672,MDA,no coastline in this country,167.33572160050971,12107.356032403186,6.911744702223969e7,0.0
+seg_06678,MDA,no coastline in this country,113.45532888104208,12008.748693217058,8.432927431502533e7,0.0
+seg_08353,SGS,zero socioeconomic inputs,6.824903268367052,0.0,0.0,0.0
+seg_08354,SGS,zero socioeconomic inputs,11.5903236027807,0.0,0.0,0.0
+seg_08355,SGS,zero socioeconomic inputs,11.131126631051302,0.0,0.0,0.0
+seg_08356,SGS,zero socioeconomic inputs,9.481866955757141,0.0,0.0,0.0
+seg_08358,SGS,zero socioeconomic inputs,8.404677650891244,0.0,0.0,0.0
+seg_08365,SGS,zero socioeconomic inputs,0.5688091455376707,0.0,0.0,0.0
+seg_08372,SGS,zero socioeconomic inputs,4.285953378945123,0.0,0.0,0.0
+seg_08374,SGS,zero socioeconomic inputs,20.86658363044262,0.0,0.0,0.0
+seg_08375,SGS,zero socioeconomic inputs,17.25030546821654,0.0,0.0,0.0
+seg_08376,SGS,zero socioeconomic inputs,29.224206522107124,0.0,0.0,0.0
+seg_08377,SGS,zero socioeconomic inputs,27.25566855072975,0.0,0.0,0.051584619854111224
+seg_08378,SGS,zero socioeconomic inputs,13.388694781810045,0.0,0.0,0.025988495151977986
+seg_08379,SGS,zero socioeconomic inputs,34.083781722933054,0.0,0.0,0.0
+seg_08381,SGS,zero socioeconomic inputs,17.2281946958974,0.0,0.0,0.0
+seg_08382,SGS,zero socioeconomic inputs,14.072726503945887,0.0,0.0,0.0
+seg_08383,SGS,zero socioeconomic inputs,22.712945975363255,0.0,0.0,0.0
+seg_08385,SGS,zero socioeconomic inputs,24.839251784607768,0.0,0.0,0.0
+seg_08387,HMD,zero socioeconomic inputs,8.280978781171143,0.0,0.0,0.0
+seg_08388,HMD,zero socioeconomic inputs,19.45124897826463,0.0,0.0,0.0
+seg_08389,HMD,zero socioeconomic inputs,10.457909937947989,0.0,0.0,0.0
+seg_08420,ATF,zero socioeconomic inputs,191.07127705216408,0.0,0.0,0.0
+seg_08422,ATF,zero socioeconomic inputs,143.24285815656185,0.0,0.0,0.0
+seg_08423,ATF,zero socioeconomic inputs,49.11547589302063,0.0,0.0,0.0
+seg_08424,ATF,zero socioeconomic inputs,140.52480860054493,0.0,0.0,0.0
+seg_08425,ATF,zero socioeconomic inputs,48.31513490527868,0.0,0.0,0.0
+seg_08426,ATF,zero socioeconomic inputs,57.44604700803757,0.0,0.0,0.0
+seg_08427,ATF,zero socioeconomic inputs,58.62799774855375,0.0,0.0,0.0
+seg_08428,ATF,zero socioeconomic inputs,116.59091380238533,0.0,0.0,0.0
+seg_08430,ATF,zero socioeconomic inputs,78.34286710619926,0.0,0.0,0.0
+seg_08433,ATF,zero socioeconomic inputs,28.682321529835463,0.0,0.0,0.0
+seg_08435,ATF,zero socioeconomic inputs,145.9371481128037,0.0,0.0,0.0
+seg_08442,ATF,zero socioeconomic inputs,144.17829032242298,0.0,0.0,0.0
+seg_08541,ATF,zero socioeconomic inputs,5.364197896735277,0.0,0.0,0.0
+seg_17440,ETH,no coastline in this country,7.779218534938991,393.4778074026108,1.5765125678710938e7,0.0
+seg_17443,ETH,no coastline in this country,48.89876568317413,200.60881230514497,1.6669589721435547e7,0.0
+seg_17446,ETH,no coastline in this country,3.968941679690033,0.0,37373.16056060791,0.0
+seg_99006,BVT,zero socioeconomic inputs,4.190510538115632,0.0,0.0,0.0
+seg_99008,XCL,zero socioeconomic inputs,3.476524724974297,0.0,0.0,0.0
+seg_99014,XSP,zero socioeconomic inputs,763.2351355552673,0.0,0.0,0.0
+seg_99016,UMI,zero socioeconomic inputs,123.96901985461591,0.0,0.0,0.0

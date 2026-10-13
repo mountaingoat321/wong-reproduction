@@ -10,5 +10,14 @@
     "temperature_holdout_mean_bias_K": 0.18872714798452003,
     "temperature_holdout_predictive_90_coverage": 0.625,
     "temperature_holdout_rmse_K": 0.20924293572229313
+  },
+  "climate_joint": {
+    "heat_holdout_parameter_median_bias_1e22J": 0.4245901976379265,
+    "heat_holdout_parameter_median_rmse_1e22J": 0.9005336439558759,
+    "heat_holdout_predictive_90_coverage": 1.0,
+    "heat_holdout_predictive_rmse_1e22J": 0.8791716187067538,
+    "temperature_holdout_mean_bias_K": 0.040180683340061356,
+    "temperature_holdout_predictive_90_coverage": 1.0,
+    "temperature_holdout_rmse_K": 0.08703226851459453
   }
 }

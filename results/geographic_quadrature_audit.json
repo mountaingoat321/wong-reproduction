@@ -1,0 +1,19 @@
+{
+  "cases": 114,
+  "convention": "12 vs 24 Gauss nodes per elevation/probability interval; denominator at least 1",
+  "maximum_relative_error": 1.495140274924634e-11,
+  "policy_changes": 0,
+  "relative_error_by_quantity": {
+    "baseline_pv_USD2019PPP": 8.626255017473069e-13,
+    "construction_pv": 0.0,
+    "flood_pv": 1.495140274924634e-11,
+    "incremental_pv_USD2019PPP": 4.5083278510624624e-13,
+    "inundation_pv": 0.0,
+    "maintenance_pv": 0.0,
+    "migrants": 0.0,
+    "no_adaptation_pv_USD2019PPP": 5.875761052521607e-13,
+    "pv_USD2019PPP": 3.9718463735523424e-13,
+    "retreat_pv": 0.0,
+    "wetland_pv": 0.0
+  }
+}

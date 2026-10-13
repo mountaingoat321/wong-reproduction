@@ -62,6 +62,12 @@ def diagnostics(x):
 if __name__ == '__main__':
     joint='--joint-heat' in sys.argv
     stem='climate_joint' if joint else 'climate'
+    description=('temperature and 0--700m heat' if joint else 'temperature-only')+' calibration'
+    if '--ice' in sys.argv:
+        component=sys.argv[sys.argv.index('--ice')+1]
+        assert component in ('glaciers','greenland')
+        stem='ice_'+component
+        description=component+' conditional annual-rate calibration'
     data = np.genfromtxt(str(ROOT/('results/'+stem+'_posterior.csv')), delimiter=',', names=True)
     chains = np.unique(data['chain'])
     assert len(chains) == 4
@@ -76,7 +82,7 @@ if __name__ == '__main__':
         w = csv.DictWriter(f, fieldnames=['parameter','rank_folded_rhat','bulk_ess','tail_ess','q05','median','q95'])
         w.writeheader(); w.writerows(rows)
     passed = all(r['rank_folded_rhat'] < 1.01 and r['bulk_ess'] >= 400 and r['tail_ess'] >= 400 for r in rows)
-    summary = dict(experiment='ALTERNATIVE '+('temperature and 0--700m heat' if joint else 'temperature-only')+' calibration; not W25 posterior',
+    summary = dict(experiment='ALTERNATIVE '+description+'; not W25 posterior',
                    retained_draws=int(data.size), chains=4, convergence_criteria_met=passed,
                    criteria='rank/folded split Rhat <1.01; bulk and tail ESS >=400 for every coordinate and log density')
     (ROOT/('results/'+stem+'_mcmc_status.json')).write_text(json.dumps(summary, indent=2)+'\n')

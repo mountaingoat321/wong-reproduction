@@ -29,16 +29,43 @@ def save(name,header,rows):
     with (ROOT/'inputs'/name).open('w',newline='') as f:
         w=csv.writer(f);w.writerow(header);w.writerows(rows)
 
-ids=read('seg_adm');countries=read('country');coast_countries=read('seg_country')
+if '--fine-all' in sys.argv:
+    manifest={}
+    for name in ('landarea','pop_2019','K_2019','wetland'):
+        a=read(name).astype('<f8');target=ROOT/'.local/inputs'/('sliiders_'+name+'_fine.f64')
+        a.tofile(str(target));manifest[name]=dict(shape=list(a.shape),dtype='little-endian Float64, C row order',sha256=hashlib.sha256(target.read_bytes()).hexdigest())
+    bounds=read('elev_bounds')
+    edges=np.r_[bounds[:,0],bounds[-1,1]]
+    with (ROOT/'.local/inputs/sliiders_fine_edges.csv').open('w',newline='') as f:
+        csv.writer(f).writerows([e] for e in edges)
+    (ROOT/'.local/inputs/sliiders_fine_binary.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    print('Prepared full original-resolution SLIIDERS binary inputs inside .local')
+    sys.exit(0)
+if '--fine-pilot' in sys.argv:
+    with (ROOT/'results/geographic_pilot_costs.csv').open() as f:
+        keys=sorted(set((r['coast_id'],r['country']) for r in csv.DictReader(f)))
+    coast_ids=read('seg');countries=read('seg_country');bounds=read('elev_bounds')
+    stocks=[read(k).astype(float) for k in ('landarea','pop_2019','K_2019','wetland')]
+    rows=[]
+    for coast,country in keys:
+        mask=(coast_ids==coast)&(countries==country)
+        assert mask.any()
+        summed=[a[mask].sum(axis=0) for a in stocks]
+        for j,(low,high) in enumerate(bounds):rows.append([coast,country,low,high]+[x[j] for x in summed])
+    save('sliiders_pilot_fine.csv',['coast_id','country','low_m','high_m','area_km2','population2019','capital_USD2019PPP','wetland_km2'],rows)
+    print('Prepared original-resolution elevation profiles for',len(keys),'pilot coasts')
+    sys.exit(0)
+
+ids=read('seg_adm');coast_ids=read('seg');countries=read('country');coast_countries=read('seg_country')
 assert len(ids)==11980 and len(set(ids))==11980
 country_index={s:i for i,s in enumerate(countries)}
 pc=read('pc');mobile=read('mobcapfrac');gumbel=read('gumbel_params')
 assert list(read('params'))==['loc','scale']
 lat=read('seg_lat');lon=read('seg_lon');length=read('length')
 save('sliiders_segments.csv',
-     ['segment','country','latitude_deg','longitude_deg','length_km','gumbel_location_m','gumbel_scale_m','protection_USD2019PPP_km_m2','mobile_capital_fraction'],
+     ['segment','country','latitude_deg','longitude_deg','length_km','gumbel_location_m','gumbel_scale_m','protection_USD2019PPP_km_m2','mobile_capital_fraction','coast_id'],
      ([ids[i],coast_countries[i],lat[i],lon[i],length[i],gumbel[i,0],gumbel[i,1],
-       pc[country_index[coast_countries[i]]],mobile[country_index[coast_countries[i]]]] for i in range(len(ids))))
+       pc[country_index[coast_countries[i]]],mobile[country_index[coast_countries[i]]],coast_ids[i]] for i in range(len(ids))))
 
 # Coarsening sums inventory exactly. It assumes uniform exposure WITHIN each
 # new bin in subsequent experiments, which needs resolution sensitivity.
@@ -70,6 +97,7 @@ for year in range(2010,2101,10):
 save('sliiders_economics.csv',
      ['country','scenario','iam','year','income_USD2019PPP_person','population_scale','capital_scale','land_USD2019PPP_km2','wetland_USD2019PPP_km2'],rows)
 quality.update(segments=len(ids),countries=len(countries),
+    distinct_physical_coasts=len(set(coast_ids)),
     nonpositive_surge_scales=int(np.sum(gumbel[:,1]<=0)),
     nonfinite_surge_parameters=int(np.sum(~np.isfinite(gumbel))),
     zero_lengths=int(np.sum(length<=0)))

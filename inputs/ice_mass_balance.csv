@@ -1,0 +1,83 @@
+component,start_year,end_year,mass_change_Gt_yr,uncertainty_Gt_yr,uncertainty_interpretation,source
+greenland,1992,1993,-7.7667,56.4,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,1993,1994,-24.366699999999998,56.43330000000001,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,1994,1995,-106.26669999999997,56.4,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,1995,1996,-45.1431,77.5023,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,1996,1997,7.965500000000001,78.51739999999998,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,1997,1998,-4.68,80.1553,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,1998,1999,-54.451699999999995,80.16700000000002,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,1999,2000,-74.3714,79.7626,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2000,2001,-29.46320000000001,78.74239999999999,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2001,2002,-76.83719999999998,80.60159999999999,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2002,2003,-132.1088,102.81089999999999,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2003,2004,-155.9038833333333,84.13723333333333,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2004,2005,-182.53205833333334,85.21551666666666,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2005,2006,-198.47554166666666,82.44756666666666,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2006,2007,-230.80113333333338,85.60747500000001,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2007,2008,-243.57200833333334,80.57229166666666,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2008,2009,-241.03741666666667,83.49705,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2009,2010,-262.71004999999997,89.06734166666666,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2010,2011,-318.2391416666666,83.09114999999998,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2011,2012,-333.16904999999997,92.423425,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2012,2013,-314.3457666666667,99.72038333333332,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2013,2014,-212.27750000000003,98.48435,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2014,2015,-182.01115000000001,81.63045833333335,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2015,2016,-185.73343333333332,83.41200833333333,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2016,2017,-169.62786666666665,81.45433333333334,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2017,2018,-86.49073333333335,74.78955833333333,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2018,2019,-186.22563333333332,98.86108333333334,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2019,2020,-444.4511999999999,93.05820833333333,SD upper bound; monthly errors fully correlated,IMBIE2021
+greenland,2020,2021,-397.297525,121.29827499999998,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1992,1993,-46.55395000000001,96.07613333333335,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1993,1994,-80.18280000000001,87.3202,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1994,1995,-89.27469999999998,86.02890000000001,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1995,1996,-82.24479999999998,86.55210833333335,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1996,1997,-52.6261,86.9801,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1997,1998,-7.5523,86.0167,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1998,1999,-12.989100000000002,86.6594,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,1999,2000,-20.8629,87.6685,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2000,2001,-24.1623,85.5222,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2001,2002,-31.480200000000007,86.0038,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2002,2003,-32.39878333333334,84.3981,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2003,2004,-70.22789166666665,93.71081666666667,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2004,2005,-67.72221666666665,93.377475,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2005,2006,-57.02005833333334,91.31306666666667,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2006,2007,-84.65093333333336,93.116675,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2007,2008,-114.45039999999999,91.04519166666667,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2008,2009,-110.96596666666669,101.11410000000001,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2009,2010,-110.27319166666666,107.4848,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2010,2011,-143.253725,102.46772500000002,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2011,2012,-171.28460000000004,96.02930833333335,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2012,2013,-167.73680000000002,96.023125,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2013,2014,-187.30759166666667,93.43693333333333,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2014,2015,-200.78244166666664,90.67675000000001,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2015,2016,-128.11629166666665,97.27760833333333,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2016,2017,-63.91826666666666,100.97165833333332,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2017,2018,-76.40622499999999,107.39896666666668,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2018,2019,-175.58020833333333,110.71959166666666,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2019,2020,-167.66054166666666,135.00045,SD upper bound; monthly errors fully correlated,IMBIE2021
+antarctica,2020,2021,-92.84705833333334,156.55940833333338,SD upper bound; monthly errors fully correlated,IMBIE2021
+glaciers,2000.0,2001.0,-78.04414729402814,111.56095088251794,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2001.0,2002.0,-215.16931097001844,95.3001011576375,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2002.0,2003.0,-128.46636738674923,91.14634450070768,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2003.0,2004.0,-192.6724697716301,72.79887688516011,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2004.0,2005.0,-229.2369109878561,73.022158218317,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2005.0,2006.0,-315.0371756633185,74.19065798809451,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2006.0,2007.0,-279.8898739792978,72.77317030930298,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2007.0,2008.0,-323.16570882967466,71.78509732133082,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2008.0,2009.0,-178.6324817323364,71.86184704387401,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2009.0,2010.0,-231.2381243724868,71.29354455724742,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2010.0,2011.0,-231.1966727048064,72.2582027545506,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2011.0,2012.0,-365.9472468839626,68.11267549573648,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2012.0,2013.0,-188.0208512243996,67.35045471659744,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2013.0,2014.0,-304.73798136525033,66.47051377096227,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2014.0,2015.0,-149.889416279315,65.94044282966604,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2015.0,2016.0,-284.97423508815865,66.77259130583126,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2016.0,2017.0,-340.6076946742656,68.35959222730513,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2017.0,2018.0,-217.68675972042345,66.39070274109359,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2018.0,2019.0,-243.81282612823085,66.54077158950466,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2019.0,2020.0,-412.9645781490086,69.99144862252744,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2020.0,2021.0,-405.0394156368366,76.20680182507151,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2021.0,2022.0,-217.7163545547422,81.6846283807594,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2022.0,2023.0,-460.2989143829609,100.8285184125692,reported standard error; observational synthesis,GlaMBIE2024
+glaciers,2023.0,2024.0,-548.025110248126,120.16099017378784,reported standard error; observational synthesis,GlaMBIE2024

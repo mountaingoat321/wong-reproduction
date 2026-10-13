@@ -1,0 +1,8 @@
+{
+  "scope": "Initial 16-coast pilot before hazard-quantile integration cuts",
+  "max_relative_total_selected_cost_difference": 1.7850773190694124e-14,
+  "max_relative_no_adaptation_cost_difference": 0.09001592982011726,
+  "policy_changes": 0,
+  "status": "Not sufficient for scaling: narrow hazard density missed by coarse integration",
+  "resolution": "Add probability-based interval boundaries and an independent narrow-hazard regression test"
+}
