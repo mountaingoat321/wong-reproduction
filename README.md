@@ -42,7 +42,8 @@ global-cost ensemble.
 
 Available dependencies: Julia 1.7.2 (standard libraries only), Python 3.6.8,
 NumPy 1.19.5, SciPy 1.5.4, Matplotlib 3.3.4, pdfLaTeX/TeX Live 2018,
-GCC 8.5 and Git 2.43.5. Optional raw GTSR preparation uses installed h5py 3.1.0.
+GCC 8.5 and Git 2.43.5. Ghostscript9.27 and Poppler's `pdffonts` subset embedded
+figure fonts before LaTeX; vector artwork is retained. Optional raw GTSR preparation uses installed h5py 3.1.0.
 No installation or global configuration changes are required. All numerical
 libraries use one thread and scheduling priority 19. Caches, downloads and TeX
 state remain under ignored `.local/`. Do not run multiple long jobs concurrently
@@ -136,9 +137,72 @@ python3 scripts/prepare_sliiders.py --fine-all
 nice -n19 julia --startup-file=no --history-file=no scripts/geographic_experiments.jl --all --fine-profiles --ssp4-one-metre
 ```
 
-The last command is the larger original-resolution sensitivity; consult its
-run record before treating it as completed. Binary original-resolution input
+The last command completed all9,531 units in1,812 seconds, including short
+pauses for serial validation work. Run `python3 scripts/aggregate_geographic.py
+--fine-ssp4-one-metre` and `python3 scripts/compare_geographic_resolution.py`
+afterward. Global incremental cost rises11.03% relative to six bins and148
+policies change. This is a matched alternative experiment, not a correction
+to the published costs. Binary original-resolution input
 arrays and full per-coast output stay in ignored `.local/`.
+
+## Paleo and emissions continuation
+
+New independent inputs are explicitly listed and hash checked in
+`docs/EXTERNAL_INPUTS.csv`; `scripts/prepare_external_inputs.py` fetches only
+that allowlist. It never traverses target-author repositories. Prepare the
+curated boundary and scenario inputs with:
+
+```bash
+python3 scripts/prepare_paleo_inputs.py
+python3 scripts/prepare_dais_forcing.py
+python3 scripts/prepare_ssp_emissions.py
+```
+
+The Antarctic experiment uses a recovered initial radius and independent
+temperature/sea-level proxies. The ocean polynomial, splice and cutoff
+continuation are explicit alternatives. Generate its36 sensitivities and a
+restricted conditional point fit with:
+
+```bash
+nice -n19 julia --startup-file=no --history-file=no scripts/dais_paleo_experiments.jl
+nice -n19 julia --startup-file=no --history-file=no scripts/dais_conditional.jl --pilot
+nice -n19 julia --startup-file=no --history-file=no scripts/dais_conditional.jl
+python3 scripts/plot_paleo.py
+```
+
+The fit is not a posterior or independent validation of the four fitted
+constraints. Later annual IMBIE rates supply a separate check. The build
+rechecks the saved fit and timestep refinement without repeating optimization.
+
+Emissions experiments distinguish the documented prior from minimum-relative-
+entropy50%/75% budget weighting. The latter do not recover the expert density
+or impose the SSP4-6.0 mode. Coupled futures compare annual nearest-emissions
+and fixed-SSP2-4.5 non-CO2 forcing using independent RCMIP inputs:
+
+```bash
+nice -n19 julia --startup-file=no --history-file=no scripts/emissions_design.jl
+nice -n19 julia --startup-file=no --history-file=no scripts/coupled_emissions_experiments.jl --pilot
+nice -n19 julia --startup-file=no --history-file=no scripts/coupled_emissions_experiments.jl
+python3 scripts/plot_scenario_alternatives.py
+python3 scripts/scenario_tables.py
+```
+
+The pilot checks doubled temporal resolution before the larger256-member
+alternative. Raw future paths stay under `.local/`; the repository retains
+parameters, endpoints, quantiles, category probabilities and nested-sample
+diagnostics. The build reruns the small pilot and plots the retained larger
+results. This remains an alternative conditional experiment with fixed carbon
+parameters, omitted target dependence and a disclosed forcing restart jump.
+
+`scripts/sea_level_ensemble.jl --pilot` combines the verified component models
+for eight climate members, two forcing rules and five explicit closure choices.
+It checks doubled Antarctic temporal resolution and component sums. Its raw
+paths stay in `.local/`; metadata, endpoints and quantiles remain in `results/`.
+The Antarctic shore factors−1/+1 are documented in B17. The global component
+sum remains an **uncorrected alternative** because observational component
+overlap and the target joint calibration are unresolved. Larger tail-stratified
+extensions and coastal probability-sampling experiments are active development;
+their run metadata must exist before they can be treated as executed results.
 
 ## Scientific record
 

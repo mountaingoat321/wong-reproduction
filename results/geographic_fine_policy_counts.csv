@@ -1,0 +1,8 @@
+scenario,sea2100_m,strategy,return_period,coasts
+SSP4,1.0,none,0,439
+SSP4,1.0,protect,100,105
+SSP4,1.0,protect,1000,169
+SSP4,1.0,protect,10000,15
+SSP4,1.0,retreat,10,7827
+SSP4,1.0,retreat,100,960
+SSP4,1.0,retreat,1000,16

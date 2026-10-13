@@ -1,0 +1,46 @@
+{
+  "coarse_bins": 6,
+  "fine_bins": 200,
+  "interpretation": "Matched original input totals and all other conventions; resolves within-bin exposure, not target-model specification",
+  "metrics": {
+    "incremental_pv_USD2019PPP": {
+      "coarse_sum": 990045700158.2445,
+      "fine_sum": 1099242299997.6765,
+      "global_relative_change": 0.11029450440719901,
+      "maximum_absolute_relative_change": 15.438008744328851,
+      "median_relative_change": -0.02219501972535938,
+      "relative_change_q05": -0.3667925082072153,
+      "relative_change_q95": 0.39634985548911045
+    },
+    "migrants": {
+      "coarse_sum": 125950551.82405005,
+      "fine_sum": 128590425.86519302,
+      "global_relative_change": 0.020959606789423324,
+      "maximum_absolute_relative_change": 1.0,
+      "median_relative_change": -0.00010851843902663042,
+      "relative_change_q05": -0.1464169853902442,
+      "relative_change_q95": 0.09422783514485508
+    },
+    "no_adaptation_pv_USD2019PPP": {
+      "coarse_sum": 298776621795589.2,
+      "fine_sum": 288333435007918.4,
+      "global_relative_change": -0.03495315906883645,
+      "maximum_absolute_relative_change": 2.260283683660168,
+      "median_relative_change": -0.0070925257275136055,
+      "relative_change_q05": -0.30897943568586667,
+      "relative_change_q95": 0.1720835418587648
+    },
+    "pv_USD2019PPP": {
+      "coarse_sum": 2993183808749.425,
+      "fine_sum": 3057558316291.752,
+      "global_relative_change": 0.02150703453431535,
+      "maximum_absolute_relative_change": 2.260283683660168,
+      "median_relative_change": -0.017187242799470197,
+      "relative_change_q05": -0.28269055011293587,
+      "relative_change_q95": 0.21267953378498794
+    }
+  },
+  "policy_change_fraction": 0.015528276151505612,
+  "policy_changes": 148,
+  "scope": "NON-REPRODUCTION: SSP4, 1m spatially uniform prescribed SLR; all9531eligible coast-country units"
+}

@@ -1,0 +1,13 @@
+all_windows_pass = true
+lambda_m_yr = 0.011610179358545289
+optimizer_evaluations = 304
+threshold_degC = -15.629796785837827
+latin_hypercube_samples = 512
+window_predictions_m = [5.4999656908348085, -11.39194375803346, -2.727628788172089, 0.0019510393735385255]
+wall_seconds = 144.60825610160828
+window_chisq = 0.022665606762391675
+scope = "Conditional point fit; NOT a posterior, target calibration, or independent validation"
+alpha = 0.020768375777930684
+maximum_dt10_dt5_window_difference_m = 2.6812996267722156e-9
+forcing_sha256 = "68a6851063d41185878b40d239f840ee48a9bc3de3864e35160a08d42ff93d8f"
+gamma = 1.93746549289243

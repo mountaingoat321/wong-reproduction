@@ -93,7 +93,8 @@ linearly interpolated. Zero-anomaly climate and steady land pools at start.
 Non-CO2 forcing must exclude CO2 already calculated from carbon concentration.
 """
 function coupled_run(sys,emissions,nonco2;p=parameters(),substeps=8,
-                     carbon_initial=initial_state(),climate_initial=zeros(length(sys.forcing)))
+                     carbon_initial=initial_state(),climate_initial=zeros(length(sys.forcing)),
+                     carbon_temperature_offset=0.0)
     length(emissions)==length(nonco2) || throw(DimensionMismatch())
     substeps>=1 || throw(DomainError(substeps))
     h=1/substeps; lhs=factorize(I-h/4*sys.A); right=I+h/4*sys.A
@@ -107,7 +108,7 @@ function coupled_run(sys,emissions,nonco2;p=parameters(),substeps=8,
             q2=nonco2[i-1]+(j-0.25)/substeps*(nonco2[i]-nonco2[i-1])
             forcing=3.7*log2(partition(x[1],p).co2/p.c0)
             t=lhs\(right*t+h/2*(q1+forcing)*sys.forcing)
-            x=carbon_step(x,e,global_temperature(sys,t),p,h)
+            x=carbon_step(x,e,global_temperature(sys,t)-carbon_temperature_offset,p,h)
             forcing=3.7*log2(partition(x[1],p).co2/p.c0)
             t=lhs\(right*t+h/2*(q2+forcing)*sys.forcing)
         end

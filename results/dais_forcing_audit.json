@@ -1,0 +1,20 @@
+{
+  "chronology": "S14 BP2000 and NOAA BP1950 converted separately; annual observations at midyear",
+  "church_white_1961_1990_mean_relative1990_m": -0.022933333333333337,
+  "edc_offset_K": -0.1,
+  "first_CE": -238000.0,
+  "forcing_knots": 5768,
+  "interpolation": "Piecewise linear air/sea, preserving all source knots; ocean computed from interpolated air",
+  "last_CE": 2009.5,
+  "mann_1961_1990_mean_K": -0.03362758666666667,
+  "overlap_derived_alternative_edc_offset_K": -0.16768643192482763,
+  "scope": "NON-REPRODUCTION: independent proxy splice and S14 polynomial ocean alternative",
+  "sea_boundary_variants": [
+    "spratt_unshifted",
+    "waelbroeck_primary",
+    "waelbroeck_unadjusted"
+  ],
+  "spratt_youngest_value_subtracted_m": 8.49,
+  "unresolved": "Spratt sea level replaces S14 adjusted Waelbroeck/Clark/Lambeck; CE950\u20131880.5 interpolated; S14 Eq15 omits ocean memory; Mann variant and HadCRUT4 vintage differ",
+  "waelbroeck_note": "Both archive-provided chronologies tested. Neither claims the exact S14 adjustment, Clark/Lambeck splice or ocean forcing."
+}

@@ -14,6 +14,7 @@ suite=@testset "Exact finite-volume climate propagation" begin
             extended=transition*vcat(x,q[i-1],q[i]-q[i-1]);x=extended[1:n]
         end
         @test exact.temperature[end]≈M.global_temperature(s,x) rtol=2e-11
+        @test exact.final_state≈x rtol=2e-11 atol=1e-12
         @test exact.heat[1,end]≈M.ocean_heat_to_depth(s,x,700.)/1e22 rtol=2e-11
         errors=Float64[]
         for steps in (4,8,16)

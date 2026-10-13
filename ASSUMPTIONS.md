@@ -98,3 +98,46 @@ explicitly requested continued implementation and defensible alternative experim
 | S054 | Recovered initialization and convention | S14 p1810 gives initial R=1.8636e6m at240kyrBP2000 and sea-level scaling57m/24.78e15m3. Its ±10% initial-radius sensitivity is a published methodological claim to test independently. This resolves the earlier assertion that no initial radius was specified. |
 | S055 | Documented-formula alternative | S14 Eq15 To=.00690Ta²+.439Ta+6.39degC is documented for steady-state experiments. Using it for a transient hindcast would omit ocean thermal memory; it is an explicit alternative to the unrecovered DCESS forcing, not the exact original input series. |
 | S056 | Chronology and external proxy choices | Curated NOAA EPICA/Spratt observations use BP1950; convert to CE before comparing with S14 BP2000 or W17 BCE dates. Mann2008 global land+ocean EIV is a declared variant; S14 does not pin it. Spratt's sea-level stack is a separate proxy reconstruction, not S14's adjusted Waelbroeck/Clark/Lambeck splice. Church/White2011 is in annual midpoints, mm relative1990, with1SD errors. |
+| S057 | Alternative Antarctic boundary assembly | Preserve all proxy knots. Dome C anomalies receive S14's -0.1K offset; Mann EIV is independently rebased to1961–1990, and modern HadCRUT4 is amplified by1.2. Use annual midpoints. Spratt's youngest8.49m value is subtracted, then CE950–1880.5 is linearly bridged to rebased Church/White. An unshifted Spratt case and both supplied Waelbroeck2002 chronologies test this consequential boundary choice. No curve is digitized and no original DAIS/DCESS output is used. |
+| S058 | Derived volume-coordinate dynamics | Evolve DAIS volume by accumulation plus discharge; invert the verified geometry by Newton iteration at every stage. This is equivalent to the radius equation including its sea-level derivative. Split forcing knots, runoff gates and fast-temperature events. At the18e15m3 fast-loss cutoff, resolve finite hitting times; opposing vector fields imply a sliding solution whose fast loss balances slow gain. This mathematical continuation is explicit, not recovered author timestep logic. |
+| S059 | Conditional Antarctic point fit | Vary gamma/alpha within B17's uniform bounds and fast-loss rate/threshold within W17F's bounds, fixing all other S14 parameters. Independent Latin hypercube coverage and bounded coordinate search assess the four written windows under alternative forcing. The chi-square is a diagnostic and point-fit objective; it omits additional residual-process variance and the target joint calibration. Passing fitted windows is not independent validation or a posterior. Annual IMBIE rates after2002 are checked separately. |
+| S060 | Documented emissions prior and horizon | Sample D24's three independent truncated-normal priors with recorded seed. Use net GCB2023 emissions in2022 as the explicit initial input. Round the continuous peak to the nearest year, and record floor/ceiling sensitivity. Peaks later than2150 must remain admissible and give growth throughout the simulated horizon. Compare inclusive annual sums2022–2100 with trapezoidal integration. |
+| S061 | Derived probability alternatives | Minimum-relative-entropy weights impose budget probability50% or75% on the empirical documented prior, with constant weights inside/outside1223GtCO2. This leaves each conditional shape unchanged and does not impose the unrecovered SSP4-6.0 mode or expert likelihood. It is a transparent mathematical sensitivity experiment, not the published emissions posterior. Report effective weighted sample sizes. |
+| S062 | Independent annual SSP emission inputs | RCMIP protocol5.1.0 supplies global exogenous CO2 emissions and their fossil/land-use partition, including documented extensions. Convert MtCO2 toGtCO2 and linearly fill missing annual nodes; never extrapolate beyond supplied coverage. Check total equals component sum. No intercomparison model outputs or implementations are consulted. |
+| S063 | Alternative coupled restart | Initialize future carbon from the conditional observed-temperature hindcast and climate from its independently calibrated forcing history in2021. Transform the carbon temperature datum to match1850–1879 observations. The physical CO2 forcing switches to3.7log2(C/280) at restart without a tuned correction; this differs from the historical exogenous forcing and must be quantified. Pair complete climate rows independently with emissions draws; no target cross-model posterior is claimed. |
+| S064 | Annual nearest-scenario interpretation | D24 states nearest CO2 trajectory in each year. The explicit alternative uses absolute distance in annual total CO2 emissions to choose among six SSP non-CO2 forcings; fixedSSP245 is a sensitivity. Preserve aerosol scaling from each climate row. Annual node forcings are interpolated within each year; record scenario switches. |
+## S065 — Antarctic shore coupling and component-budget alternatives
+
+**Documented:** B17 sections3.2.3/3.3 use shore fingerprint−1 for AIS and+1
+for other components, with previous-year forcing in the annual coupling.
+**Derived:** `SeaLevelCoupling.antarctic_path` integrates physical volume and
+inverts geometry at sea level `S_initial+S_other−S_AIS`. Continuous stagewise
+coupling is compared with frozen previous-knot sea/air/ocean forcing; RK4
+within a knot interval is an independent numerical choice, not recovered
+author stepping. An independent radius-coordinate test includes feedback
+in dS/dt and checks the coupled geometry.
+
+**Alternative experiment:** propagate the two restricted paleo point fits from
+2009.5. The last independently prescribed paleo sea level anchors the initial
+shore level; subsequent changes use the recovered shore factors. Historical
+component rates use observed temperatures, with a half-year interpolation at
+the initial splice. The first Antarctic air value retains the final paleo
+forcing value; later annual observations connect to future modeled temperature
+at2021. GIC/GIS parameter rows are independently sampled from accepted
+conditional posteriors, preserving within-row dependence but not claiming
+target cross-component dependence. Their observed2021 boundary temperature
+is retained at the future splice. Sea-level changes are reported relative2010.
+The Antarctic annual-rate comparison converts the documented57m/24.78e15m3
+volume normalization to sea-level-equivalent mass at362500Gt/m. It does not
+silently substitute a different conversion based solely on ice density.
+
+**Closure sensitivities:** one thermal alternative applies the empirical
+0–2000m coefficient only to that depth (zero deeper term); another applies
+the same coefficient to full modeled heat. These are structural alternatives,
+not bounds or a recovered full-depth coefficient. LWS annual rates use an
+explicit Gaussian assumption with documented mean.30 and SD.18mm/yr,
+independent annual rates versus a perfectly correlated common rate. Neither
+covariance is silently assigned to the target. The independently fitted GIC
+and ice-sheet components retain the documented peripheral-glacier overlap;
+their sum is labeled an uncorrected alternative budget. No target sea-level
+reproduction or complete posterior uncertainty is claimed.

@@ -6,7 +6,7 @@ using LinearAlgebra, Random, Statistics
 # No parameter below is calibrated implicitly. Float64 numerical operators.
 
 function emissions(firstyear::Int, lastyear::Int, q0, growth, peak::Int, decline)
-    firstyear <= peak <= lastyear || throw(ArgumentError("peak must lie on the annual grid"))
+    firstyear <= lastyear && firstyear <= peak || throw(ArgumentError("invalid annual horizon or peak before start"))
     q0 >= 0 && growth >= 0 && decline > 0 || throw(DomainError((q0,growth,decline)))
     years = collect(firstyear:lastyear)
     q = zeros(length(years)); q[1] = q0

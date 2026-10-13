@@ -200,3 +200,69 @@ methods retain the same independent truncated-normal parameter priors and
 likelihood density or precise annual nearest-SSP metric. Fuller2017
 (DOI10.1371/journal.pone.0190115) clarifies the likelihood-based inversion
 procedure; it does not supply Darnell's missing density parameters.
+# Continued recovery: paleo constraints and emissions coupling
+
+B17 section3.3 explicitly supplies the Antarctic shore-average factors:
+−1.0 for AIS and+1.0 for other contributions. Section3.2.3 describes previous-
+year air/ocean/sea-level inputs in its explicit annual coupling. These details
+permit independent component coupling without obtaining global fingerprint
+maps. They do not supply the missing geographical factors at other coasts.
+`SeaLevelCoupling.jl` compares continuous feedback with lagged annual forcing;
+its independent radius-coordinate verification passes10 checks. S065 records
+the remaining initial shore datum, forcing and component-boundary assumptions.
+
+
+S14 p1810 specifies initialization at240kyr beforeCE2000 with radius1.8636e6m
+and the conversion24.78e15m3 to57m sea-level equivalent. W17F sections2.2–2.3
+give the four updated calibration windows and uniform fast-loss parameters.
+The independent volume-coordinate integrator uses dV/dt=B+F−fast loss, inverts
+the recovered geometry at each prescribed sea level, and resolves both air
+temperature gates and the18e15m3 cutoff. At an attracting cutoff, a sliding
+solution balances accumulation with fast discharge. This is a derived
+continuation of the discontinuous equation, not recovered author stepping.
+Nineteen additional tests include an independent radius-coordinate calculation,
+exact hitting/sliding/departure cases and volume inversion.
+
+NOAA EDC, Mann global-HAD EIV, Spratt, Waelbroeck and CSIRO Church–White records
+are permitted independent inputs. Chronologies use their stated age origin;
+BP1950 is not silently equated with BP2000. The alternative forcing uses the
+printed−.1K EDC shift,1961–1990 Mann datum and1.2 modern Antarctic amplification.
+The recomputed EDC/Mann overlap would imply−.167686K instead. The Spratt main
+case subtracts its youngest8.49m offset; an unshifted case tests that choice.
+NOAA Waelbroeck section1 supplies both its Termination-II-adjusted primary age
+and unadjusted SPECMAP age. Neither is claimed to recover exactly S14's127.5kyr
+adjustment or the Clark/Lambeck splice. Deep-ocean-temperature sections were
+not used. S14 Eq15's steady-state ocean polynomial is used explicitly as a
+transient alternative that omits ocean memory.
+
+The restricted AIS fit varies gamma[.5,4.25], alpha[0,1], lambda[.005,.015]m/yr
+and threshold[−20,−10]degC, fixing other S14 constants. Latin hypercube coverage
+and deterministic point optimization do not constitute posterior sampling.
+Gaussian standardized window misfit omits target process variance. Annual
+IMBIE rates2003–2008 are checked separately from the fitted cumulative
+1992–2002 constraint, conditional on observed forcing.
+
+D24 and D25 methods specify the emissions budget over2022–2100. The baseline
+50% event assessment and SSP4-6.0 mode are distinct constraints; the written
+event probability does not uniquely determine the full density. The tested
+minimum-relative-entropy50%/75% alternatives retain prior conditional densities
+within/outside the budget; they do not impose the mode or reproduce an elicited
+likelihood. The documented peak-year prior extends to2200, so a peak beyond2150
+must leave a valid growing path over the shorter simulation horizon.
+
+D24 describes nearest SSP selection in each year. RCMIP5.1.0 independently
+supplies world total/AFOLU/fossil-industrial CO2 inputs through2150. The tested
+interpretation minimizes annual absolute total-emissions distance. Non-CO2
+forcing is CEDA total minus CO2 plus the sampled aerosol adjustment; a paired
+fixedSSP245 rule measures this ambiguity. Annual nodes are linearly interpolated.
+Coupled carbon and climate resume from their2021 physical states. Carbon feedback
+temperature is transformed to its1850–1879 baseline; reported warming uses
+1850–1900. The CO2 forcing-law switch at restart is measured, not tuned away.
+
+Otosaka2023 sections3 and5.2 quantify component-boundary ambiguity: gravimetry
+includes peripheral glaciers, altimetry excludes them, and some input-output
+surface budgets include them. Removing peripheral glaciers from gravimetry
+changes reconciled GIS/AIS estimates4.1%/3.3% over2002–2020, below the reported
+uncertainties. This prevents an exact component-accounting claim without
+reconciliation but is not an absolute barrier to an explicitly uncorrected
+alternative budget or overlap sensitivity.

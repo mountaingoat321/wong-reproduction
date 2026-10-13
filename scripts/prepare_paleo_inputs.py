@@ -34,3 +34,20 @@ quality=dict(edc_retained=int(np.sum(np.isfinite(edc['Temperature'])&(edc['age_c
     csiro_note='Annual midpoints;1990 zero; uncertainty1SD; raw tide-gauge reconstruction product')
 (ROOT/'results/paleo_input_quality.json').write_text(json.dumps(quality,indent=2,sort_keys=True)+'\n')
 print(json.dumps(quality,indent=2,sort_keys=True))
+
+# Only the independent relative-sea-level reconstruction is curated. The
+# archive's subsequent inferred deep-temperature sections are not used.
+path=ROOT/'.local/inputs/waelbroeck2002.txt'
+if path.exists():
+    rows=[];active=False
+    for line in path.read_text().splitlines():
+        if line.startswith('Age '):active=True;continue
+        if active and line.startswith('2.'):break
+        if active:
+            try:values=[float(s) for s in line.split()]
+            except ValueError:continue
+            if len(values)==10 and values[0]<=250:
+                age,raw_age=values[0]*1000,values[7]*1000
+                rows.append([1950-age,age,1950-raw_age,raw_age,values[4],min(values[5:7]),max(values[5:7])])
+    assert len(rows)>100
+    save('waelbroeck_sealevel.csv',['year_CE_primary','age_BP1950_primary','year_CE_unadjusted','age_BP1950_unadjusted','sea_level_m','reported_lower_m','reported_upper_m'],rows[::-1])

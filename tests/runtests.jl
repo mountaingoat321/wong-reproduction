@@ -12,6 +12,8 @@ suite = @testset "Independent scientific kernels" begin
         _,zeroq = R.emissions(2000,2010,0.0,0.0,2005,0.1)
         @test all(iszero,zeroq)
         @test_throws ArgumentError R.emissions(2000,2010,1.,.1,1999,.1)
+        _,futurepeak=R.emissions(2000,2002,10.,.1,2020,.1)
+        @test futurepeak≈[10.,11.9,13.7] # valid prior peaks may exceed the horizon
         @test R.co2_forcing(560.,280.) ≈ 3.7
         @test R.co2_forcing(280.,280.) == 0
         @test R.co2_forcing(280.,560.) ≈ -3.7

@@ -1,0 +1,14 @@
+budget_probabilities = [0.023500000000000004, 0.5, 0.7499999999999997]
+ceil_round_budget_class_changes = 21
+budget_period = "Sum annual means2022–2100 inclusive; trapezoid alternative retained"
+prior_peaks_after2150 = 8
+missing = "Expert likelihood density and SSP4-6.0 mode not recovered or imposed; no negative emissions in recurrence"
+scope = "Documented priors plus explicit entropy-constrained alternatives; not the target emissions posterior"
+trapezoid_budget_class_changes = 26
+effective_weighted_sample_sizes = [9999.999999999996, 917.9100000000003, 416.6636404902406]
+initial_year = 2022
+initial_emissions_GtCO2_yr = 40.662945370479704
+samples = 10000
+prior_budget_probability = 0.0235
+floor_round_budget_class_changes = 28
+seed = 20251039

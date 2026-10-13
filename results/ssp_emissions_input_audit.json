@@ -1,0 +1,170 @@
+{
+  "interpolation": "Linear between provided annual-mean nodes; no extrapolation",
+  "maximum_total_partition_difference_GtCO2_yr": 2.842170943040401e-14,
+  "product": "RCMIP protocol5.1.0, DOI10.5281/zenodo.4589756",
+  "scope": "Independent exogenous SSP inputs; not Wong model outputs",
+  "series": [
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "AIM/CGE",
+      "original_knots": 315,
+      "scenario": "ssp370",
+      "variable": "Emissions|CO2"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "AIM/CGE",
+      "original_knots": 315,
+      "scenario": "ssp370",
+      "variable": "Emissions|CO2|MAGICC AFOLU"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "AIM/CGE",
+      "original_knots": 315,
+      "scenario": "ssp370",
+      "variable": "Emissions|CO2|MAGICC Fossil and Industrial"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "GCAM4",
+      "original_knots": 315,
+      "scenario": "ssp460",
+      "variable": "Emissions|CO2"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "GCAM4",
+      "original_knots": 315,
+      "scenario": "ssp460",
+      "variable": "Emissions|CO2|MAGICC AFOLU"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "GCAM4",
+      "original_knots": 315,
+      "scenario": "ssp460",
+      "variable": "Emissions|CO2|MAGICC Fossil and Industrial"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "IMAGE",
+      "original_knots": 315,
+      "scenario": "ssp119",
+      "variable": "Emissions|CO2"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "IMAGE",
+      "original_knots": 315,
+      "scenario": "ssp119",
+      "variable": "Emissions|CO2|MAGICC AFOLU"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "IMAGE",
+      "original_knots": 315,
+      "scenario": "ssp119",
+      "variable": "Emissions|CO2|MAGICC Fossil and Industrial"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "IMAGE",
+      "original_knots": 315,
+      "scenario": "ssp126",
+      "variable": "Emissions|CO2"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "IMAGE",
+      "original_knots": 315,
+      "scenario": "ssp126",
+      "variable": "Emissions|CO2|MAGICC AFOLU"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "IMAGE",
+      "original_knots": 315,
+      "scenario": "ssp126",
+      "variable": "Emissions|CO2|MAGICC Fossil and Industrial"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "MESSAGE-GLOBIOM",
+      "original_knots": 315,
+      "scenario": "ssp245",
+      "variable": "Emissions|CO2"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "MESSAGE-GLOBIOM",
+      "original_knots": 315,
+      "scenario": "ssp245",
+      "variable": "Emissions|CO2|MAGICC AFOLU"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "MESSAGE-GLOBIOM",
+      "original_knots": 315,
+      "scenario": "ssp245",
+      "variable": "Emissions|CO2|MAGICC Fossil and Industrial"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "REMIND-MAGPIE",
+      "original_knots": 315,
+      "scenario": "ssp585",
+      "variable": "Emissions|CO2"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "REMIND-MAGPIE",
+      "original_knots": 315,
+      "scenario": "ssp585",
+      "variable": "Emissions|CO2|MAGICC AFOLU"
+    },
+    {
+      "first_year": 1750,
+      "interpolated_2022": true,
+      "last_year": 2500,
+      "model": "REMIND-MAGPIE",
+      "original_knots": 315,
+      "scenario": "ssp585",
+      "variable": "Emissions|CO2|MAGICC Fossil and Industrial"
+    }
+  ]
+}

@@ -30,6 +30,12 @@ set=@testset "Recovered carbon mass balance and split integration" begin
     c=C.coupled_run(sys,fill(10.,41),zeros(41);substeps=16)
     err1=abs(a.carbon[1,end]-b.carbon[1,end]);err2=abs(b.carbon[1,end]-c.carbon[1,end])
     @test 3.5<err1/err2<4.5
+    restart=C.coupled_run(sys,fill(10.,21),zeros(21);substeps=8,
+        carbon_initial=b.carbon[:,21],climate_initial=b.climate[:,21])
+    @test restart.carbon[:,end]≈b.carbon[:,end] atol=1e-9
+    @test restart.climate[:,end]≈b.climate[:,end] atol=1e-12
+    cool=C.coupled_run(sys,fill(10.,41),zeros(41);substeps=8,carbon_temperature_offset=1.)
+    @test C.partition(cool.carbon[1,end],p).co2<C.partition(b.carbon[1,end],p).co2
 end
 open("results/carbon_test_summary.toml","w") do io
     TOML.print(io,Dict("passed"=>Test.get_test_counts(set)[1],"failed"=>0,"errors"=>0))

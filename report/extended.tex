@@ -108,9 +108,14 @@ distribution.}
 
 IMBIE gravimetry can contain peripheral glaciers also represented by GlaMBIE.
 Combining these series without an overlap correction could double count ice
-loss. We therefore report the components separately. Antarctic paleo calibration,
-land-water-storage covariance, and compatible component boundaries remain
-necessary before reporting a complete sea-level ensemble.
+loss. The original component experiment therefore reports them separately.
+Otosaka and coauthors\cite{imbie} quantify a4.1\%/3.3\% change in reconciled
+Greenland/Antarctic estimates when peripheral glaciers are removed from
+gravimetry over2002--2020, below reported uncertainty. This is a specific
+accounting limitation, rather than a prohibition on any alternative total.
+An explicitly uncorrected component budget and covariance sensitivities can
+therefore be investigated, while exact target component boundaries and joint
+calibration remain unresolved.
 
 \subsection{Geographic exposure and regional accounting}
 SLIIDERS v1.1 supplies independently published elevation-binned land, population,
@@ -170,3 +175,26 @@ the paths have no calibrated warming-bin or tail probability.}
 \label{fig:geoalt}
 \end{figure}
 \input{report/extended_tables.tex}
+
+\subsection{Complete original-resolution coastal comparison}
+The earlier19-unit pilot cannot establish a global elevation-resolution error.
+A subsequent paired experiment evaluates every eligible unit with all200
+original0.1 m exposure bins, retaining the same inputs, prescribed trajectory,
+quadrature and policy conventions. Figure\ref{fig:fullresolution} and the
+computed table report the complete comparison. Its cost difference is an
+effect of redistributing exposure within the original six bins, rather than
+adding population, capital or land to the domain. Independent binary and CSV
+readers agree exactly on the original-resolution pilot; doubled flood
+quadrature changes costs by less than $2\times10^{-13}$ in relative terms
+and changes no pilot policy.
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/geographic_full_resolution.pdf}
+\caption{Matched SSP4,1 m coastal calculations for all9,531 eligible units.
+Left: incremental cost after subtraction of the paired zero-rise baseline;
+both axes use a symmetric logarithmic scale and the line marks equality.
+Right: World Bank regional totals under the same two elevation resolutions.
+Both calculations are geographic alternatives with uniform prescribed sea
+level, annual2010--2100 cash flows, and2019 PPP values. They are not recovered
+Wong warming-conditioned costs.}\label{fig:fullresolution}
+\end{figure}
+\input{report/geographic_resolution_tables.tex}

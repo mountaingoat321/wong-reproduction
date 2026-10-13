@@ -83,7 +83,7 @@ function climate_observables(sys,forcing;depths=(700.0,2000.0,4057.5))
         @. z=decay*z+input*(left*forcing[t-1]+right*forcing[t])
         mul!(view(out,:,t),projection,z)
     end
-    (temperature=vec(out[1,:]),heat=out[2:end,:])
+    (temperature=vec(out[1,:]),heat=out[2:end,:],final_state=(v*z)./scale)
 end
 
 """Effective ocean-column heat in J; includes the atmospheric-equivalent part

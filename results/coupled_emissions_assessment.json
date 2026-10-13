@@ -1,0 +1,11 @@
+{
+  "CO2_forcing_restart_jump_W_m2": -0.17615089593167133,
+  "calibrated_historical_CO2_forcing_W_m2": 2.258621068213305,
+  "maximum_mass_error_GtC": 8.29913915367797e-12,
+  "maximum_paired_2100_nonCO2_temperature_difference_K": 0.3781348013636481,
+  "median_SSP_switches": 5.0,
+  "members": 256,
+  "restart_CO2_forcing_W_m2": 2.0824701722816337,
+  "restart_CO2_ppm": 413.605853534962,
+  "scope": "NON-REPRODUCTION; independent calibration and explicit emissions reweighting"
+}

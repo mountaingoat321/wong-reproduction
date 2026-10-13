@@ -286,3 +286,81 @@ Further reading resolves S14's initial radius1.8636e6m, legacy57m/24.78e15m3
 sea-level scaling, the Eq15 subsurface-ocean polynomial, and the BP2000 versus
 NOAA BP1950 distinction. W17's BCE likelihood dates correspond to120/20/6kyr
 BP2000, not118/18/4kyrBP. This removes a potential2000-year misalignment.
+# Continued execution: paleo forcing, emissions and complete resolution test
+
+- Full verification build passed364 Julia assertions,6 Python diagnostic checks,
+  and205 curated-artifact checks. Report:33 pages,2266242bytes,709s approximate
+  build wall time. New pages20–29 were visually inspected; strict LaTeX checks
+  found no missing citations/references, errors or horizontal overflow.
+- The first tail-stratified climate pilot fails the predeclared.001ppm step
+  tolerance: maximum8-vs16-substep CO2 difference.00190834ppm. Temperature
+  difference3.63e-5K and mass closure still pass. The queued large run was
+  stopped by the check. Failed-pilot outputs are preserved with `_dt8_`;
+  the tail experiment now uses16 substeps and is checked against32 before
+  scaling. The verified budget-balanced experiment retains8 substeps.
+
+- The512-point AIS extension completed in144.6s: one initial LHS draw meets
+  all windows; bounded optimization gives chi-square.0226656, gamma1.93747,
+  alpha.0207684, lambda.0116102m/yr and threshold−15.6298degC. Step halving
+  changes fitted windows by2.68e-9m. Withheld annual-rateRMSE32.35Gt/yr and
+  bias−25.22Gt/yr are reported without posterior intervals. The similar64-point
+  pilot misfit at a different fast-loss rate exposes conditional ambiguity.
+- The256-member coupled emissions experiment completed in293.3s. Largest
+  carbon mass error8.30e-12GtC, paired non-CO2 forcing sensitivity.3781K, and
+  restart CO2 forcing discontinuity−.17615W/m2. The nearest-rule sample has
+ 158/84/14/0 members in the four warming bins. A tail-stratified alternative
+  is queued, preserving probability masses while examining rare high emissions.
+- B17's written−1/+1 Antarctic shore factors and previous-year forcing resolve
+  an additional coupling specification. Ten tests compare independently
+  integrated volume and radius coordinates with feedback. An eight-member,
+  five-variant, two-forcing-rule sea-level pilot completes in26.1s; doubling
+  within-year steps changes AIS contribution by at most3.27e-13m. This is an
+  explicitly uncorrected alternative component budget, not target BRICK output.
+- A further broad fingerprint search displayed an incidental mirrored-notebook
+  index snippet saying that a dataset is loaded. Its link was not opened and
+  no implementation, array or result was consulted. Scholarly written BRICK
+  coupling details were checked in the existing permitted paper instead.
+
+- Recovered Waelbroeck2002 sea-level inputs from the original NOAA archive,
+  including adjusted/unadjusted ages. The temperature reconstruction section
+  was not used. Clark written SI access failed via an expired Caltech signed
+  link/403; this is a source-access failure, not evidence that all paleo inputs
+  are unavailable. Independent Spratt and Waelbroeck alternatives were executed.
+- Implemented volume-coordinate DAIS with exact geometric inversion and
+  temperature-event splitting. An attracting fast-loss cutoff requires a
+  stated mathematical continuation; exact manufactured sliding tests verify
+  that choice. An initial Julia test syntax error (`18.-`) was corrected before
+  the19-test suite passed.36 hindcast/sensitivity cases completed in18.2s.
+- A64-draw conditional AIS pilot plus coordinate optimization fits all four
+  written windows, with lambda at its upper bound. This is a conditional point
+  fit, not posterior inference or independent validation. A first optimizer
+  run failed Julia global soft-scope handling; wrapping execution in `main`
+  corrected it before any results were accepted. A512-draw extension and
+  withheld2003–2008 annual-rate assessment follow the verified pilot.
+- Recovered the precise2022–2100 emissions budget and annual-nearest SSP wording.
+  Official RCMIP5.1.0 input emissions were acquired after IIASA DNS and a
+  Melbourne access gate failed. No scenario outputs or model implementation
+  were used. The provider MD5 and local SHA256 agree.
+- Fixed rejection of documented-prior emissions peaks beyond the horizon;
+  verified their analytic growth branch.10000 independent prior draws give
+ 2.35% budget probability. Explicit minimum-information50%/75% alternatives
+  retain conditional prior shapes; no SSP460 mode or expert density is invented.
+  A weighted-quantile boundary test initially failed roundoff at0.9; a small
+  left-boundary tolerance and a zero-weight case now pass12 checks.
+- Carbon/climate restart and feedback-datum tests pass. The first coupled pilot
+  failed when a blank historical cement-carbonation field was parsed as numeric;
+  the existing carbon-fit zero-missing-cement convention is now reused. Eight
+  paired members at8/16 substeps pass mass accounting(<4.1e-12GtC), temperature
+  refinement(<1.45e-5K) and CO2 refinement(<.000396ppm). The larger256-member
+  experiment is run only after this pilot, serially with the geographic/AIS work.
+- Complete original-resolution SSP4/1m coastal run:9531 eligible units,200 bins,
+ 1811.83 wall seconds including short pauses. Relative to six bins, incremental
+  cost changes+11.03%, total selected cost+2.15%, movement count+2.10%, and148
+  first-period policies change. No global extrapolation of the earlier pilot
+  is needed. All original input totals and other numerical conventions match.
+- Matplotlib embeds complete fonts with this older local library. Ghostscript
+ 9.27 subsets these fonts without rasterizing artwork; a test figure shrinks
+ 726462→98176 bytes. A90dpi before/after raster check has mean absolute channel
+  difference0.105/255, affecting0.76% of pixels at antialiasing boundaries;
+  visual inspection confirms legibility. The build now applies this to figures
+  before LaTeX, retaining PDF hyperlinks and avoiding an enlarged report cap.

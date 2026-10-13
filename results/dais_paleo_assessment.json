@@ -1,0 +1,29 @@
+{
+  "LHS_all_windows_pass": 1,
+  "all_windows_pass": 0,
+  "cases": 36,
+  "conditional_rate_holdout": {
+    "RMSE_Gt_yr": 32.346155499474996,
+    "bias_Gt_yr": -25.215731077420386,
+    "interpretation": "Point-fit conditional hindcast; forcing observed; no posterior intervals or target joint calibration",
+    "mean_observed_Gt_yr": 84.17291111111112,
+    "mean_predicted_Gt_yr": 58.95718003369072,
+    "years": [
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008
+    ]
+  },
+  "initial_radius_sensitivity": {
+    "initial_radius_0.9": {
+      "maximum_SLE_difference_after_20kyr_m": 0.3306328566743052
+    },
+    "initial_radius_1.1": {
+      "maximum_SLE_difference_after_20kyr_m": 0.16167243310272952
+    }
+  },
+  "scope": "NON-REPRODUCTION: independently reconstructed DAIS with alternative forcing"
+}

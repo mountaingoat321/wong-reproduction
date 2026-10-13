@@ -26,6 +26,10 @@ temperature--heat calibration, which reduces held-out temperature RMSE from
 0.209 to 0.087\,K but underestimates assessed future warming. Independent
 geographic exposure, economic inputs and ice-mass observations support further
 explicit alternatives; the failed checks are retained.
+Further recovery permits paleo Antarctic hindcasts, a conditional fit to four
+written constraints, and emissions-driven coupled carbon--climate experiments.
+Complete coastal calculations at two elevation resolutions separate a numerical
+exposure approximation from missing target geographic specifications.
 The calculations verify heat conservation, ice-response convergence,
 flood-loss integration, and economic accounting. They also expose a finite-step
 residual in the printed emissions recurrence and a lower-bound discrepancy in
@@ -252,7 +256,7 @@ physical and socioeconomic inputs are missing.
 
 \section{Verification results}
 
-All 80 original Julia assertions pass across seven groups: emissions/carbon/forcing;
+All 81 original-kernel Julia assertions pass across seven groups: emissions/carbon/forcing;
 ocean conservation and convergence; sea-level limits; spatial accounting and
 references; extreme levels and damage integration; costs and optimization;
 and ensemble/regional arithmetic (the sea-level group includes ODE accuracy).
@@ -447,6 +451,8 @@ summary and aggregation routines do not supply these missing physical inputs.
 
 \input{report/continuation.tex}
 \input{report/extended.tex}
+\input{report/paleo.tex}
+\input{report/emissions.tex}
 
 \section{Unresolved inputs and implications}
 
@@ -477,8 +483,16 @@ socioeconomic marginal priors and several decision conventions. Independent coun
 alternative calculation. Original exposure, component fingerprints and the
 precise target input vintages remain unresolved.
 
+Independent paleo records and the documented initial Antarctic radius have now
+been recovered. These are no longer categorical barriers to hindcasts.
+The remaining paleo uncertainty concerns the exact splice, chronology and
+transient ocean forcing, rather than absence of all boundary information.
+Emissions priors and the2022--2100 budget interval are also recovered; a unique
+expert density and its full joint calibration remain unspecified.
+
 The active stages are therefore to extend the independent calibration, reconcile
-the remaining carbon/ice variants, and test exposure resolution in the recovered independent geographic inputs.
+the remaining carbon/ice variants, and propagate the alternative coupled pathways
+through sea-level and geographic cost calculations.
 Small coupled experiments precede any target-sized ensemble. The regional
 alternatives do not establish quantitative agreement with target inequality.
 
@@ -635,5 +649,30 @@ CC BY-NC 4.0. Methods: Depsky and coauthors (2023),
 API v2, national population, PPP GDP and real GDP. Exact query URLs and hashes
 are in the external-input manifest. Historical grouping correction follows the
 \href{https://datatopics.worldbank.org/world-development-indicators/release-note/jul-2025.html}{July2025 release note}.
+\bibitem{wong2017fast} Wong, T. E., Bakker, A. M. R., and Keller, K. (2017).
+Impacts of Antarctic fast dynamics on sea-level projections and coastal flood defense.
+\emph{Climatic Change}. \href{https://arxiv.org/abs/1612.07175}{Scholarly manuscript and written calibration constraints}.
+\bibitem{jouzel2007} Jouzel, J., and coauthors (2007).
+Orbital and millennial Antarctic climate variability over the past800,000 years.
+\emph{Science}. \href{https://doi.org/10.1126/science.1141038}{doi:10.1126/science.1141038}.
+\bibitem{spratt2016} Spratt, R. M., and Lisiecki, L. E. (2016).
+A Late Pleistocene sea level stack. \emph{Climate of the Past},12,1079--1092.
+\href{https://doi.org/10.5194/cp-12-1079-2016}{doi:10.5194/cp-12-1079-2016}.
+\bibitem{mann2008} Mann, M. E., and coauthors (2008).
+Proxy-based reconstructions of hemispheric and global surface temperature
+variations over the past two millennia. \emph{PNAS}.
+\href{https://doi.org/10.1073/pnas.0805721105}{doi:10.1073/pnas.0805721105}.
+\bibitem{churchwhite2011} Church, J. A., and White, N. J. (2011).
+Sea-level rise from the late19th to the early21st century. \emph{Surveys in Geophysics}.
+\href{https://doi.org/10.1007/s10712-011-9119-1}{doi:10.1007/s10712-011-9119-1}.
+\bibitem{waelbroeck2002} Waelbroeck, C., and coauthors (2002).
+Sea-level and deep water temperature changes derived from benthic foraminifera
+isotopic records. \emph{Quaternary Science Reviews}.
+\href{https://doi.org/10.1016/S0277-3791(01)00101-9}{doi:10.1016/S0277-3791(01)00101-9}.
+Only independent proxy sea-level data and documented chronologies are used.
+\bibitem{rcmip} Nicholls, Z., and coauthors (2020--2021).
+Reduced Complexity Model Intercomparison Project, protocol5.1.0.
+\href{https://doi.org/10.5281/zenodo.4589756}{Versioned exogenous input archive}.
+Only input emissions are used; model results and implementations are not consulted.
 \end{thebibliography}
 \end{document}

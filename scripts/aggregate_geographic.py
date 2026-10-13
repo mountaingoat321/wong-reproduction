@@ -4,7 +4,7 @@ aggregates and the SSP4 1m coast map are small enough to retain in Git.
 """
 from pathlib import Path
 from collections import defaultdict
-import csv,json,hashlib,math
+import csv,json,hashlib,math,sys
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 def read(path):
@@ -12,10 +12,13 @@ def read(path):
 def save(path,fields,rows):
     with (ROOT/path).open('w',newline='') as f:
         w=csv.DictWriter(f,fields);w.writeheader();w.writerows(rows)
-raw=ROOT/'.local/geographic_global_costs.csv'
-assert (ROOT/'results/geographic_global_run.toml').exists(),'Full run has not completed'
-rows=read('.local/geographic_global_costs.csv')
-assert len(rows)==9531*6
+fine='--fine-ssp4-one-metre' in sys.argv
+tag='geographic_fine' if fine else 'geographic'
+input_stem='geographic_global_fine_ssp4_1m' if fine else 'geographic_global'
+raw=ROOT/'.local'/(input_stem+'_costs.csv')
+assert (ROOT/'results'/(input_stem+'_run.toml')).exists(),'Full run has not completed'
+rows=read(str(raw.relative_to(ROOT)))
+assert len(rows)==9531*(1 if fine else 6)
 keys={(r['coast_id'],r['country'],r['scenario'],r['sea2100_m']) for r in rows}
 assert len(keys)==len(rows),'Duplicate case'
 columns=list(rows[0])[6:]
@@ -36,9 +39,9 @@ for r in rows:
 assert accounting<1e-12
 def records(data,labels):
     return [dict(list(zip(labels,key))+list(value.items())) for key,value in sorted(data.items())]
-save('results/geographic_country_costs.csv',['country','scenario','sea2100_m']+columns,records(country,['country','scenario','sea2100_m']))
-save('results/geographic_global_costs.csv',['scenario','sea2100_m']+columns,records(global_cost,['scenario','sea2100_m']))
-save('results/geographic_policy_counts.csv',['scenario','sea2100_m','strategy','return_period','coasts'],
+save('results/'+tag+'_country_costs.csv',['country','scenario','sea2100_m']+columns,records(country,['country','scenario','sea2100_m']))
+save('results/'+tag+'_global_costs.csv',['scenario','sea2100_m']+columns,records(global_cost,['scenario','sea2100_m']))
+save('results/'+tag+'_policy_counts.csv',['scenario','sea2100_m','strategy','return_period','coasts'],
      [dict(zip(['scenario','sea2100_m','strategy','return_period','coasts'],key+(n,))) for key,n in sorted(policy.items())])
 coordinates={}
 for r in read('inputs/sliiders_segments.csv'):
@@ -49,7 +52,7 @@ for r in rows:
         lon,lat=coordinates[(r['coast_id'],r['country'])]
         maps.append(dict(coast_id=r['coast_id'],country=r['country'],longitude=lon,latitude=lat,
             incremental_pv_USD2019PPP=r['incremental_pv_USD2019PPP'],strategy=r['strategy'],migrants=r['migrants']))
-save('results/geographic_ssp4_1m_map.csv',list(maps[0]),maps)
+save('results/'+tag+'_ssp4_1m_map.csv',list(maps[0]),maps)
 
 # Regional ratio uses total national GDP, including landlocked countries,
 # and excludes coast-country costs lacking a matching positive GDP input.
@@ -72,17 +75,17 @@ for (region,scenario,sea),values in sorted(regional.items()):
         incremental_pv_USD2019PPP=values['incremental_pv_USD2019PPP'],
         percent_gdp=100*values['incremental_pv_USD2019PPP']/gdp[region],
         minus_global_percentage_points=100*(values['incremental_pv_USD2019PPP']/gdp[region]-global_fraction)))
-save('results/geographic_regional_costs.csv',list(regional_rows[0]),regional_rows)
-save('results/geographic_regional_exclusions.csv',['country','scenario','sea2100_m','pv_USD2019PPP','incremental_pv_USD2019PPP','reason'],unmapped)
+save('results/'+tag+'_regional_costs.csv',list(regional_rows[0]),regional_rows)
+save('results/'+tag+'_regional_exclusions.csv',['country','scenario','sea2100_m','pv_USD2019PPP','incremental_pv_USD2019PPP','reason'],unmapped)
 coverage=[]
 for (scenario,sea),values in sorted(global_cost.items()):
     omitted=sum(float(r['incremental_pv_USD2019PPP']) for r in unmapped if (r['scenario'],r['sea2100_m'])==(scenario,sea))
     coverage.append(dict(scenario=scenario,sea2100_m=sea,incremental_cost_fraction_covered=1-omitted/values['incremental_pv_USD2019PPP']))
 audit=dict(experiment='NON-REPRODUCTION; prescribed uniform SLR, independent SLIIDERS exposure and 2019 PPP',
-    cases=len(rows),eligible_coast_country_units=9531,global_aggregation_relative_accounting_error=accounting,
+    cases=len(rows),elevation_bins=200 if fine else 6,eligible_coast_country_units=9531,global_aggregation_relative_accounting_error=accounting,
     cases_selected_policy_exceeds_no_adaptation_full_horizon=selected_higher,
     selection_note='First-period optimum retained; whole-horizon cost dominance is not guaranteed',
     full_intermediate_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),regional_coverage=coverage,
     regional_GDP_note='All available WB national 2010 GDP valued at 2019 PPP; landlocked included; input vintage differs from target')
-(ROOT/'results/geographic_aggregation_audit.json').write_text(json.dumps(audit,indent=2,sort_keys=True)+'\n')
+(ROOT/'results'/(tag+'_aggregation_audit.json')).write_text(json.dumps(audit,indent=2,sort_keys=True)+'\n')
 print(json.dumps(audit,indent=2,sort_keys=True))

@@ -1,0 +1,12 @@
+# Conditional sensitivity/calibration experiment, not the target posterior.
+seed = 20251038
+pilot_samples = 64
+samples = 512
+maximum_step_years = 50.0
+refinement_step_years = 10.0
+initial_radius_m = 1863600.0
+gamma_bounds = [0.5, 4.25] # B17 TableA4, uniform
+alpha_bounds = [0.0, 1.0] # B17 TableA4, uniform
+lambda_bounds_m_yr = [0.005, 0.015] # W17F Sect2.3, uniform
+threshold_bounds_degC = [-20.0, -10.0] # W17F Sect2.3, uniform
+scope = "Four physical parameters vary; other S14 Table1 parameters and alternative forcing fixed. Independent LHS; no target posterior interpretation."

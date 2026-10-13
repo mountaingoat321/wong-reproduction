@@ -1,4 +1,4 @@
-passed = 80
+passed = 81
 errors = 0
 scope = "Manufactured component verification; no target ensemble"
 broken = 0

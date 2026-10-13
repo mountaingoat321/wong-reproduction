@@ -120,3 +120,28 @@ DOI10.1007/s10712-011-9119-1, plus the provider URLs in EXTERNAL_INPUTS.csv.
 World Bank attribution: The World Bank, World Development Indicators,
 SP.POP.TOTL, NY.GDP.MKTP.PP.CD and NY.GDP.MKTP.KD, retrieved12October2026.
 Provider terms: https://www.worldbank.org/ext/en/legal/terms-conditions/datasets
+# Additional independent paleo and scenario inputs
+
+`waelbroeck_sealevel.csv` retains only the observational-proxy sea-level section
+of NOAA Waelbroeck2002, its bounds and two published chronologies. Temperatures
+in that archive are not used. `dais_alternative_forcing.csv` combines curated
+EDC/Mann/HadCRUT temperatures with Spratt/Church–White sea level; the three
+`dais_forcing_*.csv` variants change only the sea-level boundary. Their datum,
+interpolation, chronology and splice choices are explicit in
+`results/dais_forcing_audit.json` and ASSUMPTIONS S057. They are alternative
+boundary conditions, not recovered target forcing files.
+
+`ssp_emissions.csv` is extracted from the official RCMIP protocol5.1.0 input
+file. Only world CO2 total/AFOLU/fossil-industrial input series for six SSPs are
+read; no RCMIP model response or source code is used. Values are converted from
+MtCO2 toGtCO2 and missing annual nodes are linearly interpolated, with no
+extrapolation. The public file's MD5 and locally recorded SHA256 are checked.
+`results/ssp_emissions_input_audit.json` records the18 selected source series
+and their partition closure. Large original input archives stay in `.local/`.
+
+After `python3 scripts/prepare_external_inputs.py` verifies or retrieves only
+the manifest allowlist, regenerate these products with
+`prepare_paleo_inputs.py`, `prepare_dais_forcing.py` and
+`prepare_ssp_emissions.py` from the project root under the documented local
+cache environment. Source URLs, sizes, citations and hashes are recorded in
+`docs/EXTERNAL_INPUTS.csv`.

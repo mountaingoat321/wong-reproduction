@@ -1,0 +1,93 @@
+\section{Emissions probabilities and coupled future alternatives}
+\subsection{Recovered priors and unresolved expert density}
+The written emissions constraints are more specific than the initial blocker
+assessment implied. Darnell's manuscript and its published successor specify
+the cumulative interval as 2022--2100 and describe annual selection of the
+nearest SSP CO$_2$ trajectory\cite{darnell}. The prior peak year can occur after
+the simulation horizon. The implementation now retains such draws as growing
+trajectories through the last simulated year, rather than rejecting valid
+prior mass. Ten thousand independent draws contain eight such peaks after 2150.
+The starting net emissions, including the documented cement-carbonation
+adjustment to Global Carbon Budget 2023, are 40.663 GtCO$_2$ yr$^{-1}$ in 2022.
+
+Only 2.35\% of these prior draws satisfy the 1223 GtCO$_2$ cumulative budget.
+The written 50\% and 75\% expert assessments therefore imply substantial
+reweighting. They do not specify a unique density, and the baseline requirement
+that SSP4-6.0 be modal imposes information beyond a single event probability.
+To isolate this ambiguity, two explicit alternatives minimize relative entropy
+with respect to the sampled uniform prior subject only to the budget-event
+probability. If $A$ denotes draws within the budget, $n_A$ its size and $p$ the
+imposed probability, the weights are
+\begin{equation}
+ w_i=\begin{cases}p/n_A,&i\in A,\\
+ (1-p)/(n-n_A),&i\notin A.\end{cases}
+\end{equation}
+This formula follows from Lagrange multipliers and leaves conditional
+distributions within each class unchanged. It does not recover the elicited
+expert density or the SSP4-6.0 mode. The effective weighted sample sizes are 918
+and 417 for $p=0.5$ and 0.75. Changing peak-year rounding to floor or ceiling
+changes budget membership for 28 or 21 draws; trapezoidal rather than annual-mean
+summation changes 26 memberships. These sensitivities are retained explicitly.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/emissions_probability_alternatives.pdf}
+\caption{Documented emissions priors and explicit alternative weighting.
+Left: weighted medians and 5th--95th percentiles of annual emissions. Right:
+cumulative budget distributions and the 1223 GtCO$_2$ threshold. All distributions
+use the same 10,000 independent draws; only their weights differ. The two
+reweighted distributions are non-reproductions of the published emissions
+posterior.}\label{fig:emissionweights}
+\end{figure}
+
+\subsection{Independent SSP inputs and carbon--climate coupling}
+The RCMIP protocol 5.1.0 supplies independent exogenous SSP emissions rather than
+Wong model outputs\cite{rcmip}. Total global CO$_2$, fossil and industrial
+CO$_2$, and land-use CO$_2$ are extracted for six SSPs and linearly interpolated
+between supplied annual nodes. Their partition identity closes to
+$2.9\times 10^{-14}$ GtCO$_2$ yr$^{-1}$. No extrapolation is needed through 2150.
+The interpretation tested here selects, separately each year, the SSP with
+smallest absolute total-emissions difference. CEDA non-CO$_2$ forcing from
+that scenario is then linearly interpolated between annual nodes. A paired
+fixed-SSP2-4.5 calculation measures the consequence of this selection. The
+written nearest-trajectory statement alone does not settle all interpolation
+and distance conventions.
+
+The future calculation starts from the conditional carbon hindcast and the
+accepted climate posterior's physical temperature state in 2021. Carbon
+feedback temperature is transformed to the same preindustrial datum used in
+the carbon fit. The future CO$_2$ forcing uses $3.7\log_2(C/280)$ W m$^{-2}$;
+its difference from the historical CEDA forcing is reported as a restart
+discontinuity, without compensating adjustment. The carbon fertilization
+parameter is fixed at the independently fitted central value; uncertainty
+in this parameter and its dependence on climate parameters are omitted.
+The resulting distribution is therefore conditional and cannot stand in for
+the target joint posterior.
+
+A balanced conditional sample contains 128 draws on each side of the budget.
+Complete accepted climate-posterior rows are paired independently with these
+emissions draws. Each probability measure retains its own class weights.
+An eight-member pilot with both forcing rules verifies carbon conservation and
+compares eight with sixteen coupling substeps per year. The maximum differences
+are $1.45\times 10^{-5}$ K in temperature and $3.96\times 10^{-4}$ ppm in CO$_2$;
+these checks precede the 256-member calculation. Warming categories use the
+annual 2100 temperature relative to 1850--1900, with boundary values assigned
+to the lower category exactly as in the publication.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/coupled_emissions_alternatives.pdf}
+\caption{Coupled alternative future experiments. Upper left: median and
+5th--95th temperature ranges for the three weighting measures. Upper right:
+weighted 2100 temperature distributions and the published category boundaries.
+Lower left: paired sensitivity to annual nearest-emissions versus fixed-SSP2-4.5
+non-CO$_2$ forcing. Lower right: medians for nested balanced sample sizes;
+stability of these medians alone is not evidence of tail convergence.
+Carbon parameters are conditionally fixed and climate rows are independently
+paired, so no panel is a recovered published projection.}\label{fig:coupledfuture}
+\end{figure}
+\input{report/emissions_tables.tex}
+
+No member of this256-member calculation exceeds3.5 K. The zero entry in the
+fourth category therefore denotes absence in this finite sample, not proof of
+zero probability. A separate tail-stratified emissions experiment is motivated
+by this limitation; it preserves empirical prior class masses with explicit
+weights rather than changing parameters to create high warming.
